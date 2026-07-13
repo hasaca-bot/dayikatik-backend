@@ -1,0 +1,24 @@
+# Render.com deployment configuration for Dayı Katık Backend
+# This file tells Render how to build and run the backend.
+
+services:
+  - type: web
+    name: dayikatik-api
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22.12.0"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dayikatik-db
+          property: connectionString
+
+databases:
+  - name: dayikatik-db
+    plan: free
+    region: frankfurt
+    databaseName: dayikatik
