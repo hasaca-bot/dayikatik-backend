@@ -7,15 +7,31 @@ const { db, initDatabase, resetDatabase } = require('./db');
 const app = express();
 const PORT = process.env.PORT || 12000;
 
-// Enable CORS with explicit origin allowlist for Netlify + local dev
+// Enable CORS with robust origin support for Netlify subdomains, previews, and local development
+const allowedOrigins = [
+  'https://dayikatik.netlify.app',
+  'https://hasacadesign.netlify.app',
+  'https://dayikatikornek.netlify.app',
+  'https://resonant-elf-d2b58b.netlify.app',
+  'https://glittering-raindrop-435319.netlify.app',
+  'http://localhost:12000',
+  'http://127.0.0.1:12000',
+  'http://localhost:5500',
+  'http://127.0.0.1:5500'
+];
+
 app.use(cors({
-  origin: [
-    'https://dayikatik.netlify.app',
-    'http://localhost:12000',
-    'http://127.0.0.1:12000',
-    'http://localhost:5500',
-    'http://127.0.0.1:5500'
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    const isAllowed = allowedOrigins.includes(origin) || 
+                      origin.endsWith('.netlify.app') || 
+                      origin.endsWith('.netlify.com');
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
