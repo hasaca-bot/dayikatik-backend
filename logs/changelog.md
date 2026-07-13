@@ -3,6 +3,15 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-13 08:15 +03:00] — PostgreSQL DDL Tip Uyuşmazlığı ve CORS İyileştirmeleri
+
+### 🛠️ Giderilen Hatalar ve Yapılan Düzenlemeler
+- `backend/db.js` — PostgreSQL için oluşturulan ürünler tablosunda (`products`), `created_at` ve `updated_at` kolonlarının veri tipleri `TEXT` yerine `TIMESTAMP` olarak değiştirildi. PostgreSQL DDL'inde `TEXT DEFAULT CURRENT_TIMESTAMP` ifadesi tip uyuşmazlığı hatası (`column "created_at" is of type text but default expression is of type timestamp with time zone`) üreterek backend'in Render üzerinde başlatılırken çökmesine sebep oluyordu. Bu düzeltmeyle çökme sorunu giderildi.
+- `backend/server.js` — CORS izin listesi (origins), kullanıcının tarayıcı geçmişinde yer alan ve Netlify üzerinde kullanılan tüm farklı test domainlerini (`hasacadesign.netlify.app`, `dayikatikornek.netlify.app`, `resonant-elf-d2b58b.netlify.app`, `glittering-raindrop-435319.netlify.app`) ve dinamik deploy preview alt alan adlarını (wildcard eşleşmeli regex ile) kapsayacak şekilde güncellendi.
+- `.gitignore` — Gereksiz dosyaların (`node_modules`, SQLite `.db` dosyaları vb.) Git reponuza gönderilmesini engellemek için kök dizine eklendi.
+- `git init` — `dayikatikwebsitesi - Kopya` dizininde yeni bir yerel Git deposu başlatıldı ve tüm kod tabanı (`data/menu.json` dahil) ilk commit ile yerel olarak kaydedildi.
+
+---
 ## [2026-07-13 00:05 +03:00] — Bulut Backend & Çift Veritabanı Altyapısı Geçişi
 
 ### ➕ Eklenen Dosyalar
