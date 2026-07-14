@@ -2952,7 +2952,7 @@ body.theme-bw .rez-select-trigger:hover {
     <button class="admin-tab-btn" id="adminTabBtnRez" onclick="switchAdminPanelTab(this, 1)">
       <span data-i18n="admin_tab_rez">Rezervasyonlar</span> <span class="badge" id="adminRezBadge" style="display:none;">0</span>
     </button>
-    <button class="admin-tab-btn" id="adminTabBtnPush" data-i18n="admin_tab_push" onclick="switchAdminPanelTab(this, 2)">Bildirimler</button>
+    <button class="admin-tab-btn" id="adminTabBtnPush" onclick="switchAdminPanelTab(this, 2)">Bildirim Gönder</button>
     <div class="admin-tab-indicator" id="adminTabIndicator" style="left: 0%; width: 33.333%;"></div>
   </div>
   
@@ -2993,161 +2993,181 @@ body.theme-bw .rez-select-trigger:hover {
       
       <!-- PUSH NOTIFICATIONS TAB CONTENT -->
       <div id="adminTabPush" class="admin-tab-content">
-        <div class="push-dashboard">
-          
-          <!-- Statistics Grid -->
-          <div class="push-stats-grid">
-            <div class="push-stat-card">
-              <div class="push-stat-lbl" data-i18n="push_stat_total">Toplam Gönderilen</div>
-              <div class="push-stat-val" id="pushStatTotal">0</div>
+        <div class="push-send-screen">
+          <!-- Header -->
+          <div class="push-screen-header">
+            <h2 class="push-screen-title">Bildirim Gönder</h2>
+            <p class="push-screen-subtitle">Web Push bildirimi hazırlayın, önizleyin ve hedef kitlenize gönderin.</p>
+          </div>
+
+          <div class="push-screen-layout">
+            <!-- Left Column: Form -->
+            <div class="push-screen-form">
+              <div class="push-form-card">
+                <!-- Title & Type -->
+                <div class="push-form-row">
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Başlık <span class="required">*</span></label>
+                    <div class="input-with-counter">
+                      <input type="text" id="pushTitle" class="admin-input" maxlength="50" placeholder="Bildirim başlığı girin..." oninput="updatePushPreview()">
+                      <span class="char-counter" id="pushTitleCounter">0/50</span>
+                    </div>
+                  </div>
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Bildirim Türü</label>
+                    <select id="pushType" class="admin-input" onchange="updatePushPreview()" style="background:#181615;">
+                      <option value="kampanya" selected>Kampanya</option>
+                      <option value="duyuru">Duyuru</option>
+                      <option value="yeni_urun">Yeni Ürün</option>
+                      <option value="yeni_menu">Yeni Menü</option>
+                      <option value="siparis">Sipariş</option>
+                      <option value="sistem">Sistem</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Message -->
+                <div class="push-form-group">
+                  <label class="admin-form-label">Bildirim Mesajı <span class="required">*</span></label>
+                  <div class="input-with-counter">
+                    <textarea id="pushBody" class="admin-input" maxlength="150" rows="3" style="resize:none;" placeholder="Kullanıcıya gösterilecek mesaj..." oninput="updatePushPreview()"></textarea>
+                    <span class="char-counter" id="pushBodyCounter">0/150</span>
+                  </div>
+                </div>
+
+                <!-- Description & URL -->
+                <div class="push-form-row">
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Kısa Açıklama (Opsiyonel)</label>
+                    <input type="text" id="pushShortDesc" class="admin-input" placeholder="Ekstra bilgi..." oninput="updatePushPreview()">
+                  </div>
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Tıklanınca Açılacak URL</label>
+                    <input type="url" id="pushUrl" class="admin-input" placeholder="https://..." oninput="updatePushPreview()">
+                  </div>
+                </div>
+
+                <!-- Images Row -->
+                <div class="push-form-row" style="display:flex;gap:20px;">
+                  <div class="push-form-group" style="flex:1.5;">
+                    <label class="admin-form-label">Büyük Görsel (PNG/JPG/WEBP)</label>
+                    <div class="push-drop-zone" id="pushImageDropZone" onclick="document.getElementById('pushImageFile').click()">
+                      <div class="drop-zone-content" id="pushImageDropZoneContent">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span style="font-size:0.85rem;margin-top:5px;">Görsel Seç veya Sürükle</span>
+                      </div>
+                      <div class="drop-zone-preview" id="pushImageFilePreview" style="display:none;">
+                        <img src="" id="pushImageFilePreviewImg">
+                        <button class="remove-img-btn" onclick="removePushImage(event, 'pushImageFile')">✕</button>
+                      </div>
+                    </div>
+                    <input type="file" id="pushImageFile" hidden accept="image/*" onchange="handlePushImageFile(this, 'pushImage')">
+                    <input type="hidden" id="pushImage">
+                  </div>
+                  <div class="push-form-group" style="flex:0.5;">
+                    <label class="admin-form-label" style="text-align:center;">İkon</label>
+                    <div class="push-drop-zone icon-zone" id="pushIconDropZone" onclick="document.getElementById('pushIconFile').click()">
+                      <div class="drop-zone-content" id="pushIconDropZoneContent">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      </div>
+                      <div class="drop-zone-preview" id="pushIconFilePreview" style="display:none;">
+                        <img src="" id="pushIconFilePreviewImg">
+                        <button class="remove-img-btn" onclick="removePushImage(event, 'pushIconFile')">✕</button>
+                      </div>
+                    </div>
+                    <input type="file" id="pushIconFile" hidden accept="image/*" onchange="handlePushImageFile(this, 'pushIcon')">
+                    <input type="hidden" id="pushIcon">
+                  </div>
+                </div>
+
+                <!-- CTA & Audience -->
+                <div class="push-form-row">
+                  <div class="push-form-group">
+                    <label class="admin-form-label">CTA (Buton Yazısı)</label>
+                    <input type="text" id="pushBtnText" class="admin-input" placeholder="Örn: Sipariş Ver" oninput="updatePushPreview()">
+                  </div>
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Hedef Kitle</label>
+                    <select id="pushTarget" class="admin-input" style="background:#181615;">
+                      <option value="all">Tüm Kullanıcılar</option>
+                      <option value="permitted">Bildirim İzni Verenler</option>
+                      <option value="test">Test Kullanıcıları</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Timing, Priority -->
+                <div class="push-form-row">
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Gönderim Zamanı</label>
+                    <div class="push-timing-toggle">
+                      <label class="timing-option">
+                        <input type="radio" name="timing" value="now" checked onclick="togglePushScheduling(false)">
+                        <span>Hemen Gönder</span>
+                      </label>
+                      <label class="timing-option">
+                        <input type="radio" name="timing" value="scheduled" onclick="togglePushScheduling(true)">
+                        <span>Planla</span>
+                      </label>
+                    </div>
+                    <div id="pushScheduleInputs" class="schedule-inputs" style="display:none;">
+                      <input type="date" id="pushScheduleDate" class="admin-input">
+                      <input type="time" id="pushScheduleTime" class="admin-input">
+                    </div>
+                  </div>
+                  <div class="push-form-group">
+                    <label class="admin-form-label">Bildirim Önceliği</label>
+                    <div class="push-priority-group">
+                      <label class="prio-opt">
+                        <input type="radio" name="priority" value="normal" checked>
+                        <span>Normal</span>
+                      </label>
+                      <label class="prio-opt">
+                        <input type="radio" name="priority" value="high">
+                        <span>High</span>
+                      </label>
+                      <label class="prio-opt">
+                        <input type="radio" name="priority" value="critical">
+                        <span>Critical</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="push-form-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
+                  <button class="admin-btn secondary" style="margin:0;" onclick="savePushDraft()">Taslak Kaydet</button>
+                  <button class="admin-btn secondary" style="margin:0;" onclick="sendTestPush()">Test Gönder</button>
+                  <button class="admin-btn secondary" style="margin:0;" onclick="updatePushPreview()">Önizle</button>
+                  <button class="admin-btn" id="sendPushMainBtn" style="margin:0;background:var(--ember);" onclick="openPushConfirmModal()">Bildirimi Gönder</button>
+                </div>
+              </div>
             </div>
-            <div class="push-stat-card">
-              <div class="push-stat-lbl" data-i18n="push_stat_today">Bugün Gönderilen</div>
-              <div class="push-stat-val" id="pushStatToday">0</div>
-            </div>
-            <div class="push-stat-card">
-              <div class="push-stat-lbl" data-i18n="push_stat_subscribers">Aktif Aboneler</div>
-              <div class="push-stat-val" id="pushStatSubscribers">0</div>
-            </div>
-            <div class="push-stat-card">
-              <div class="push-stat-lbl" data-i18n="push_stat_permitted">Bildirim İzni %</div>
-              <div class="push-stat-val" id="pushStatPermitted">0</div>
-            </div>
-            <div class="push-stat-card">
-              <div class="push-stat-lbl" data-i18n="push_stat_success">Başarı Oranı</div>
-              <div class="push-stat-val" id="pushStatSuccess">100%</div>
-            </div>
-            <div class="push-stat-card">
-              <div class="push-stat-lbl" data-i18n="push_stat_ctr">Tıklanma (CTR)</div>
-              <div class="push-stat-val" id="pushStatCtr">0%</div>
+
+            <!-- Right Column: Preview -->
+            <div class="push-screen-preview">
+              <h3 class="admin-form-label" style="font-size:1.1rem;margin-bottom:15px;text-align:center;">Canlı Önizleme</h3>
+              <div class="android-notif-mockup">
+                <div class="notif-mock-header">
+                  <img src="data:image/png;base64,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" class="app-logo">
+                  <span class="app-name" style="color:white;font-weight:700;">Dayı Katık</span>
+                  <span class="notif-time" id="phoneMockTime" style="margin-left:auto;opacity:0.6;">şimdi</span>
+                </div>
+                <div class="notif-mock-content" style="display:flex;gap:10px;">
+                  <div style="flex:1;">
+                    <h4 id="phoneNotifTitlePreview" style="color:white;font-size:0.95rem;font-weight:700;margin-bottom:2px;">Bildirim Başlığı</h4>
+                    <p id="phoneNotifBodyPreview" style="color:#ddd;font-size:0.85rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">Bildirim mesajınız burada görünecek...</p>
+                  </div>
+                  <div id="phoneNotifIconPreview" style="width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.1);background-size:cover;background-position:center;display:none;"></div>
+                </div>
+                <div id="phoneNotifImagePreview" style="width:100%;height:150px;border-radius:12px;margin-top:10px;background:rgba(255,255,255,0.05);background-size:cover;background-position:center;display:none;"></div>
+                <div id="phoneNotifActionPreview" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);color:var(--ember);font-weight:700;font-size:0.85rem;display:none;">İncele</div>
+              </div>
             </div>
           </div>
-          
-          <!-- Main Content Split -->
-          <div class="push-main-layout">
-            
-            <!-- Left: Sending Form Card -->
-            <div class="push-form-card">
-              <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:5px;color:var(--ember);" data-i18n="push_send_title_header">Bildirim Gönder</h3>
-              
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_title">Başlık</label>
-                  <input type="text" id="pushTitle" class="admin-input" placeholder="Örn: Katık Fırsatı!" oninput="updatePushPreview()" />
-                </div>
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_type">Bildirim Türü</label>
-                  <select id="pushType" class="admin-input" style="height:44px;background:#181615;" onchange="updatePushPreview()">
-                    <option value="kampanya" data-i18n="push_type_campaign" selected>Kampanya</option>
-                    <option value="bilgilendirme" data-i18n="push_type_info">Bilgilendirme</option>
-                    <option value="yeni_menu" data-i18n="push_type_new_menu">Yeni Menü</option>
-                    <option value="siparis" data-i18n="push_type_order">Sipariş</option>
-                    <option value="duyuru" data-i18n="push_type_announcement">Duyuru</option>
-                    <option value="sistem" data-i18n="push_type_system">Sistem</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div>
-                <label class="admin-form-label" data-i18n="push_label_message">Bildirim Mesajı</label>
-                <textarea id="pushBody" class="admin-input" rows="3" style="resize:none;" placeholder="Kampanya detaylarını girin..." oninput="updatePushPreview()"></textarea>
-              </div>
-              
-              <div>
-                <label class="admin-form-label" data-i18n="push_label_short_desc">Küçük Açıklama (Opsiyonel)</label>
-                <input type="text" id="pushShortDesc" class="admin-input" placeholder="Örn: Sadece bugüne özel indirim..." oninput="updatePushPreview()" />
-              </div>
-              
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_image">Büyük Görsel URL</label>
-                  <div style="display:flex;gap:8px;">
-                    <input type="text" id="pushImage" class="admin-input" style="flex:1;" placeholder="https://..." oninput="updatePushPreview()" />
-                    <button class="admin-btn" style="margin:0;padding:0 12px;height:44px;" onclick="document.getElementById('pushFile').click()" data-i18n="admin_btn_select_file">Dosya Seç</button>
-                  </div>
-                  <input type="file" id="pushFile" accept="image/*" style="display:none;" onchange="handlePushImageUpload(this)" />
-                </div>
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_icon">Küçük İkon URL (Opsiyonel)</label>
-                  <input type="text" id="pushIcon" class="admin-input" placeholder="https://..." oninput="updatePushPreview()" />
-                </div>
-              </div>
-              
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_url">Tıklanınca Açılacak URL</label>
-                  <input type="text" id="pushUrl" class="admin-input" placeholder="Örn: /menu" oninput="updatePushPreview()" />
-                </div>
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_btn_text">Buton Yazısı</label>
-                  <input type="text" id="pushBtnText" class="admin-input" placeholder="Örn: İncele" oninput="updatePushPreview()" />
-                </div>
-              </div>
-              
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_target">Hedef Kitle</label>
-                  <select id="pushTarget" class="admin-input" style="height:44px;background:#181615;">
-                    <option value="all" data-i18n="push_target_all" selected>Tüm Kullanıcılar</option>
-                    <option value="permitted" data-i18n="push_target_permitted">İzin Veren Kullanıcılar</option>
-                    <option value="Android" data-i18n="push_target_android">Android Kullanıcıları</option>
-                    <option value="iOS" data-i18n="push_target_ios">iOS Kullanıcıları</option>
-                    <option value="test" data-i18n="push_target_test">Test Kullanıcıları</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_priority">Öncelik</label>
-                  <select id="pushPriority" class="admin-input" style="height:44px;background:#181615;">
-                    <option value="normal" data-i18n="push_prio_normal" selected>Normal</option>
-                    <option value="high" data-i18n="push_prio_high">Yüksek</option>
-                    <option value="critical" data-i18n="push_prio_critical">Kritik</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_send_time">Gönderim Zamanı</label>
-                  <select id="pushTimeOption" class="admin-input" style="height:44px;background:#181615;" onchange="toggleScheduledTimeInput()">
-                    <option value="now" data-i18n="push_time_now" selected>Şimdi Gönder</option>
-                    <option value="scheduled" data-i18n="push_time_scheduled">İleri Tarih</option>
-                  </select>
-                </div>
-                <div id="scheduledTimeWrapper" style="display:none;">
-                  <label class="admin-form-label" data-i18n="push_label_datetime">Tarih & Saat</label>
-                  <input type="datetime-local" id="pushScheduledAt" class="admin-input" style="height:44px;" />
-                </div>
-              </div>
-              
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_ttl">TTL (Saat)</label>
-                  <input type="number" id="pushTtl" class="admin-input" value="24" min="1" max="168" />
-                </div>
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_sound">Bildirim Sesi</label>
-                  <select id="pushSound" class="admin-input" style="height:44px;background:#181615;">
-                    <option value="default" data-i18n="push_sound_default" selected>Varsayılan</option>
-                    <option value="silent" data-i18n="push_sound_silent">Sessiz</option>
-                  </select>
-                </div>
-              </div>
+        </div>
+      </div>
 
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_tag">Etiket (Tag)</label>
-                  <input type="text" id="pushTag" class="admin-input" placeholder="Örn: kampanya-zurna" />
-                </div>
-                <div>
-                  <label class="admin-form-label" data-i18n="push_label_collapse">Collapse Key</label>
-                  <input type="text" id="pushCollapseKey" class="admin-input" placeholder="Örn: katik-kampanya" />
-                </div>
-              </div>
-              
-              <div style="margin-top:10px;">
-                <button class="admin-btn" style="margin:0;width:100%;font-weight:700;height:48px;" onclick="openPushConfirmModal()" data-i18n="push_btn_send">Bildirim Gönder</button>
-              </div>
-              
             </div>
             
             <!-- Right: Real-time Interactive Android Mock Preview -->
