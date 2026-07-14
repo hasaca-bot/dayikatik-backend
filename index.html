@@ -1920,13 +1920,13 @@ body.theme-bw .admin-panel-tabs {
 }
 .admin-tab-content-slider {
   display: flex;
-  width: 200%;
+  width: 300%;
   height: 100%;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   flex-shrink: 0;
 }
 .admin-tab-content {
-  width: 50%;
+  width: 33.333%;
   height: 100%;
   flex-shrink: 0;
   display: block;
@@ -2682,13 +2682,14 @@ body.theme-bw .rez-select-trigger:hover {
     <button class="admin-tab-btn" id="adminTabBtnRez" onclick="switchAdminPanelTab(this, 1)">
       <span data-i18n="admin_tab_rez">Rezervasyonlar</span> <span class="badge" id="adminRezBadge" style="display:none;">0</span>
     </button>
-    <div class="admin-tab-indicator" id="adminTabIndicator" style="left: 0%;"></div>
+    <button class="admin-tab-btn" id="adminTabBtnPush" onclick="switchAdminPanelTab(this, 2)">Bildirim Gönder</button>
+    <div class="admin-tab-indicator" id="adminTabIndicator" style="left: 0%; width: 33.333%;"></div>
   </div>
   
   <div class="admin-tab-content-wrapper">
-    <div class="admin-tab-content-slider" id="adminTabSlider">
+    <div class="admin-tab-content-slider" id="adminTabSlider" style="width: 300%;">
       <!-- PRODUCTS TAB CONTENT -->
-      <div id="adminTabProducts" class="admin-tab-content active-tab">
+      <div id="adminTabProducts" class="admin-tab-content active-tab" style="width: 33.333%;">
         <div style="margin-bottom: 16px;">
           <button class="admin-btn" id="adminAddNewProductBtn" onclick="openAdminForm()" style="margin: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; font-size: 1rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -2702,29 +2703,87 @@ body.theme-bw .rez-select-trigger:hover {
               <span id="adminCategoryFilterSelectedText" data-i18n="all_categories">Tüm Kategoriler</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto; transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="custom-select-options" id="adminCategoryFilterOptions">
-              <!-- Options filled by JS -->
-            </div>
+            <div class="custom-select-options" id="adminCategoryFilterOptions"></div>
           </div>
         </div>
         <div id="adminSearchSuggestions" class="admin-search-suggestions">
           <span data-i18n="admin_category_not_found">Aradığınız kategoriyi bulamadınız mı?</span>
           <button class="admin-btn mini" id="adminAddNewCategoryBtn" onclick="openCategoryForm()" data-i18n="admin_add_category_btn" style="margin:0; background:#5D4037; font-size:0.8rem; padding:4px 8px;">Yeni Kategori Ekle</button>
         </div>
-        <div class="admin-products-list" id="adminProductsList">
-          <!-- Dynamic admin products list goes here -->
-        </div>
+        <div class="admin-products-list" id="adminProductsList"></div>
       </div>
       
       <!-- RESERVATIONS TAB CONTENT -->
-      <div id="adminTabReservations" class="admin-tab-content">
-        <div class="admin-rez-container">
-          <div class="admin-rez-list" id="adminRezList">
-            <!-- Dynamic reservations list goes here -->
+      <div id="adminTabRezCont" class="admin-tab-content" style="width: 33.333%;">
+        <div class="admin-rez-header">
+           <h3 data-i18n="admin_rez_title">Müşteri Rezervasyonları</h3>
+           <div class="admin-trash-zone" id="adminTrashZone" ondragover="allowRezDragOver(event)" ondragleave="handleRezDragLeave(event)" ondrop="handleRezDrop(event)">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+             <span data-i18n="admin_drag_delete">Silmek için sürükleyin</span>
+           </div>
+        </div>
+        <div class="admin-rez-list" id="adminRezList"></div>
+      </div>
+
+      <!-- PUSH NOTIFICATIONS TAB CONTENT -->
+      <div id="adminTabPushCont" class="admin-tab-content" style="width: 33.333%;">
+        <div class="push-send-screen">
+          <div class="push-screen-header">
+            <h2 class="push-screen-title">Bildirim Gönder</h2>
           </div>
+          <!-- Dashboard Stats -->
+          <div class="push-stats-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap:10px; margin-bottom:20px;">
+            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Abone</div>
+              <div id="pushStatSubscribers" style="font-size:1.1rem; font-weight:700; color:var(--ember);">0</div>
+            </div>
+            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Gönderim</div>
+              <div id="pushStatTotal" style="font-size:1.1rem; font-weight:700; color:var(--ember);">0</div>
+            </div>
+          </div>
+          <div class="push-form-card" style="background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; border:1px solid rgba(255,255,255,0.05);">
+            <input type="text" id="pushTitle" class="admin-input" oninput="updatePushPreview()" placeholder="Başlık..." style="margin-bottom:12px;">
+            <textarea id="pushBody" class="admin-input" oninput="updatePushPreview()" placeholder="Mesaj..." rows="2" style="margin-bottom:12px;"></textarea>
+            <input type="url" id="pushUrl" class="admin-input" oninput="updatePushPreview()" placeholder="Link..." style="margin-bottom:15px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+               <button class="admin-btn secondary" style="margin:0;" onclick="sendTestPush()">Test</button>
+               <button class="admin-btn" style="margin:0; background:var(--fire);" onclick="openPushConfirmModal()">Gönder</button>
+            </div>
+          </div>
+          <div class="android-notif-mockup" style="margin-top:20px; background:#111; border-radius:8px; padding:12px; border:1px solid rgba(255,255,255,0.1);">
+             <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                <span style="color:white; font-weight:700; font-size:0.7rem;">DAYI KATIK</span>
+                <span id="phoneMockTime" style="color:rgba(255,255,255,0.4); font-size:0.6rem;">şimdi</span>
+             </div>
+             <h4 id="phoneNotifTitlePreview" style="color:white; font-size:0.9rem; margin:0;">Başlık</h4>
+             <p id="phoneNotifBodyPreview" style="color:rgba(255,255,255,0.6); font-size:0.75rem; margin:0;">Önizleme...</p>
+          </div>
+          <input type="hidden" id="pushType" value="kampanya">
+          <input type="hidden" id="pushImage" value="">
+          <input type="hidden" id="pushIcon" value="">
+          <input type="hidden" id="pushBtnText" value="İncele">
+          <input type="hidden" id="phoneMockTypeBadge">
+          <input type="hidden" id="phoneNotifIconPreview">
+          <input type="hidden" id="phoneNotifImagePreview">
+          <input type="hidden" id="phoneNotifActionPreview">
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- PUSH CONFIRM MODAL -->
+<div id="pushConfirmModal" class="admin-modal" style="display:none;">
+  <div class="admin-modal-content">
+    <h2 data-i18n="push_confirm_title">Gönder?</h2>
+    <p style="margin-bottom:15px; font-size:0.9rem;">Bildirim abonelere gönderilecek.</p>
+    <div style="text-align:left; background:rgba(0,0,0,0.2); padding:10px; border-radius:8px; margin-bottom:15px; font-size:0.85rem;">
+       <div><strong>B:</strong> <span id="confirmPushTitle"></span></div>
+       <div><strong>M:</strong> <span id="confirmPushBody"></span></div>
+    </div>
+    <button class="admin-btn" style="width:100%; margin-bottom:10px;" onclick="submitPushNotification()">Gönder</button>
+    <button class="admin-btn secondary" style="width:100%; margin:0;" onclick="closePushConfirmModal()">Vazgeç</button>
   </div>
 </div>
 
@@ -4920,13 +4979,14 @@ function switchAdminPanelTab(btn, idx) {
   // Slide indicator
   const indicator = document.getElementById('adminTabIndicator');
   if (indicator) {
-    indicator.style.left = (idx * 50) + '%';
+    indicator.style.left = (idx * 33.3333) + '%';
+    indicator.style.width = '33.3333%';
   }
   
   // Slide content
   const slider = document.getElementById('adminTabSlider');
   if (slider) {
-    slider.style.transform = `translateX(-${idx * 50}%)`;
+    slider.style.transform = `translateX(-${idx * 33.3333}%)`;
   }
   
   // Toggle active-tab class for opacity
@@ -4941,6 +5001,10 @@ function switchAdminPanelTab(btn, idx) {
   const isProdTab = (idx === 0);
   if (addBtn) addBtn.style.display = isProdTab ? 'inline-block' : 'none';
   if (addCatBtn) addCatBtn.style.display = isProdTab ? 'inline-block' : 'none';
+
+  if (idx === 2) {
+    loadPushDashboardData();
+  }
 }
 
 function updateAdminRezBadge() {
@@ -5535,6 +5599,135 @@ function showCustomConfirm(message, title) {
     okBtn.addEventListener('click', onOk);
     cancelBtn.addEventListener('click', onCancel);
   });
+}
+
+// ==========================================
+// ADMIN PUSH NOTIFICATION LOGIC (SYNCED)
+// ==========================================
+
+async function loadPushDashboardData() {
+  try {
+    const subEl = document.getElementById('pushStatSubscribers');
+    const totalEl = document.getElementById('pushStatTotal');
+    const tbody = document.getElementById('pushHistoryTableBody');
+    if (!subEl && !totalEl && !tbody) return;
+
+    const subRes = await fetch('/api/subscriptions', { headers: { 'Authorization': 'Bearer dayikatik123' } });
+    if (subRes.ok) {
+      const subs = await subRes.json();
+      if (subEl) subEl.textContent = Array.isArray(subs) ? subs.length : 0;
+    }
+    const notifRes = await fetch('/api/notifications', { headers: { 'Authorization': 'Bearer dayikatik123' } });
+    if (notifRes.ok) {
+      const notifs = await notifRes.json();
+      if (totalEl) totalEl.textContent = Array.isArray(notifs) ? notifs.length : 0;
+      if (tbody && Array.isArray(notifs)) {
+        tbody.innerHTML = '';
+        if (notifs.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; opacity:0.5; padding:20px;">Geçmiş yok.</td></tr>';
+        } else {
+          notifs.slice(0, 10).forEach(n => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid rgba(255,255,255,0.03)';
+            tr.innerHTML = `
+              <td style="padding:10px 5px;">${new Date(n.created_at).toLocaleDateString()}</td>
+              <td style="font-weight:700;">${n.title}</td>
+              <td>${n.target}</td>
+              <td><span class="push-badge-status ${n.status}" style="font-size:0.7rem; padding:2px 5px; border-radius:4px;">${n.status}</span></td>
+              <td style="text-align:right;"><button class="admin-btn mini" style="margin:0; padding:2px 8px;" onclick="deletePush('${n.id}')">Sil</button></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      }
+    }
+  } catch (e) { console.warn('Push dashboard load failed', e); }
+}
+
+function updatePushPreview() {
+  const title = document.getElementById('pushTitle')?.value || 'Katık Lezzeti';
+  const body = document.getElementById('pushBody')?.value || 'Kampanya mesajı detayları...';
+
+  const titleEl = document.getElementById('phoneNotifTitlePreview');
+  const bodyEl = document.getElementById('phoneNotifBodyPreview');
+  const timeEl = document.getElementById('phoneMockTime');
+
+  if (titleEl) titleEl.textContent = title;
+  if (bodyEl) bodyEl.textContent = body;
+  if (timeEl) {
+    const now = new Date();
+    timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+}
+
+function openPushConfirmModal() {
+  const title = document.getElementById('pushTitle').value;
+  const body = document.getElementById('pushBody').value;
+  if (!title || !body) {
+    showCustomAlert(window.currentLanguage === 'tr' ? 'Başlık ve Mesaj zorunludur.' : 'Title and Message are required.');
+    return;
+  }
+  document.getElementById('confirmPushTitle').textContent = title;
+  document.getElementById('confirmPushBody').textContent = body;
+  document.getElementById('pushConfirmModal').style.display = 'flex';
+}
+
+function closePushConfirmModal() {
+  document.getElementById('pushConfirmModal').style.display = 'none';
+}
+
+async function submitPushNotification() {
+  closePushConfirmModal();
+  const payload = {
+    title: document.getElementById('pushTitle').value,
+    body: document.getElementById('pushBody').value,
+    url: document.getElementById('pushUrl').value || '/',
+    target: 'all',
+    created_by: 'admin'
+  };
+  try {
+    const res = await fetch('/api/notifications/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      showCustomAlert(window.currentLanguage === 'tr' ? 'Bildirim başarıyla gönderildi!' : 'Notification sent successfully!');
+      document.getElementById('pushTitle').value = '';
+      document.getElementById('pushBody').value = '';
+      document.getElementById('pushUrl').value = '';
+      updatePushPreview();
+      loadPushDashboardData();
+    } else {
+      showCustomAlert('Hata oluştu.');
+    }
+  } catch (e) { console.error(e); }
+}
+
+async function sendTestPush() {
+  const title = document.getElementById('pushTitle').value || 'Test';
+  const body = document.getElementById('pushBody').value || 'Test Bildirimi';
+  const payload = { title, body, target: 'test' };
+  try {
+    const res = await fetch('/api/notifications/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) showCustomAlert('Test bildirimi gönderildi.');
+  } catch (e) { console.error(e); }
+}
+
+async function deletePush(id) {
+  const confirm = await showCustomConfirm(window.currentLanguage === 'tr' ? 'Bu bildirimi silmek istediğinize emin misiniz?' : 'Delete this notification?');
+  if (!confirm) return;
+  try {
+    const res = await fetch(`/api/notifications/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer dayikatik123' }
+    });
+    if (res.ok) loadPushDashboardData();
+  } catch (e) { console.error(e); }
 }
 </script>
 <script>

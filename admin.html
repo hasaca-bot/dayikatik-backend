@@ -2957,9 +2957,9 @@ body.theme-bw .rez-select-trigger:hover {
   </div>
   
   <div class="admin-tab-content-wrapper">
-    <div class="admin-tab-content-slider" id="adminTabSlider">
+    <div class="admin-tab-content-slider" id="adminTabSlider" style="width:300%;">
       <!-- PRODUCTS TAB CONTENT -->
-      <div id="adminTabProducts" class="admin-tab-content active-tab">
+      <div id="adminTabProducts" class="admin-tab-content active-tab" style="width: 33.333%;">
         <div style="margin-bottom: 16px;">
           <button class="admin-btn" id="adminAddNewProductBtn" onclick="openAdminForm()" style="margin: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; font-size: 1rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -2988,7 +2988,7 @@ body.theme-bw .rez-select-trigger:hover {
       </div>
 
       <!-- RESERVATIONS TAB CONTENT -->
-      <div id="adminTabRez" class="admin-tab-content">
+      <div id="adminTabRezCont" class="admin-tab-content" style="width:33.333%;">
         <div class="admin-rez-header">
           <h3 data-i18n="admin_rez_title">Müşteri Rezervasyonları</h3>
           <div class="admin-trash-zone" id="adminTrashZone" ondragover="allowRezDragOver(event)" ondragleave="handleRezDragLeave(event)" ondrop="handleRezDrop(event)">
@@ -2996,182 +2996,46 @@ body.theme-bw .rez-select-trigger:hover {
             <span data-i18n="admin_drag_delete">Silmek için sürükleyin</span>
           </div>
         </div>
-        <div class="admin-rez-list" id="adminRezList">
-          <!-- Dynamic reservations list goes here -->
-        </div>
+        <div class="admin-rez-list" id="adminRezList"></div>
       </div>
       
       <!-- PUSH NOTIFICATIONS TAB CONTENT -->
-      <div id="adminTabPush" class="admin-tab-content">
-        <div class="push-send-screen">
-          <!-- Header -->
-          <div class="push-screen-header">
-            <h2 class="push-screen-title">Bildirim Gönder</h2>
-            <p class="push-screen-subtitle">Web Push bildirimi hazırlayın, önizleyin ve hedef kitlenize gönderin.</p>
-          </div>
+      <div id="adminTabPushCont" class="admin-tab-content" style="width:33.333%;">
+        <div class="push-send-screen" id="pushSendScreenMain">
+          <h2 class="push-screen-title" style="margin-bottom:15px;">Bildirim Gönder</h2>
 
-          <!-- Dashboard Stats -->
-          <div class="push-stats-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap:10px; margin-bottom:20px;">
-            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+          <div class="push-stats-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
+            <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
               <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Abone</div>
               <div id="pushStatSubscribers" style="font-size:1.1rem; font-weight:700; color:var(--ember);">0</div>
             </div>
-            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+            <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
               <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Gönderilen</div>
               <div id="pushStatTotal" style="font-size:1.1rem; font-weight:700; color:var(--ember);">0</div>
-            </div>
-            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
-              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Başarı</div>
-              <div id="pushStatSuccess" style="font-size:1.1rem; font-weight:700; color:#4CAF50;">%100</div>
-            </div>
-            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
-              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Tıklama</div>
-              <div id="pushStatCtr" style="font-size:1.1rem; font-weight:700; color:var(--sky);">%0</div>
             </div>
           </div>
 
           <div class="push-screen-layout">
             <!-- Left Column: Form -->
             <div class="push-screen-form">
-              <div class="push-form-card">
-                <!-- Title & Type -->
-                <div class="push-form-row">
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Başlık <span class="required">*</span></label>
-                    <div class="input-with-counter">
-                      <input type="text" id="pushTitle" class="admin-input" maxlength="50" placeholder="Bildirim başlığı girin..." oninput="updatePushPreview()">
-                      <span class="char-counter" id="pushTitleCounter">0/50</span>
-                    </div>
-                  </div>
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Bildirim Türü</label>
-                    <select id="pushType" class="admin-input" onchange="updatePushPreview()" style="background:#181615;">
-                      <option value="kampanya" selected>Kampanya</option>
-                      <option value="duyuru">Duyuru</option>
-                      <option value="yeni_urun">Yeni Ürün</option>
-                      <option value="yeni_menu">Yeni Menü</option>
-                      <option value="siparis">Sipariş</option>
-                      <option value="sistem">Sistem</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Message -->
-                <div class="push-form-group">
-                  <label class="admin-form-label">Bildirim Mesajı <span class="required">*</span></label>
-                  <div class="input-with-counter">
-                    <textarea id="pushBody" class="admin-input" maxlength="150" rows="3" style="resize:none;" placeholder="Kullanıcıya gösterilecek mesaj..." oninput="updatePushPreview()"></textarea>
-                    <span class="char-counter" id="pushBodyCounter">0/150</span>
-                  </div>
-                </div>
-
-                <!-- Description & URL -->
-                <div class="push-form-row">
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Kısa Açıklama (Opsiyonel)</label>
-                    <input type="text" id="pushShortDesc" class="admin-input" placeholder="Ekstra bilgi..." oninput="updatePushPreview()">
-                  </div>
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Tıklanınca Açılacak URL</label>
-                    <input type="url" id="pushUrl" class="admin-input" placeholder="https://..." oninput="updatePushPreview()">
-                  </div>
-                </div>
-
-                <!-- Images Row -->
-                <div class="push-form-row" style="display:flex;gap:20px;">
-                  <div class="push-form-group" style="flex:1.5;">
-                    <label class="admin-form-label">Büyük Görsel (PNG/JPG/WEBP)</label>
-                    <div class="push-drop-zone" id="pushImageDropZone" onclick="document.getElementById('pushImageFile').click()">
-                      <div class="drop-zone-content" id="pushImageDropZoneContent">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        <span style="font-size:0.85rem;margin-top:5px;">Görsel Seç veya Sürükle</span>
-                      </div>
-                      <div class="drop-zone-preview" id="pushImageFilePreview" style="display:none;">
-                        <img src="" id="pushImageFilePreviewImg">
-                        <button class="remove-img-btn" onclick="removePushImage(event, 'pushImageFile')">✕</button>
-                      </div>
-                    </div>
-                    <input type="file" id="pushImageFile" hidden accept="image/*" onchange="handlePushImageFile(this, 'pushImage')">
-                    <input type="hidden" id="pushImage">
-                  </div>
-                  <div class="push-form-group" style="flex:0.5;">
-                    <label class="admin-form-label" style="text-align:center;">İkon</label>
-                    <div class="push-drop-zone icon-zone" id="pushIconDropZone" onclick="document.getElementById('pushIconFile').click()">
-                      <div class="drop-zone-content" id="pushIconDropZoneContent">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                      </div>
-                      <div class="drop-zone-preview" id="pushIconFilePreview" style="display:none;">
-                        <img src="" id="pushIconFilePreviewImg">
-                        <button class="remove-img-btn" onclick="removePushImage(event, 'pushIconFile')">✕</button>
-                      </div>
-                    </div>
-                    <input type="file" id="pushIconFile" hidden accept="image/*" onchange="handlePushImageFile(this, 'pushIcon')">
-                    <input type="hidden" id="pushIcon">
-                  </div>
-                </div>
-
-                <!-- CTA & Audience -->
-                <div class="push-form-row">
-                  <div class="push-form-group">
-                    <label class="admin-form-label">CTA (Buton Yazısı)</label>
-                    <input type="text" id="pushBtnText" class="admin-input" placeholder="Örn: Sipariş Ver" oninput="updatePushPreview()">
-                  </div>
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Hedef Kitle</label>
-                    <select id="pushTarget" class="admin-input" style="background:#181615;">
-                      <option value="all">Tüm Kullanıcılar</option>
-                      <option value="permitted">Bildirim İzni Verenler</option>
-                      <option value="test">Test Kullanıcıları</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Timing, Priority -->
-                <div class="push-form-row">
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Gönderim Zamanı</label>
-                    <div class="push-timing-toggle">
-                      <label class="timing-option">
-                        <input type="radio" name="timing" value="now" checked onclick="togglePushScheduling(false)">
-                        <span>Hemen Gönder</span>
-                      </label>
-                      <label class="timing-option">
-                        <input type="radio" name="timing" value="scheduled" onclick="togglePushScheduling(true)">
-                        <span>Planla</span>
-                      </label>
-                    </div>
-                    <div id="pushScheduleInputs" class="schedule-inputs" style="display:none;">
-                      <input type="date" id="pushScheduleDate" class="admin-input">
-                      <input type="time" id="pushScheduleTime" class="admin-input">
-                    </div>
-                  </div>
-                  <div class="push-form-group">
-                    <label class="admin-form-label">Bildirim Önceliği</label>
-                    <div class="push-priority-group">
-                      <label class="prio-opt">
-                        <input type="radio" name="priority" value="normal" checked>
-                        <span>Normal</span>
-                      </label>
-                      <label class="prio-opt">
-                        <input type="radio" name="priority" value="high">
-                        <span>High</span>
-                      </label>
-                      <label class="prio-opt">
-                        <input type="radio" name="priority" value="critical">
-                        <span>Critical</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="push-form-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
-                  <button class="admin-btn secondary" style="margin:0;" onclick="savePushDraft()">Taslak Kaydet</button>
-                  <button class="admin-btn secondary" style="margin:0;" onclick="sendTestPush()">Test Gönder</button>
-                  <button class="admin-btn secondary" style="margin:0;" onclick="updatePushPreview()">Önizle</button>
-                  <button class="admin-btn" id="sendPushMainBtn" style="margin:0;background:var(--ember);" onclick="openPushConfirmModal()">Bildirimi Gönder</button>
-                </div>
-              </div>
+          <div class="push-form-card" style="background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; border:1px solid rgba(255,255,255,0.05);">
+            <div style="margin-bottom:10px;">
+              <label class="admin-form-label">Başlık</label>
+              <input type="text" id="pushTitle" class="admin-input" oninput="updatePushPreview()" placeholder="Başlık...">
+            </div>
+            <div style="margin-bottom:10px;">
+              <label class="admin-form-label">Mesaj</label>
+              <textarea id="pushBody" class="admin-input" oninput="updatePushPreview()" placeholder="Mesaj..." rows="2"></textarea>
+            </div>
+            <div style="margin-bottom:15px;">
+              <label class="admin-form-label">URL</label>
+              <input type="url" id="pushUrl" class="admin-input" oninput="updatePushPreview()" placeholder="https://...">
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+               <button class="admin-btn secondary" style="margin:0;" onclick="sendTestPush()">Test</button>
+               <button class="admin-btn" style="margin:0; background:var(--fire);" onclick="openPushConfirmModal()">Gönder</button>
+            </div>
+          </div>
             </div>
 
             <!-- Right Column: Preview -->
@@ -5522,6 +5386,7 @@ function switchAdminPanelTab(btn, idx) {
   const indicator = document.getElementById('adminTabIndicator');
   if (indicator) {
     indicator.style.left = (idx * 33.3333) + '%';
+    indicator.style.width = '33.3333%';
   }
   
   // Slide content
