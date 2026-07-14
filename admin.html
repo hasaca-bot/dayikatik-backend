@@ -3253,10 +3253,6 @@ body.theme-bw .rez-select-trigger:hover {
   </div>
 </div>
 
-<!-- PUSH SEND CONFIRM MODAL -->
-<div id="pushConfirmModal" class="admin-modal-backdrop" onclick="closePushConfirmModal()">
-  <div class="admin-modal-card" onclick="event.stopPropagation()" style="max-width:450px;">
-    <h3 class="admin-modal-title" style="color:var(--ember);" data-i18n="push_confirm_title">Gönderim Onayı</h3>
     <div style="text-align:left;font-size:0.9rem;display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
       <div><strong>Başlık:</strong> <span id="confirmPushTitle"></span></div>
       <div><strong>Mesaj:</strong> <span id="confirmPushBody"></span></div>
@@ -5540,8 +5536,12 @@ function updateAdminRezBadge() {
 }
 
 function renderAdminRezList() {
+  console.log("[DEBUG] renderAdminRezList triggered. Data length:", (window.reservationsData || []).length);
   const container = document.getElementById('adminRezList');
-  if (!container) return;
+  if (!container) {
+    console.error("[DEBUG] adminRezList container NOT FOUND in HTML!");
+    return;
+  }
   
   const rezList = window.reservationsData || [];
   if (rezList.length === 0) {
