@@ -3,6 +3,19 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-13 — Backend Deploy & Veritabanı Bağlantısı]
+
+### Yapılanlar
+- GitHub repo oluşturuldu: https://github.com/hasaca-bot/dayikatik-backend
+- Render Web Service kuruldu: https://dayikatik-api.onrender.com
+- Neon PostgreSQL bağlandı (DATABASE_URL env var olarak Render Dashboard'a girildi)
+- `db.js` — `data/menu.json` path'i düzeltildi (`../data` → `data`, repo kökü referansı)
+- `render.yaml` — Blueprint yerine direkt Web Service olarak deploy edildi
+- Doğrulama: 35 ürün, 4 kategori veritabanından döndü
+- CRUD testi: POST/GET/DELETE başarılı
+- `index.html` ve `admin.html` zaten doğru API URL'sini içeriyordu (değişiklik gerekmedi)
+
+---
 ## [2026-07-13 08:15 +03:00] — PostgreSQL DDL Tip Uyuşmazlığı ve CORS İyileştirmeleri
 
 ### 🛠️ Giderilen Hatalar ve Yapılan Düzenlemeler

@@ -315,10 +315,10 @@ async function runSeeds() {
       ? 'SELECT COUNT(*)::int as count FROM categories' 
       : 'SELECT COUNT(*) as count FROM categories'
   );
-  const categoryCount = catRow ? parseInt(catRow.count) : 0;
+  const categoryCount = catRow ? catRow.count : 0;
 
   if (categoryCount === 0) {
-    console.log('[DB] Seeding categories... (Table is empty)');
+    console.log('[DB] Seeding categories...');
     let index = 1;
     for (const [slug, data] of Object.entries(defaultCategoriesMap)) {
       let nameEn = data.name;
@@ -339,8 +339,6 @@ async function runSeeds() {
       }
     }
     console.log('[DB] Seeded categories successfully.');
-  } else {
-    console.log(`[DB] Skipping categories seed. Existing count: ${categoryCount}`);
   }
 
   // Check translations
@@ -349,10 +347,10 @@ async function runSeeds() {
       ? 'SELECT COUNT(*)::int as count FROM translations'
       : 'SELECT COUNT(*) as count FROM translations'
   );
-  const transCount = transRow ? parseInt(transRow.count) : 0;
+  const transCount = transRow ? transRow.count : 0;
 
   if (transCount === 0) {
-    console.log('[DB] Seeding static UI translations... (Table is empty)');
+    console.log('[DB] Seeding static UI translations...');
     let index = 1;
     const trKeys = Object.keys(i18nData.tr);
     for (const key of trKeys) {
@@ -371,8 +369,6 @@ async function runSeeds() {
       }
     }
     console.log(`[DB] Seeded ${trKeys.length} UI translations successfully.`);
-  } else {
-    console.log(`[DB] Skipping translations seed. Existing count: ${transCount}`);
   }
 
   // Check products
@@ -381,10 +377,10 @@ async function runSeeds() {
       ? 'SELECT COUNT(*)::int as count FROM products'
       : 'SELECT COUNT(*) as count FROM products'
   );
-  const productCount = prodRow ? parseInt(prodRow.count) : 0;
+  const productCount = prodRow ? prodRow.count : 0;
 
   if (productCount === 0) {
-    console.log('[DB] Seeding products... (Table is empty)');
+    console.log('[DB] Seeding products...');
 
     let menuPath = path.join(__dirname, '..', 'data', 'menu.json');
     if (!fs.existsSync(menuPath)) {
@@ -446,8 +442,6 @@ async function runSeeds() {
     } else {
       console.warn('[DB] No menu.json or menu_default.json found for seeding products.');
     }
-  } else {
-    console.log(`[DB] Skipping products seed. Existing count: ${productCount}`);
   }
 }
 
