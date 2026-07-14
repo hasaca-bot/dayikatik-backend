@@ -3010,6 +3010,26 @@ body.theme-bw .rez-select-trigger:hover {
             <p class="push-screen-subtitle">Web Push bildirimi hazırlayın, önizleyin ve hedef kitlenize gönderin.</p>
           </div>
 
+          <!-- Dashboard Stats -->
+          <div class="push-stats-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap:10px; margin-bottom:20px;">
+            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Abone</div>
+              <div id="pushStatSubscribers" style="font-size:1.1rem; font-weight:700; color:var(--ember);">0</div>
+            </div>
+            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Gönderilen</div>
+              <div id="pushStatTotal" style="font-size:1.1rem; font-weight:700; color:var(--ember);">0</div>
+            </div>
+            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Başarı</div>
+              <div id="pushStatSuccess" style="font-size:1.1rem; font-weight:700; color:#4CAF50;">%100</div>
+            </div>
+            <div class="push-stat-card" style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+              <div style="font-size:0.6rem; color:var(--muted); text-transform:uppercase;">Tıklama</div>
+              <div id="pushStatCtr" style="font-size:1.1rem; font-weight:700; color:var(--sky);">%0</div>
+            </div>
+          </div>
+
           <div class="push-screen-layout">
             <!-- Left Column: Form -->
             <div class="push-screen-form">
@@ -3253,6 +3273,11 @@ body.theme-bw .rez-select-trigger:hover {
   </div>
 </div>
 
+
+<!-- PUSH CONFIRM MODAL -->
+<div id="pushConfirmModal" class="admin-modal" style="display:none;">
+  <div class="admin-modal-content">
+    <h2 data-i18n="push_confirm_title">Bildirimi Gönder?</h2>
     <div style="text-align:left;font-size:0.9rem;display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
       <div><strong>Başlık:</strong> <span id="confirmPushTitle"></span></div>
       <div><strong>Mesaj:</strong> <span id="confirmPushBody"></span></div>
@@ -3267,6 +3292,7 @@ body.theme-bw .rez-select-trigger:hover {
     <button class="admin-btn secondary" style="margin:0;width:100%;" onclick="closePushConfirmModal()" data-i18n="admin_btn_cancel">Vazgeç</button>
   </div>
 </div>
+
 
 <!-- ADMIN ADD CATEGORY FORM PANEL -->
 <div id="adminCategoryFormPanel" class="admin-form-panel">
@@ -6306,29 +6332,33 @@ async function loadPushDashboardData() {
     const tbody = document.getElementById('pushHistoryTableBody');
 
     // 1. Fetch Subscriptions
-    const subRes = await fetch('/api/subscriptions', {
-      headers: { 'Authorization': 'Bearer dayikatik123' }
-    });
     let subs = [];
-    if (subRes.ok) {
-      subs = await subRes.json();
-    }
+    try {
+      const subRes = await fetch('/api/subscriptions', {
+        headers: { 'Authorization': 'Bearer dayikatik123' }
+      });
+      if (subRes.ok) subs = await subRes.json();
+    } catch (e) { console.warn("Subs fetch failed", e); }
     
     // 2. Fetch Notifications (History)
-    const notifRes = await fetch('/api/notifications', {
-      headers: { 'Authorization': 'Bearer dayikatik123' }
-    });
     let notifs = [];
-    if (notifRes.ok) {
-      notifs = await notifRes.json();
-    }
+    try {
+      const notifRes = await fetch('/api/notifications', {
+        headers: { 'Authorization': 'Bearer dayikatik123' }
+      });
+      if (notifRes.ok) notifs = await notifRes.json();
+    } catch (e) { console.warn("Notifs fetch failed", e); }
+
+    // Safety check for arrays
+    if (!Array.isArray(subs)) subs = [];
+    if (!Array.isArray(notifs)) notifs = [];
     
     // 3. Process Stats
-    const activeSubsCount = subs.filter(s => s.enabled === 1).length;
+    const activeSubsCount = subs.filter(s => s && s.enabled === 1).length;
     if (subEl) subEl.textContent = activeSubsCount;
     if (permEl) permEl.textContent = activeSubsCount > 0 ? `${activeSubsCount}` : '0';
     
-    const totalSent = notifs.filter(n => n.status === 'sent').length;
+    const totalSent = notifs.filter(n => n && n.status === 'sent').length;
     if (totalEl) totalEl.textContent = totalSent;
     
     const today = new Date().toISOString().substring(0, 10);

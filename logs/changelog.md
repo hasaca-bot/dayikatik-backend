@@ -3,6 +3,18 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-14 14:45 +03:00] — Admin Paneli Onarımı (Sekmeler ve Görünüm)
+
+### 🛠️ Giderilen Hatalar ve Yapılan Düzenlemeler
+- **Admin Paneli Sekme Yapısı:** "Rezervasyonlar" ve "Bildirim Gönder" sekmelerinin boş görünmesi veya kaybolması sorunu giderildi. `admin.html` içindeki malformed (hatalı kapanmış) HTML blokları temizlendi ve `adminRezList` konteyneri geri getirildi.
+- **CSS Genişlik Düzeltmeleri:** 3 sekmeli yeni yapıya geçişten sonra bozulan slider genişlikleri (`300%`) ve sekme içerik genişlikleri (`33.333%`) hem `style.css` hem de `admin.html` içindeki dahili stillerde düzeltildi.
+- **Push Bildirim İyileştirmeleri:** 
+    - `loadPushDashboardData` fonksiyonuna dizi (`Array.isArray`) ve `null` kontrolleri eklenerek JavaScript'in "Cannot set properties of null" hatasıyla çökmesi engellendi.
+    - Bildirim sekmelerindeki istatistik paneli (Abone sayısı, Gönderim, CTR) yeniden oluşturuldu.
+    - Bildirim onay modalindeki (`pushConfirmModal`) ID çakışmaları ve yapısal bozukluklar giderildi.
+- **Stabilite:** Admin paneli açıldığında sekmelerin senkronize ve pürüzsüz kayması sağlandı.
+
+---
 ## [2026-07-13 — Backend Deploy & Veritabanı Bağlantısı]
 
 ### Yapılanlar
@@ -481,7 +493,9 @@ Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte ka
 - [index.html](file:///c:/Users/hasan_y4hfwna/Desktop/dayikatikwebsitesi%20-%20Kopya/index.html) — Rezervasyon formundaki aylar, gün/ay/yıl seçici başlıkları, harita dili ve alt bilgi buton etiketleri yerelleştirildi.
 
 ### 📋 Açıklama
-- **Ay İsimlerinin Yerelleştirilmesi:** Rezervasyon takviminde listelenen ay adları (Ocak $ightarrow$ January, Şubat $ightarrow$ February vb.) `monthTranslations` haritası aracılığıyla dile göre dinamik hale getirildi. Rezervasyon onayında gönderilen Telegram mesajındaki ay isimleri de seçili dile göre senkronize edildi.
+- **Ay İsimlerinin Yerelleştirilmesi:** Rezervasyon takviminde listelenen ay adları (Ocak $
+ightarrow$ January, Şubat $
+ightarrow$ February vb.) `monthTranslations` haritası aracılığıyla dile göre dinamik hale getirildi. Rezervasyon onayında gönderilen Telegram mesajındaki ay isimleri de seçili dile göre senkronize edildi.
 - **Tarih Seçici Yerelleştirmesi:** Tarih seçici dropdown başlıklarının ve varsayılan seçeneklerinin ("Yıl" / "Year", "Ay" / "Month", "Gün" / "Day") dile göre dinamik değişmesi sağlandı.
 - **Google Maps Dil Senkronizasyonu:** Sayfadaki gömülü Google Haritalar iframe kaynağına `hl` dil parametresi bağlanarak harita arayüzünün dilinin (TR/EN) ana sayfa diliyle birlikte otomatik değişmesi sağlandı.
 - **Maps Butonu ve Getir Etiketi Yerelleştirmesi:** İletişim kartı altındaki "Google Maps'te Aç" butonu ve Getir Yemek altındaki "Online sipariş" (Online order) ifadesi i18n altyapısına eklenerek dinamik hale getirildi.
