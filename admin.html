@@ -2986,8 +2986,18 @@ body.theme-bw .rez-select-trigger:hover {
           <!-- Dynamic admin products list goes here -->
         </div>
       </div>
-      
+
+      <!-- RESERVATIONS TAB CONTENT -->
+      <div id="adminTabRez" class="admin-tab-content">
+        <div class="admin-rez-header">
+          <h3 data-i18n="admin_rez_title">Müşteri Rezervasyonları</h3>
+          <div class="admin-trash-zone" id="adminTrashZone" ondragover="allowRezDragOver(event)" ondragleave="handleRezDragLeave(event)" ondrop="handleRezDrop(event)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <span data-i18n="admin_drag_delete">Silmek için sürükleyin</span>
           </div>
+        </div>
+        <div class="admin-rez-list" id="adminRezList">
+          <!-- Dynamic reservations list goes here -->
         </div>
       </div>
       
@@ -6286,6 +6296,15 @@ async function submitPushNotification() {
 
 async function loadPushDashboardData() {
   try {
+    // Check if required elements exist to prevent null errors
+    const subEl = document.getElementById('pushStatSubscribers');
+    const permEl = document.getElementById('pushStatPermitted');
+    const totalEl = document.getElementById('pushStatTotal');
+    const todayEl = document.getElementById('pushStatToday');
+    const succEl = document.getElementById('pushStatSuccess');
+    const ctrEl = document.getElementById('pushStatCtr');
+    const tbody = document.getElementById('pushHistoryTableBody');
+
     // 1. Fetch Subscriptions
     const subRes = await fetch('/api/subscriptions', {
       headers: { 'Authorization': 'Bearer dayikatik123' }
@@ -6306,20 +6325,16 @@ async function loadPushDashboardData() {
     
     // 3. Process Stats
     const activeSubsCount = subs.filter(s => s.enabled === 1).length;
-    document.getElementById('pushStatSubscribers').textContent = activeSubsCount;
-    
-    // Permission percent: simulated or active count
-    document.getElementById('pushStatPermitted').textContent = activeSubsCount > 0 ? `${activeSubsCount}` : '0';
+    if (subEl) subEl.textContent = activeSubsCount;
+    if (permEl) permEl.textContent = activeSubsCount > 0 ? `${activeSubsCount}` : '0';
     
     const totalSent = notifs.filter(n => n.status === 'sent').length;
-    document.getElementById('pushStatTotal').textContent = totalSent;
+    if (totalEl) totalEl.textContent = totalSent;
     
-    // Today sent
     const today = new Date().toISOString().substring(0, 10);
     const todaySent = notifs.filter(n => n.status === 'sent' && n.sent_at && n.sent_at.substring(0, 10) === today).length;
-    document.getElementById('pushStatToday').textContent = todaySent;
+    if (todayEl) todayEl.textContent = todaySent;
     
-    // Success rate & CTR across sent
     let totalSuccessCount = 0;
     let totalFailedCount = 0;
     let totalClicks = 0;
@@ -6332,44 +6347,41 @@ async function loadPushDashboardData() {
     
     const totalDeliveries = totalSuccessCount + totalFailedCount;
     const successRate = totalDeliveries > 0 ? Math.round((totalSuccessCount / totalDeliveries) * 100) : 100;
-    document.getElementById('pushStatSuccess').textContent = `${successRate}%`;
+    if (succEl) succEl.textContent = `${successRate}%`;
     
     const ctr = totalSuccessCount > 0 ? Math.round((totalClicks / totalSuccessCount) * 100) : 0;
-    document.getElementById('pushStatCtr').textContent = `${ctr}%`;
+    if (ctrEl) ctrEl.textContent = `${ctr}%`;
     
-    // 4. Render History Table
-    const tbody = document.getElementById('pushHistoryTableBody');
-    tbody.innerHTML = '';
-    
-    if (notifs.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;opacity:0.5;" data-i18n="push_no_history">Henüz gönderilmiş bildirim bulunmuyor.</td></tr>`;
-      return;
+    // 4. Render History Table (If tbody exists)
+    if (tbody) {
+      tbody.innerHTML = '';
+      if (notifs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;opacity:0.5;" data-i18n="push_no_history">Henüz gönderilmiş bildirim bulunmuyor.</td></tr>`;
+      } else {
+        notifs.forEach(n => {
+          const date = n.sent_at ? new Date(n.sent_at).toLocaleString() : (n.scheduled_at ? 'Planlandı: ' + new Date(n.scheduled_at).toLocaleString() : new Date(n.created_at).toLocaleString());
+          const rowCtr = n.success_count > 0 ? Math.round(((n.click_count || 0) / n.success_count) * 100) : 0;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${date}</td>
+            <td style="font-weight:700;">${n.title}</td>
+            <td>${n.body}</td>
+            <td>${n.target === 'all' ? 'Tümü' : (n.target === 'permitted' ? 'İzinliler' : n.target)}</td>
+            <td style="color:#4CAF50;">${n.success_count || 0}</td>
+            <td style="color:#F44336;">${n.failed_count || 0}</td>
+            <td>${rowCtr}%</td>
+            <td><span class="push-badge-status ${n.status}">${n.status}</span></td>
+            <td style="text-align:right;">
+              <div style="display:flex;gap:6px;justify-content:flex-end;">
+                <button class="admin-btn secondary" style="margin:0;padding:4px 8px;font-size:0.75rem;" onclick="resendPush('${n.id}')">Tekrar Gönder</button>
+                <button class="admin-btn secondary" style="margin:0;padding:4px 8px;font-size:0.75rem;background:rgba(244,67,54,0.1);color:#f44336;" onclick="deletePush('${n.id}')">Sil</button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
     }
-    
-    notifs.forEach(n => {
-      const date = n.sent_at ? new Date(n.sent_at).toLocaleString() : (n.scheduled_at ? 'Planlandı: ' + new Date(n.scheduled_at).toLocaleString() : new Date(n.created_at).toLocaleString());
-      const deliveries = (n.success_count || 0) + (n.failed_count || 0);
-      const rowCtr = n.success_count > 0 ? Math.round(((n.click_count || 0) / n.success_count) * 100) : 0;
-      
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${date}</td>
-        <td style="font-weight:700;">${n.title}</td>
-        <td>${n.body}</td>
-        <td>${n.target === 'all' ? 'Tümü' : (n.target === 'permitted' ? 'İzinliler' : n.target)}</td>
-        <td style="color:#4CAF50;">${n.success_count || 0}</td>
-        <td style="color:#F44336;">${n.failed_count || 0}</td>
-        <td>${rowCtr}%</td>
-        <td><span class="push-badge-status ${n.status}">${n.status}</span></td>
-        <td style="text-align:right;">
-          <div style="display:flex;gap:6px;justify-content:flex-end;">
-            <button class="admin-btn secondary" style="margin:0;padding:4px 8px;font-size:0.75rem;" onclick="resendPush('${n.id}')">Tekrar Gönder</button>
-            <button class="admin-btn secondary" style="margin:0;padding:4px 8px;font-size:0.75rem;background:rgba(244,67,54,0.1);color:#f44336;" onclick="deletePush('${n.id}')">Sil</button>
-          </div>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
   } catch (e) {
     console.error('Failed to load push dashboard data:', e);
   }
