@@ -3,6 +3,17 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-15 22:50 +03:00] — Bildirim Gizleme, Keep-Alive ve Veri Kalıcılığı Güvenliği
+
+### 🛠️ Giderilen Hatalar ve Yapılan Düzenlemeler
+- **Bildirim Arayüzü Gizlendi (Görev 1):** `admin.html` içindeki "Bildirim Gönder" sekmesi ve içerik paneli `style="display:none"` ile gizlendi. Sekme yapısı 2 sekmeli (Ürünler ve Rezervasyonlar) hale getirilerek genişlikler %50 olarak güncellendi.
+- **Keep-Alive Sistemi (Görev 2):** `.github/workflows/keepalive.yml` dosyası oluşturuldu. Render backend servisinin uyku moduna geçmesini engellemek için her 10 dakikada bir otomatik ping gönderimi ayarlandı.
+- **Veri Kalıcılığı ve Reset Koruması (Görev 3):** 
+    - `backend/db.js` içindeki `runSeeds()` fonksiyonu, `INSERT` işlemlerinde `ON CONFLICT DO NOTHING` (PostgreSQL) ve `INSERT OR IGNORE` (SQLite) kısıtlamalarıyla güçlendirildi.
+    - Seeding işlemi öncesindeki `COUNT(*) === 0` kontrolü doğrulanarak, mevcut verilerin üzerine yazma riski tamamen ortadan kaldırıldı.
+    - `server.js` kontrol edilerek herhangi bir otomatik/zamanlanmış sıfırlama tetikleyicisi olmadığı teyit edildi.
+
+---
 ## [2026-07-14 14:45 +03:00] — Admin Paneli Onarımı (Sekmeler ve Görünüm)
 
 ### 🛠️ Giderilen Hatalar ve Yapılan Düzenlemeler

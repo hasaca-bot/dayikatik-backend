@@ -328,12 +328,12 @@ async function runSeeds() {
 
       if (dbDriver.type === 'pg') {
         await dbDriver.run(
-          'INSERT INTO categories (id, name_tr, name_en, sort_order, icon) VALUES ($1, $2, $3, $4, $5)',
+          'INSERT INTO categories (id, name_tr, name_en, sort_order, icon) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
           [slug, data.name, nameEn, index++, data.icon]
         );
       } else {
         await dbDriver.run(
-          'INSERT INTO categories (id, name_tr, name_en, sort_order, icon) VALUES (?, ?, ?, ?, ?)',
+          'INSERT OR IGNORE INTO categories (id, name_tr, name_en, sort_order, icon) VALUES (?, ?, ?, ?, ?)',
           [slug, data.name, nameEn, index++, data.icon]
         );
       }
@@ -360,12 +360,12 @@ async function runSeeds() {
       const enVal = i18nData.en[key] || trVal;
       if (dbDriver.type === 'pg') {
         await dbDriver.run(
-          'INSERT INTO translations (id, key, tr, en) VALUES ($1, $2, $3, $4)',
+          'INSERT INTO translations (id, key, tr, en) VALUES ($1, $2, $3, $4) ON CONFLICT (key) DO NOTHING',
           [`trans-${index++}`, key, trVal, enVal]
         );
       } else {
         await dbDriver.run(
-          'INSERT INTO translations (id, key, tr, en) VALUES (?, ?, ?, ?)',
+          'INSERT OR IGNORE INTO translations (id, key, tr, en) VALUES (?, ?, ?, ?)',
           [`trans-${index++}`, key, trVal, enVal]
         );
       }
@@ -424,12 +424,13 @@ async function runSeeds() {
                 portion_tr, portion_en, ingredients_tr, ingredients_en, calories, protein, carbs, fat,
                 saturated_fat, sugars, fiber, salt, allergens, katki_maddesi_icermez
               ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
+              ON CONFLICT (id) DO NOTHING
             `, [item.id, nameTr, nameEn, descTr, descEn, item.category, item.price, item.image,
                 portionTr, portionEn, ingTr, ingEn, cal, prot, carb, fat, sfat, sugar, fiber, salt,
                 allergensStr, noAdditives]);
           } else {
             await dbDriver.run(`
-              INSERT INTO products (
+              INSERT OR IGNORE INTO products (
                 id, name_tr, name_en, description_tr, description_en, category, price, image,
                 portion_tr, portion_en, ingredients_tr, ingredients_en, calories, protein, carbs, fat,
                 saturated_fat, sugars, fiber, salt, allergens, katki_maddesi_icermez
