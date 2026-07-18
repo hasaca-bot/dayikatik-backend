@@ -3,6 +3,27 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-18 21:10 +03:00] — Bildirim Gönderme Sistemi Gerçek Testte Bulunan 3 Hatanın Onarımı
+
+Bir önceki oturumda "Bildirim Gönder" sekmesi görünür yapılmıştı ama kullanıcı gerçekten denedi ve iki şey çalışmadı: "Gönder"e basınca hiçbir şey olmuyordu, telefonda izin verilmesine rağmen abone kaydı oluşmuyordu. İki paralel kod incelemesiyle kesin kök nedenler bulundu (tahmin değil):
+
+### 🛠️ Hata 1 — "Gönder" butonu hiçbir şey yapmıyordu
+`admin.html`'deki onay modalı (`#pushConfirmModal`) yanlış CSS class'larıyla yazılmıştı (`admin-modal`/`admin-modal-content` — stylesheet'te bu class'lar için hiç kural yok). JS hatasız çalışıp modalı "açıyordu" ama hiçbir CSS kuralı `display:none`'ı geçersiz kılmadığı için modal fiilen hiç görünmüyordu. Giriş şifre modalında kullanılan çalışan class'lara (`admin-modal-backdrop`/`admin-modal-card`) çevrildi.
+
+### 🛠️ Hata 2 — Telefonda izin verilmesine rağmen abone kaydı oluşmuyordu
+`index.html`'de mimari bir kusur bulundu: izin bir kez `'granted'` olduktan sonra site kalıcı olarak sadece *var olan* bir aboneliği yeniden gönderen bir fonksiyona (`syncPushSubscriptionSilently`) yönleniyordu; eğer ilk abonelik denemesi (herhangi bir adımda) sessizce başarısız olduysa, gerçek bir abonelik oluşturacak hiçbir kod yolu bir daha çalışmıyordu — kullanıcıya hiçbir belirti göstermeden sonsuza kadar sıkışıyordu. Artık abonelik bulunamazsa gerçek bir abonelik oluşturmayı deniyor (kendi kendini onarma).
+
+### 🛠️ Eksik 3 — Görsel yükleme ve zamanlama arayüzü hiç yoktu
+Kod incelemesinde görüldü ki görsel yükleme (`handlePushImageUpload`) ve zamanlama (`toggleScheduledTimeInput`) için JS mantığı zaten tam yazılıydı, sadece bunları tetikleyecek görünür form elemanları hiç eklenmemişti. Gerçek bir dosya yükleme alanı, Hedef Kitle seçici ve "Şimdi Gönder / Zamanla" seçicisi (seçilince tarih-saat alanı açılan) eklendi.
+
+### ✅ Canlıda Uçtan Uca Doğrulama
+- Onay modalının artık görsel olarak göründüğü ekran görüntüsüyle kanıtlandı.
+- Gerçek bir test bildirimi gönderildi: backend'de kayıt oluştu, **1 başarılı teslimat** (`success_count:1`) ile gerçekten bir aboneye ulaştı.
+- Zamanlanmış gönderim test edildi: `POST /api/notifications/schedule`'a doğru gitti, kayıt `status:'pending'` ve doğru `scheduled_at` ile oluştu.
+- Test verileri (bildirimler + test aboneliği) temizlendi, panel gerçek kullanım için temiz bırakıldı.
+- Commit: `3763034`. Netlify deploy'u bu kez ücretli plana geçildiği için sorunsuz ve hızlı tamamlandı.
+
+---
 ## [2026-07-18 18:40 +03:00] — Bildirim Gönder Sekmesi Onarımı ve "Ana Ekrana Ekle" Banner'ı
 
 ### 🛠️ GÖREV 1 — "Bildirim Gönder" Ekranı Geri Getirildi (DÜZELTİLDİ)
