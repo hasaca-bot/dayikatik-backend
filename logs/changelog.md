@@ -3,6 +3,34 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-18 17:15 +03:00] — Kritik Altyapı Onarımı: Kalıcı Veritabanı Bağlantısı, Çeviri Sistemi ve Sosyal Medya Önizlemesi
+
+### 🛠️ GÖREV 1 — Reset/Veri Kalıcılığı Sorunu (KÖKTEN ÇÖZÜLDÜ)
+- **Gerçek kök neden bulundu:** `runSeeds()` fonksiyonundaki COUNT=0 kontrolü zaten doğruydu, ancak Render'daki `dayikatik-api` servisinde **`DATABASE_URL` ortam değişkeni hiç tanımlı değildi**. Backend sessizce geçici (ephemeral) SQLite'a yazıyordu; her restart'ta disk sıfırlanıp menü varsayılan değerleriyle yeniden seed ediliyordu.
+- Kullanıcının Neon PostgreSQL bağlantı adresi alınıp Render servisine `DATABASE_URL` olarak eklendi (Render API ile).
+- **Test:** Bir ürünün fiyatı API üzerinden değiştirildi → servis restart edildi (Render API ile) → fiyat DEĞİŞMEDEN kaldı. Kalıcılık kanıtlandı.
+- Ayrıca `backend/db.js`'te ikinci bir gizli hata bulundu: `runSeeds()`, `menu.json`'daki `name_en`/`description_en`/`portion_en`/`ingredients_en` alanlarını hiç okumuyor, bunun yerine ürün ID'leriyle uyumsuz hale gelmiş eski bir `seedData.js` haritasını kullanıyordu. Düzeltildi — artık önce `menu.json` alanları kullanılıyor.
+
+### 🛠️ GÖREV 2 — Eksik/Çevrilmeyen İngilizce Metinler (DÜZELTİLDİ)
+- `index.html` ve `admin.html` içindeki tüm `data-i18n` anahtarları TR/EN sözlükleriyle sistematik olarak karşılaştırıldı.
+- **6 tamamen tanımsız anahtar** bulundu ve eklendi: `lbl_hour` ("Saat" etiketi — kullanıcının bildirdiği "SAAT" sorunu), `sec_tag_menu` ("Ne Yesek?"), `admin_rez_title`, `admin_drag_delete`, `push_confirm_title`, ve `index.html`'de `alg_sya` yazım hatası → `alg_soya` düzeltildi.
+- `admin.html`'de ek olarak **16 eksik anahtar** daha bulundu (alt menü, push bildirim geçmişi tablosu vb.) ve tamamlandı.
+- **Sistemik büyük harf hatası düzeltildi:** CSS `text-transform:uppercase` ile birlikte sayfa `lang="tr"` kaldığı için İngilizce "I" harfleri Türkçe "İ"ye dönüşüyordu (RESERVATİON, OPENİNG HOURS gibi). `applyLanguage()` fonksiyonuna `document.documentElement.lang = lang` eklenerek çözüldü.
+- **Asıl büyük sorun:** `backend/db.js`'teki Görev 1 düzeltmesi sayesinde artık 53 üründen 52'sinin İngilizce adı/açıklaması `menu.json`'dan doğru okunuyor (1 tanesi — "Ekşi Ayran" — zaten İngilizce'de de aynı kelime, gerçek eksiklik değil).
+- Canlı sitede (dayikatik.netlify.app) EN moda geçilerek tüm değişiklikler tarayıcıda doğrulandı.
+
+### 🛠️ GÖREV 3 — Favicon ve Sosyal Medya Önizlemesi (DÜZELTİLDİ)
+- `icons/icon-192.png` ve `icons/icon-512.png` dosyalarının ikisinin de aslında 1254x1254 piksel (birebir aynı dosya) olduğu tespit edildi; doğru boyutlarda yeniden oluşturuldu.
+- Mevcut logo kaynak alınarak `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png` (180x180) oluşturuldu ve her iki dosyanın `<head>`'ine eklendi.
+- `index.html`'e eksik olan `og:site_name`, `og:image`, `og:image:width/height`, `twitter:card` meta etiketleri eklendi (önceden hiç `og:image` yoktu — bu yüzden paylaşımlarda varsayılan küre ikonu ve "Netlify" görünüyordu).
+- **Not:** "Netlify" ibaresinin bazı yerlerde tamamen kaybolması için özel bir alan adı (.com) gerekir; bu düzeltme önizlemeyi büyük ölçüde iyileştirir ama garanti değildir.
+
+### ✅ Doğrulama
+- Render'da 2 kez yeni deploy tetiklendi (commit `bf92774`, `e11b3f7`) ve `POST /api/products/reset` ile veritabanı güncel doğru verilerle yeniden seed edildi.
+- Netlify otomatik deploy ile frontend değişiklikleri anında canlıya yansıdı.
+- Tüm testler canlı ortamda (dayikatik.netlify.app + dayikatik-api.onrender.com) gerçek API çağrıları ve tarayıcı testleriyle doğrulandı.
+
+---
 ## [2026-07-18 16:05 +03:00] — Menü Verilerinin Normalizasyonu ve Veritabanı Seeding İşlemleri
 
 ### ➕ Eklenen Dosyalar
