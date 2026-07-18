@@ -400,13 +400,13 @@ async function runSeeds() {
           const translation = defaultItemTranslations[item.id] || {};
 
           const nameTr = item.name || '';
-          const nameEn = translation.name || nameTr;
+          const nameEn = item.name_en || translation.name || nameTr;
           const descTr = item.description || '';
-          const descEn = translation.description || descTr;
+          const descEn = item.description_en || translation.description || descTr;
           const portionTr = (item.besin_degerleri && item.besin_degerleri.porsiyon) || '1 Porsiyon';
-          const portionEn = translation.portion || portionTr.replace('Menü', 'Menu').replace('Porsiyon', 'Portion');
+          const portionEn = item.portion_en || translation.portion || portionTr.replace('Menü', 'Menu').replace('Porsiyon', 'Portion');
           const ingTr = item.icindekiler || '';
-          const ingEn = translation.ingredients || ingTr;
+          const ingEn = item.ingredients_en || translation.ingredients || ingTr;
           const cal = (item.besin_degerleri && item.besin_degerleri.enerji) !== undefined ? item.besin_degerleri.enerji : null;
           const prot = (item.besin_degerleri && item.besin_degerleri.protein) !== undefined ? item.besin_degerleri.protein : null;
           const carb = (item.besin_degerleri && item.besin_degerleri.karbonhidrat) !== undefined ? item.besin_degerleri.karbonhidrat : null;

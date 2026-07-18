@@ -3088,6 +3088,8 @@ const i18nData = {
     info_hot_desc: "Anında Servis",
     info_rez_title: "Kolay Rezervasyon",
     info_rez_desc: "Masa Ayırtın",
+    sec_tag_menu: "Ne Yesek?",
+    lbl_hour: "Saat",
     menu_heading: "Menümüz",
     menu_subheading: "Seçkin lezzetlerimizi inceleyin",
     all_products: "Tüm Ürünler",
@@ -3234,12 +3236,15 @@ const i18nData = {
     admin_lbl_no_additives_checkbox: "Katkı Maddesi İçermez işareti gösterilsin",
     admin_lbl_allergens: "Alerjenler (Seçmek için üzerlerine tıklayın)",
     admin_btn_save: "Kaydet",
+    admin_rez_title: "Müşteri Rezervasyonları",
+    admin_drag_delete: "Silmek için sürükleyin",
+    push_confirm_title: "Gönder?",
     alg_sut: "Süt / Laktoz",
     alg_yumurta: "Yumurta",
     alg_gluten: "Gluten",
     alg_hardal: "Hardal",
     alg_kereviz: "Kereviz",
-    alg_sya: "Soya",
+    alg_soya: "Soya",
     alg_susam: "Susam",
     push_prompt_title: "Kampanyalardan Haberdar Olun",
     push_prompt_desc: "En güncel lezzet kampanyaları, indirimler ve yeni menülerden anında haberdar olmak ister misiniz?",
@@ -3265,6 +3270,8 @@ const i18nData = {
     info_hot_desc: "Instant Service",
     info_rez_title: "Easy Reservation",
     info_rez_desc: "Book a Table",
+    sec_tag_menu: "What to Eat?",
+    lbl_hour: "Time",
     menu_heading: "Our Menu",
     menu_subheading: "Browse our select delicacies",
     all_products: "All Products",
@@ -3411,6 +3418,9 @@ const i18nData = {
     admin_lbl_no_additives_checkbox: "Show 'No Additives' label",
     admin_lbl_allergens: "Allergens (Click to select)",
     admin_btn_save: "Save",
+    admin_rez_title: "Customer Reservations",
+    admin_drag_delete: "Drag here to delete",
+    push_confirm_title: "Send?",
     alg_sut: "Milk / Lactose",
     alg_yumurta: "Egg",
     alg_gluten: "Gluten",
@@ -3606,6 +3616,7 @@ function toggleLanguage() {
 
 function applyLanguage(lang) {
   window.currentLanguage = lang;
+  document.documentElement.lang = lang;
   localStorage.setItem('lang', lang);
   document.title = lang === 'tr' ? "Dayı Katık | Tantuni & Döner" : "Dayi Katik | Tantuni & Doner";
 
