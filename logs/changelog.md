@@ -10,13 +10,13 @@ Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte ka
 
 ### 📝 Düzenlenen Dosyalar
 - `backend/seedData.js` — Kategori isimleri güncel Türkçe isimleriyle güncellendi (örn: "Tavuk Döner" -> "Tavuk Ürünleri", "Diğer & İçecek" -> "İçecekler ve Yan Ürünler").
-- `backend/db.js` — Kategori isimlerinin İngilizce çevirileri güncellendi ("Chicken Products", "Meat Products", "Tantuni Products", "Drinks & Sides").
+- `backend/db.js` — Kategori isimlerinin İngilizce çevirileri güncellendi ("Chicken Products", "Meat Products", "Tantuni Products", "Drinks & Sides"). Seeding işleminde kalori ve makro değerlerinin varsayılan olarak 0 atanması engellendi, null değerler korunarak veritabanına aktarıldı.
 - `data/menu.json` — 53 adet güncellenmiş ve normalize edilmiş menü ürünüyle yeniden oluşturuldu.
 
 ### ⚙️ Açıklama
 - Ham menü verileri parse edilerek isim, kategori, açıklama, fiyat (TL) ve makro/besin değerleri ayrıştırıldı.
 - Besin değerlerindeki "Tahmini", "kcal" ve "g" gibi metinler temizlenerek sadece sayısal değerler halinde veritabanına kaydedilmesi sağlandı.
-- İçecekler ve yan ürünler gibi besin değeri belirtilmeyen tüm menü kalemlerinin kalori ve makro değerleri veritabanı şemasına uygun olarak `null` olarak tanımlandı.
+- İçecekler ve yan ürünler gibi besin değeri belirtilmeyen tüm menü kalemlerinin kalori ve makro değerleri veritabanı şemasına uygun olarak `null` olarak tanımlandı. `db.js` içindeki seeding mekanizması da `null` değerleri koruyacak şekilde güncellendi.
 - Eski ürün resimlerinin kaybolmaması için eski veritabanı kayıtlarından ürün ID'sine göre resim eşleştirmesi yapıldı; yeni eklenen ürünler için ise yüksek kaliteli Unsplash yemek ve içecek resimleri atandı.
 - Seeding script'i çalıştırılarak yerel SQLite veritabanı güncellendi ve Render/Neon.tech (PostgreSQL) ortamları için de uyumlu hale getirildi.
 

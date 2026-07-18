@@ -407,10 +407,10 @@ async function runSeeds() {
           const portionEn = translation.portion || portionTr.replace('Menü', 'Menu').replace('Porsiyon', 'Portion');
           const ingTr = item.icindekiler || '';
           const ingEn = translation.ingredients || ingTr;
-          const cal = (item.besin_degerleri && item.besin_degerleri.enerji) || 0;
-          const prot = (item.besin_degerleri && item.besin_degerleri.protein) || 0;
-          const carb = (item.besin_degerleri && item.besin_degerleri.karbonhidrat) || 0;
-          const fat = (item.besin_degerleri && item.besin_degerleri.yag) || 0;
+          const cal = (item.besin_degerleri && item.besin_degerleri.enerji) !== undefined ? item.besin_degerleri.enerji : null;
+          const prot = (item.besin_degerleri && item.besin_degerleri.protein) !== undefined ? item.besin_degerleri.protein : null;
+          const carb = (item.besin_degerleri && item.besin_degerleri.karbonhidrat) !== undefined ? item.besin_degerleri.karbonhidrat : null;
+          const fat = (item.besin_degerleri && item.besin_degerleri.yag) !== undefined ? item.besin_degerleri.yag : null;
           const sfat = (item.besin_degerleri && item.besin_degerleri.doymus_yag) || 0;
           const sugar = (item.besin_degerleri && item.besin_degerleri.sekerler) || 0;
           const fiber = (item.besin_degerleri && item.besin_degerleri.lif) || 0;
