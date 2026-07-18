@@ -15,6 +15,7 @@ Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte ka
 
 ### ⚙️ Açıklama
 - Ham menü verileri parse edilerek isim, kategori, açıklama, fiyat (TL) ve makro/besin değerleri ayrıştırıldı.
+- Sitenin İngilizce dil seçeneğinde de menünün doğru görünmesi amacıyla tüm 53 ürünün isim (`name_en`) ve açıklamaları (`description_en`) İngilizceye çevrilerek veritabanına ve `data/menu.json` dosyasına eklendi.
 - Besin değerlerindeki "Tahmini", "kcal" ve "g" gibi metinler temizlenerek sadece sayısal değerler halinde veritabanına kaydedilmesi sağlandı.
 - İçecekler ve yan ürünler gibi besin değeri belirtilmeyen tüm menü kalemlerinin kalori ve makro değerleri veritabanı şemasına uygun olarak `null` olarak tanımlandı. `db.js` içindeki seeding mekanizması da `null` değerleri koruyacak şekilde güncellendi.
 - Eski ürün resimlerinin kaybolmaması için eski veritabanı kayıtlarından ürün ID'sine göre resim eşleştirmesi yapıldı; yeni eklenen ürünler için ise yüksek kaliteli Unsplash yemek ve içecek resimleri atandı.

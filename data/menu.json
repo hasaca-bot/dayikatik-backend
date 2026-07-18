@@ -2,9 +2,11 @@
   {
     "id": "et-iskender",
     "name": "Et İskender",
+    "name_en": "Beef Iskender",
     "category": "et",
     "price": 350,
     "description": "Muhteşem sos, et, biber ve yoğurt ile",
+    "description_en": "Served with special sauce, beef, peppers and yogurt",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -38,9 +40,11 @@
   {
     "id": "et-beyti",
     "name": "Et Beyti",
+    "name_en": "Beef Beyti",
     "category": "et",
     "price": 310,
     "description": "Muhteşem et döner ile",
+    "description_en": "Served with delicious beef doner",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -74,9 +78,11 @@
   {
     "id": "beyti-tavuk",
     "name": "Beyti Tavuk",
+    "name_en": "Chicken Beyti",
     "category": "et",
     "price": 250,
     "description": "Muhteşem tavuk döner ile",
+    "description_en": "Served with delicious chicken doner",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -110,9 +116,11 @@
   {
     "id": "katik-et-durum",
     "name": "Katık Et Dürüm",
+    "name_en": "Katik Beef Wrap",
     "category": "et",
     "price": 220,
     "description": "Muhteşem sos ve etin eşsiz lezzeti",
+    "description_en": "Unique taste of special sauce and beef",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -146,9 +154,11 @@
   {
     "id": "katik-et-ekmek-arasi",
     "name": "Katık Et Ekmek Arası",
+    "name_en": "Katik Beef Sandwich",
     "category": "et",
     "price": 260,
     "description": "Muhteşem sos ve etin eşsiz lezzeti",
+    "description_en": "Unique taste of special sauce and beef",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -182,9 +192,11 @@
   {
     "id": "zurna-katik-et-durum",
     "name": "Zurna Katık Et Dürüm",
+    "name_en": "Zurna Katik Beef Wrap",
     "category": "et",
     "price": 250,
     "description": "Muhteşem 40 cm katık et dürüm lezzeti",
+    "description_en": "Delicious 40 cm Katik beef wrap",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -218,9 +230,11 @@
   {
     "id": "katik-et-menu-1",
     "name": "Katık Et Menü 1",
+    "name_en": "Katik Beef Menu 1",
     "category": "et",
     "price": 300,
     "description": "Et dürüm, ayran, cips ve tatlı",
+    "description_en": "Beef wrap served with ayran, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -254,9 +268,11 @@
   {
     "id": "katik-et-menu-2",
     "name": "Katık Et Menü 2",
+    "name_en": "Katik Beef Menu 2",
     "category": "et",
     "price": 340,
     "description": "Et dürüm, kutu içecek, cips ve tatlı",
+    "description_en": "Beef wrap served with canned soft drink, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -290,9 +306,11 @@
   {
     "id": "combo-et-menu-1",
     "name": "Combo Et Menü 1",
+    "name_en": "Combo Beef Menu 1",
     "category": "et",
     "price": 370,
     "description": "Et dürüm, kutu içecek, cips ve tatlı (Ekstra büyük)",
+    "description_en": "Beef wrap served with canned soft drink, french fries and dessert (Extra large)",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -326,9 +344,11 @@
   {
     "id": "combo-et-menu-2",
     "name": "Combo Et Menü 2",
+    "name_en": "Combo Beef Menu 2",
     "category": "et",
     "price": 350,
     "description": "Et dürüm, kutu içecek, cips ve tatlı (Ekstra büyük)",
+    "description_en": "Beef wrap served with canned soft drink, french fries and dessert (Extra large)",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -362,9 +382,11 @@
   {
     "id": "zurna-et-menu-1",
     "name": "Zurna Et Menü 1",
+    "name_en": "Zurna Beef Menu 1",
     "category": "et",
     "price": 340,
     "description": "Et dürüm, kutu içecek, cips ve tatlı",
+    "description_en": "Beef wrap served with canned soft drink, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -398,9 +420,11 @@
   {
     "id": "zurna-et-menu-2",
     "name": "Zurna Et Menü 2",
+    "name_en": "Zurna Beef Menu 2",
     "category": "et",
     "price": 360,
     "description": "Et dürüm, kutu içecek, cips ve tatlı",
+    "description_en": "Beef wrap served with canned soft drink, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -434,9 +458,11 @@
   {
     "id": "katik-tavuk",
     "name": "Katık Tavuk",
+    "name_en": "Katik Chicken",
     "category": "tavuk",
     "price": 160,
     "description": "Muhteşem sos ve tavuk etinin eşsiz lezzeti",
+    "description_en": "Unique taste of special sauce and chicken",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -470,9 +496,11 @@
   {
     "id": "ekmek-arasi-tavuk",
     "name": "Ekmek Arası Tavuk",
+    "name_en": "Chicken Sandwich",
     "category": "tavuk",
     "price": 200,
     "description": "Muhteşem sos ve tavuk etinin eşsiz lezzeti",
+    "description_en": "Unique taste of special sauce and chicken",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -506,9 +534,11 @@
   {
     "id": "katik-kasarli-tavuk",
     "name": "Katık Kaşarlı Tavuk",
+    "name_en": "Katik Chicken with Kashar",
     "category": "tavuk",
     "price": 210,
     "description": "Muhteşem sos, kaşar ve tavuk etinin eşsiz lezzeti",
+    "description_en": "Unique taste of special sauce, kashar cheese and chicken",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -542,9 +572,11 @@
   {
     "id": "katik-cedarli-tavuk",
     "name": "Katık Çedarlı Tavuk",
+    "name_en": "Katik Chicken with Cheddar",
     "category": "tavuk",
     "price": 210,
     "description": "Muhteşem sos, çedar peynirinin ve tavuk etinin eşsiz lezzeti",
+    "description_en": "Unique taste of special sauce, cheddar cheese and chicken",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -578,9 +610,11 @@
   {
     "id": "katik-kasarli-mantarli",
     "name": "Katık Kaşarlı Mantarlı",
+    "name_en": "Katik Chicken with Kashar and Mushroom",
     "category": "tavuk",
     "price": 240,
     "description": "40 cm katık tavuk dürüm, kaşarın eşsiz lezzeti",
+    "description_en": "40 cm Katik chicken wrap, unique taste of kashar cheese",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -614,9 +648,11 @@
   {
     "id": "zurna-tavuk",
     "name": "Zurna Tavuk",
+    "name_en": "Zurna Chicken",
     "category": "tavuk",
     "price": 190,
     "description": "40 cm katık tavuk dürüm lezzeti",
+    "description_en": "40 cm Katik chicken wrap",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -650,9 +686,11 @@
   {
     "id": "zurna-katik-kasarli",
     "name": "Zurna Katık Kaşarlı",
+    "name_en": "Zurna Katik Chicken with Kashar",
     "category": "tavuk",
     "price": 240,
     "description": "40 cm katık tavuk dürüm, kaşarın eşsiz lezzeti",
+    "description_en": "40 cm Katik chicken wrap, unique taste of kashar cheese",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -686,9 +724,11 @@
   {
     "id": "zurna-katik-cedarli",
     "name": "Zurna Katık Çedarlı",
+    "name_en": "Zurna Katik Chicken with Cheddar",
     "category": "tavuk",
     "price": 240,
     "description": "40 cm katık tavuk dürüm, çedar peynirinin eşsiz lezzeti",
+    "description_en": "40 cm Katik chicken wrap, unique taste of cheddar cheese",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -722,9 +762,11 @@
   {
     "id": "zurna-barbeku-soslu",
     "name": "Zurna Barbekü Soslu",
+    "name_en": "Zurna Chicken with BBQ Sauce",
     "category": "tavuk",
     "price": 220,
     "description": "40 cm katık tavuk dürüm, barbekünün eşsiz lezzeti",
+    "description_en": "40 cm Katik chicken wrap, unique taste of BBQ sauce",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -758,9 +800,11 @@
   {
     "id": "zurna-katik-mantarli",
     "name": "Zurna Katık Mantarlı",
+    "name_en": "Zurna Katik Chicken with Mushroom",
     "category": "tavuk",
     "price": 220,
     "description": "40 cm katık tavuk dürüm ve mantarın eşsiz lezzeti",
+    "description_en": "40 cm Katik chicken wrap and the unique taste of mushrooms",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -794,9 +838,11 @@
   {
     "id": "katik-tavuk-menu-1",
     "name": "Katık Tavuk Menü 1",
+    "name_en": "Katik Chicken Menu 1",
     "category": "tavuk",
     "price": 240,
     "description": "Tavuk dürüm, ayran, cips ve tatlı",
+    "description_en": "Chicken wrap served with ayran, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -830,9 +876,11 @@
   {
     "id": "katik-tavuk-menu-2",
     "name": "Katık Tavuk Menü 2",
+    "name_en": "Katik Chicken Menu 2",
     "category": "tavuk",
     "price": 260,
     "description": "Tavuk dürüm, kutu içecek, cips ve tatlı",
+    "description_en": "Chicken wrap served with canned soft drink, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -866,9 +914,11 @@
   {
     "id": "combo-tavuk-menu-1",
     "name": "Combo Tavuk Menü 1",
+    "name_en": "Combo Chicken Menu 1",
     "category": "tavuk",
     "price": 280,
     "description": "Tavuk dürüm, ayran, cips ve tatlı (Ekstra büyük)",
+    "description_en": "Chicken wrap served with ayran, french fries and dessert (Extra large)",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -902,9 +952,11 @@
   {
     "id": "combo-tavuk-menu-2",
     "name": "Combo Tavuk Menü 2",
+    "name_en": "Combo Chicken Menu 2",
     "category": "tavuk",
     "price": 300,
     "description": "Tavuk dürüm, ayran, cips ve tatlı (Ekstra büyük)",
+    "description_en": "Chicken wrap served with ayran, french fries and dessert (Extra large)",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -938,9 +990,11 @@
   {
     "id": "zurna-tavuk-menu-1",
     "name": "Zurna Tavuk Menü 1",
+    "name_en": "Zurna Chicken Menu 1",
     "category": "tavuk",
     "price": 270,
     "description": "Tavuk dürüm, ayran, cips and tatlı",
+    "description_en": "Chicken wrap served with ayran, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -974,9 +1028,11 @@
   {
     "id": "zurna-tavuk-menu-2",
     "name": "Zurna Tavuk Menü 2",
+    "name_en": "Zurna Chicken Menu 2",
     "category": "tavuk",
     "price": 290,
     "description": "Tavuk dürüm, ayran, cips ve tatlı",
+    "description_en": "Chicken wrap served with ayran, french fries and dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1010,9 +1066,11 @@
   {
     "id": "tavuk-tantuni-lavas",
     "name": "Tavuk Tantuni Lavaş",
+    "name_en": "Chicken Tantuni in Lavash",
     "category": "tantuni",
     "price": 180,
     "description": "Tavuk eti ve baharatlı tantuni lavaş",
+    "description_en": "Chicken meat and spiced tantuni in lavash wrap",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1046,9 +1104,11 @@
   {
     "id": "ekmek-arasi-tavuk-tantuni",
     "name": "Ekmek Arası Tavuk Tantuni",
+    "name_en": "Chicken Tantuni Sandwich",
     "category": "tantuni",
     "price": 200,
     "description": "Tavuk eti ve baharatlı tantuni ekmek",
+    "description_en": "Chicken meat and spiced tantuni in bread",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1082,9 +1142,11 @@
   {
     "id": "yogurtlu-tavuk-tantuni",
     "name": "Yoğurtlu Tavuk Tantuni",
+    "name_en": "Chicken Tantuni with Yogurt",
     "category": "tantuni",
     "price": 230,
     "description": "Tavuk tantuni, yoğurt ve sos",
+    "description_en": "Chicken tantuni served with yogurt and sauce",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1118,9 +1180,11 @@
   {
     "id": "et-tantuni-lavas",
     "name": "Et Tantuni Lavaş",
+    "name_en": "Beef Tantuni in Lavash",
     "category": "tantuni",
     "price": 300,
     "description": "Dana eti ve baharatlı tantuni lavaş",
+    "description_en": "Beef and spiced tantuni in lavash wrap",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1154,9 +1218,11 @@
   {
     "id": "ekmek-arasi-et-tantuni",
     "name": "Ekmek Arası Et Tantuni",
+    "name_en": "Beef Tantuni Sandwich",
     "category": "tantuni",
     "price": 320,
     "description": "Dana eti ve baharatlı tantuni ekmek",
+    "description_en": "Beef and spiced tantuni in bread",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1190,9 +1256,11 @@
   {
     "id": "yogurtlu-et-tantuni",
     "name": "Yoğurtlu Et Tantuni",
+    "name_en": "Beef Tantuni with Yogurt",
     "category": "tantuni",
     "price": 350,
     "description": "Et tantuni, yoğurt ve sos",
+    "description_en": "Beef tantuni served with yogurt and sauce",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1226,9 +1294,11 @@
   {
     "id": "pepsi-kutu",
     "name": "Pepsi (Kutu)",
+    "name_en": "Pepsi (Can)",
     "category": "diger",
     "price": 70,
     "description": "Kutu İçecek",
+    "description_en": "Canned Soft Drink",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1262,9 +1332,11 @@
   {
     "id": "pepsi-sise",
     "name": "Pepsi (Şişe)",
+    "name_en": "Pepsi (Bottle)",
     "category": "diger",
     "price": 50,
     "description": "Şişe İçecek",
+    "description_en": "Bottled Soft Drink",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1298,9 +1370,11 @@
   {
     "id": "yedigun-kutu",
     "name": "Yedigün (Kutu)",
+    "name_en": "Yedigun (Can)",
     "category": "diger",
     "price": 70,
     "description": "Kutu İçecek",
+    "description_en": "Canned Soft Drink",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1334,9 +1408,11 @@
   {
     "id": "yedigun-sise",
     "name": "Yedigün (Şişe)",
+    "name_en": "Yedigun (Bottle)",
     "category": "diger",
     "price": 50,
     "description": "Şişe İçecek",
+    "description_en": "Bottled Soft Drink",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1370,9 +1446,11 @@
   {
     "id": "baglar-gazoz",
     "name": "Bağlar Gazoz",
+    "name_en": "Baglar Soda",
     "category": "diger",
     "price": 50,
     "description": "Şişe İçecek",
+    "description_en": "Bottled local soda",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1406,9 +1484,11 @@
   {
     "id": "seven-up",
     "name": "Seven Up",
+    "name_en": "Seven Up (Can)",
     "category": "diger",
     "price": 70,
     "description": "Kutu İçecek",
+    "description_en": "Canned Soft Drink",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1442,9 +1522,11 @@
   {
     "id": "eksi-ayran",
     "name": "Ekşi Ayran",
+    "name_en": "Sour Ayran",
     "category": "diger",
     "price": 60,
     "description": "Ayran",
+    "description_en": "Ayran",
     "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1478,9 +1560,11 @@
   {
     "id": "lipton-cesitleri",
     "name": "Lipton (Çeşitleri)",
+    "name_en": "Lipton Ice Tea (Varieties)",
     "category": "diger",
     "price": 70,
     "description": "Kutu İçecek",
+    "description_en": "Canned Soft Drink",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1514,9 +1598,11 @@
   {
     "id": "tropicana-meyve-suyu",
     "name": "Tropicana (Meyve suyu)",
+    "name_en": "Tropicana Juice",
     "category": "diger",
     "price": 70,
     "description": "Kutu İçecek",
+    "description_en": "Canned Soft Drink",
     "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1550,9 +1636,11 @@
   {
     "id": "salgam",
     "name": "Şalgam",
+    "name_en": "Shalgam (Turnip Juice)",
     "category": "diger",
     "price": 50,
     "description": "İçecek",
+    "description_en": "Beverage",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1586,9 +1674,11 @@
   {
     "id": "meyveli-soda",
     "name": "Meyveli Soda",
+    "name_en": "Fruit Flavored Mineral Water",
     "category": "diger",
     "price": 40,
     "description": "İçecek",
+    "description_en": "Beverage",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1622,9 +1712,11 @@
   {
     "id": "ayran",
     "name": "Ayran",
+    "name_en": "Ayran",
     "category": "diger",
     "price": 50,
     "description": "İçecek",
+    "description_en": "Beverage",
     "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1658,9 +1750,11 @@
   {
     "id": "soda",
     "name": "Soda",
+    "name_en": "Mineral Water",
     "category": "diger",
     "price": 30,
     "description": "İçecek",
+    "description_en": "Beverage",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1694,9 +1788,11 @@
   {
     "id": "su",
     "name": "Su",
+    "name_en": "Water",
     "category": "diger",
     "price": 16,
     "description": "İçecek",
+    "description_en": "Beverage",
     "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1730,9 +1826,11 @@
   {
     "id": "eker-tatli",
     "name": "Eker Tatlı",
+    "name_en": "Eker Dessert",
     "category": "diger",
     "price": 45,
     "description": "Tatlı",
+    "description_en": "Dessert",
     "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1766,9 +1864,11 @@
   {
     "id": "patates-cips",
     "name": "Patates Cips",
+    "name_en": "French Fries",
     "category": "diger",
     "price": 30,
     "description": "Atıştırmalık",
+    "description_en": "Snack",
     "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1802,9 +1902,11 @@
   {
     "id": "kasarli-ekstra-sos",
     "name": "Kaşarlı (Ekstra Sos)",
+    "name_en": "Kashar Cheese (Extra)",
     "category": "diger",
     "price": 50,
     "description": "Peynir İlavesi",
+    "description_en": "Cheese Addition",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1838,9 +1940,11 @@
   {
     "id": "cedarli-ekstra-sos",
     "name": "Çedarlı (Ekstra Sos)",
+    "name_en": "Cheddar Cheese (Extra)",
     "category": "diger",
     "price": 50,
     "description": "Peynir İlavesi",
+    "description_en": "Cheese Addition",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
@@ -1874,9 +1978,11 @@
   {
     "id": "barbeku-ekstra-sos",
     "name": "Barbekü (Ekstra Sos)",
+    "name_en": "BBQ Sauce (Extra)",
     "category": "diger",
     "price": 30,
     "description": "Sos İlavesi",
+    "description_en": "Sauce Addition",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
