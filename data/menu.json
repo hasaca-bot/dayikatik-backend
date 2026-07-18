@@ -1,33 +1,789 @@
 [
   {
-    "id": "test-prod-12345",
-    "name": "PERSISTENCE_TEST_PRODUCT",
-    "category": "tantuni",
-    "price": 825,
-    "description": "A product to test database persistence",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80",
+    "id": "et-iskender",
+    "name": "Et İskender",
+    "category": "et",
+    "price": 350,
+    "description": "Muhteşem sos, et, biber ve yoğurt ile",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
-      "enerji": 0,
-      "yag": 0,
+      "enerji": 750,
+      "yag": 40,
       "doymus_yag": 0,
-      "karbonhidrat": 0,
+      "karbonhidrat": 55,
       "sekerler": 0,
       "lif": 0,
-      "protein": 0,
+      "protein": 40,
       "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 0,
+        "deger": 40,
         "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 0,
+        "deger": 55,
         "yuzde": 0
       },
       "yag": {
-        "deger": 0,
+        "deger": 40,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "et-beyti",
+    "name": "Et Beyti",
+    "category": "et",
+    "price": 310,
+    "description": "Muhteşem et döner ile",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 700,
+      "yag": 35,
+      "doymus_yag": 0,
+      "karbonhidrat": 60,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 35,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 35,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 60,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 35,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "beyti-tavuk",
+    "name": "Beyti Tavuk",
+    "category": "et",
+    "price": 250,
+    "description": "Muhteşem tavuk döner ile",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 600,
+      "yag": 25,
+      "doymus_yag": 0,
+      "karbonhidrat": 60,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 30,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 60,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 25,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-et-durum",
+    "name": "Katık Et Dürüm",
+    "category": "et",
+    "price": 220,
+    "description": "Muhteşem sos ve etin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 600,
+      "yag": 28,
+      "doymus_yag": 0,
+      "karbonhidrat": 55,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 30,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 55,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 28,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-et-ekmek-arasi",
+    "name": "Katık Et Ekmek Arası",
+    "category": "et",
+    "price": 260,
+    "description": "Muhteşem sos ve etin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 650,
+      "yag": 25,
+      "doymus_yag": 0,
+      "karbonhidrat": 75,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 30,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 75,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 25,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-katik-et-durum",
+    "name": "Zurna Katık Et Dürüm",
+    "category": "et",
+    "price": 250,
+    "description": "Muhteşem 40 cm katık et dürüm lezzeti",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 850,
+      "yag": 40,
+      "doymus_yag": 0,
+      "karbonhidrat": 80,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 45,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 45,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 80,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 40,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-et-menu-1",
+    "name": "Katık Et Menü 1",
+    "category": "et",
+    "price": 300,
+    "description": "Et dürüm, ayran, cips ve tatlı",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1100,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-et-menu-2",
+    "name": "Katık Et Menü 2",
+    "category": "et",
+    "price": 340,
+    "description": "Et dürüm, kutu içecek, cips ve tatlı",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1150,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "combo-et-menu-1",
+    "name": "Combo Et Menü 1",
+    "category": "et",
+    "price": 370,
+    "description": "Et dürüm, kutu içecek, cips ve tatlı (Ekstra büyük)",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1300,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "combo-et-menu-2",
+    "name": "Combo Et Menü 2",
+    "category": "et",
+    "price": 350,
+    "description": "Et dürüm, kutu içecek, cips ve tatlı (Ekstra büyük)",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1250,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-et-menu-1",
+    "name": "Zurna Et Menü 1",
+    "category": "et",
+    "price": 340,
+    "description": "Et dürüm, kutu içecek, cips ve tatlı",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1350,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-et-menu-2",
+    "name": "Zurna Et Menü 2",
+    "category": "et",
+    "price": 360,
+    "description": "Et dürüm, kutu içecek, cips ve tatlı",
+    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1400,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-tavuk",
+    "name": "Katık Tavuk",
+    "category": "tavuk",
+    "price": 160,
+    "description": "Muhteşem sos ve tavuk etinin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 500,
+      "yag": 20,
+      "doymus_yag": 0,
+      "karbonhidrat": 55,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 25,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 25,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 55,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 20,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "ekmek-arasi-tavuk",
+    "name": "Ekmek Arası Tavuk",
+    "category": "tavuk",
+    "price": 200,
+    "description": "Muhteşem sos ve tavuk etinin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 550,
+      "yag": 18,
+      "doymus_yag": 0,
+      "karbonhidrat": 75,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 25,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 25,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 75,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 18,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-kasarli-tavuk",
+    "name": "Katık Kaşarlı Tavuk",
+    "category": "tavuk",
+    "price": 210,
+    "description": "Muhteşem sos, kaşar ve tavuk etinin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 600,
+      "yag": 28,
+      "doymus_yag": 0,
+      "karbonhidrat": 56,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 32,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 32,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 56,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 28,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-cedarli-tavuk",
+    "name": "Katık Çedarlı Tavuk",
+    "category": "tavuk",
+    "price": 210,
+    "description": "Muhteşem sos, çedar peynirinin ve tavuk etinin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 610,
+      "yag": 30,
+      "doymus_yag": 0,
+      "karbonhidrat": 56,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 30,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 56,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 30,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "katik-kasarli-mantarli",
+    "name": "Katık Kaşarlı Mantarlı",
+    "category": "tavuk",
+    "price": 240,
+    "description": "40 cm katık tavuk dürüm, kaşarın eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 850,
+      "yag": 40,
+      "doymus_yag": 0,
+      "karbonhidrat": 80,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 40,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 40,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 80,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 40,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-tavuk",
+    "name": "Zurna Tavuk",
+    "category": "tavuk",
+    "price": 190,
+    "description": "40 cm katık tavuk dürüm lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 750,
+      "yag": 30,
+      "doymus_yag": 0,
+      "karbonhidrat": 80,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 38,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 38,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 80,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 30,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-katik-kasarli",
+    "name": "Zurna Katık Kaşarlı",
+    "category": "tavuk",
+    "price": 240,
+    "description": "40 cm katık tavuk dürüm, kaşarın eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 850,
+      "yag": 38,
+      "doymus_yag": 0,
+      "karbonhidrat": 82,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 45,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 45,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 82,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 38,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-katik-cedarli",
+    "name": "Zurna Katık Çedarlı",
+    "category": "tavuk",
+    "price": 240,
+    "description": "40 cm katık tavuk dürüm, çedar peynirinin eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 860,
+      "yag": 40,
+      "doymus_yag": 0,
+      "karbonhidrat": 82,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 43,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 43,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 82,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 40,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-barbeku-soslu",
+    "name": "Zurna Barbekü Soslu",
+    "category": "tavuk",
+    "price": 220,
+    "description": "40 cm katık tavuk dürüm, barbekünün eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 800,
+      "yag": 30,
+      "doymus_yag": 0,
+      "karbonhidrat": 95,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 38,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 38,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 95,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 30,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "zurna-katik-mantarli",
+    "name": "Zurna Katık Mantarlı",
+    "category": "tavuk",
+    "price": 220,
+    "description": "40 cm katık tavuk dürüm ve mantarın eşsiz lezzeti",
+    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 770,
+      "yag": 31,
+      "doymus_yag": 0,
+      "karbonhidrat": 83,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 40,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 40,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 83,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 31,
         "yuzde": 0
       }
     },
@@ -37,1681 +793,1118 @@
   },
   {
     "id": "katik-tavuk-menu-1",
-    "name": "Katık Tavuk Döner Dürüm Menü 1",
+    "name": "Katık Tavuk Menü 1",
     "category": "tavuk",
-    "price": 255,
-    "description": "Katık tavuk döner dürüm, patates kızartması ve ayran (300 ml) ile birlikte.",
+    "price": 240,
+    "description": "Tavuk dürüm, ayran, cips ve tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 450 g",
+      "porsiyon": "1 Porsiyon",
       "enerji": 1000,
-      "yag": 34,
-      "doymus_yag": 13.6,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 46,
-      "tuz": 3.5
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 46,
-        "yuzde": 24
+        "deger": null,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 59
+        "deger": null,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 34,
-        "yuzde": 17
+        "deger": null,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
     "id": "katik-tavuk-menu-2",
-    "name": "Katık Tavuk Döner Dürüm Menü 2",
+    "name": "Katık Tavuk Menü 2",
     "category": "tavuk",
-    "price": 270,
-    "description": "Katık tavuk döner dürüm, patates kızartması ve kutu içecek (330 ml) ile birlikte.",
+    "price": 260,
+    "description": "Tavuk dürüm, kutu içecek, cips ve tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 480 g",
-      "enerji": 1000,
-      "yag": 34,
-      "doymus_yag": 13.6,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 46,
-      "tuz": 3.5
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1050,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 46,
-        "yuzde": 24
+        "deger": null,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 59
+        "deger": null,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 34,
-        "yuzde": 17
+        "deger": null,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-tavuk-menu-1",
-    "name": "Zurna Tavuk Menü 1",
-    "category": "tavuk",
-    "price": 275,
-    "description": "Doyurucu zurna tavuk döner dürüm, patates kızartması ve ayran (300 ml) ile birlikte.",
-    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Menü - 550 g",
-      "enerji": 1000,
-      "yag": 34,
-      "doymus_yag": 13.6,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 46,
-      "tuz": 3.5
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 46,
-        "yuzde": 24
-      },
-      "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 59
-      },
-      "yag": {
-        "deger": 34,
-        "yuzde": 17
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-tavuk-menu-2",
-    "name": "Zurna Tavuk Menü 2",
-    "category": "tavuk",
-    "price": 295,
-    "description": "Doyurucu zurna tavuk döner dürüm, patates kızartması ve kutu içecek (330 ml) ile birlikte.",
-    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Menü - 580 g",
-      "enerji": 1000,
-      "yag": 34,
-      "doymus_yag": 13.6,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 46,
-      "tuz": 3.5
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 46,
-        "yuzde": 24
-      },
-      "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 59
-      },
-      "yag": {
-        "deger": 34,
-        "yuzde": 17
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-et-menu-1",
-    "name": "Katık Et Döner Dürüm Menü 1",
-    "category": "et",
-    "price": 300,
-    "description": "Katık et döner dürüm, patates kızartması ve ayran (300 ml) ile birlikte.",
-    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Menü - 450 g",
-      "enerji": 1070,
-      "yag": 40,
-      "doymus_yag": 16,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 54,
-      "tuz": 3.5
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 54,
-        "yuzde": 26
-      },
-      "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 55
-      },
-      "yag": {
-        "deger": 40,
-        "yuzde": 19
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-et-menu-2",
-    "name": "Katık Et Döner Dürüm Menü 2",
-    "category": "et",
-    "price": 310,
-    "description": "Katık et döner dürüm, patates kızartması ve kutu içecek (330 ml) ile birlikte.",
-    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Menü - 480 g",
-      "enerji": 1070,
-      "yag": 40,
-      "doymus_yag": 16,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 54,
-      "tuz": 3.5
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 54,
-        "yuzde": 26
-      },
-      "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 55
-      },
-      "yag": {
-        "deger": 40,
-        "yuzde": 19
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
     "id": "combo-tavuk-menu-1",
     "name": "Combo Tavuk Menü 1",
     "category": "tavuk",
     "price": 280,
-    "description": "Katık tavuk döner dürüm, patates kızartması, günün tatlısı ve ayran (300 ml) ile birlikte.",
+    "description": "Tavuk dürüm, ayran, cips ve tatlı (Ekstra büyük)",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 550 g",
-      "enerji": 1000,
-      "yag": 34,
-      "doymus_yag": 13.6,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 46,
-      "tuz": 3.5
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1200,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 46,
-        "yuzde": 24
+        "deger": null,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 59
+        "deger": null,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 34,
-        "yuzde": 17
+        "deger": null,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
     "id": "combo-tavuk-menu-2",
     "name": "Combo Tavuk Menü 2",
     "category": "tavuk",
     "price": 300,
-    "description": "Katık tavuk döner dürüm, patates kızartması, günün tatlısı ve kutu içecek (330 ml) ile birlikte.",
+    "description": "Tavuk dürüm, ayran, cips ve tatlı (Ekstra büyük)",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 580 g",
-      "enerji": 1000,
-      "yag": 34,
-      "doymus_yag": 13.6,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 46,
-      "tuz": 3.5
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1250,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 46,
-        "yuzde": 24
+        "deger": null,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 59
+        "deger": null,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 34,
-        "yuzde": 17
+        "deger": null,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
-    "id": "combo-et-menu-1",
-    "name": "Combo Et Menü 1",
-    "category": "et",
-    "price": 320,
-    "description": "Katık et döner dürüm, patates kızartması, günün tatlısı ve ayran (300 ml) ile birlikte.",
+    "id": "zurna-tavuk-menu-1",
+    "name": "Zurna Tavuk Menü 1",
+    "category": "tavuk",
+    "price": 270,
+    "description": "Tavuk dürüm, ayran, cips and tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 550 g",
-      "enerji": 1070,
-      "yag": 40,
-      "doymus_yag": 16,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 54,
-      "tuz": 3.5
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1250,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 54,
-        "yuzde": 26
+        "deger": null,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 55
+        "deger": null,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 40,
-        "yuzde": 19
+        "deger": null,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
-    "id": "combo-et-menu-2",
-    "name": "Combo Et Menü 2",
-    "category": "et",
-    "price": 350,
-    "description": "Katık et döner dürüm, patates kızartması, günün tatlısı ve kutu içecek (330 ml) ile birlikte.",
+    "id": "zurna-tavuk-menu-2",
+    "name": "Zurna Tavuk Menü 2",
+    "category": "tavuk",
+    "price": 290,
+    "description": "Tavuk dürüm, ayran, cips ve tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 580 g",
-      "enerji": 1070,
-      "yag": 40,
-      "doymus_yag": 16,
-      "karbonhidrat": 115,
-      "sekerler": 15,
-      "lif": 6.8,
-      "protein": 54,
-      "tuz": 3.5
+      "porsiyon": "1 Porsiyon",
+      "enerji": 1300,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 54,
-        "yuzde": 26
+        "deger": null,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 115,
-        "yuzde": 55
+        "deger": null,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 40,
-        "yuzde": 19
+        "deger": null,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
-    "id": "et-tantuni-durum",
-    "name": "Et Tantuni Dürüm",
+    "id": "tavuk-tantuni-lavas",
+    "name": "Tavuk Tantuni Lavaş",
+    "category": "tantuni",
+    "price": 180,
+    "description": "Tavuk eti ve baharatlı tantuni lavaş",
+    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 450,
+      "yag": 18,
+      "doymus_yag": 0,
+      "karbonhidrat": 45,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 25,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 25,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 45,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 18,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "ekmek-arasi-tavuk-tantuni",
+    "name": "Ekmek Arası Tavuk Tantuni",
+    "category": "tantuni",
+    "price": 200,
+    "description": "Tavuk eti ve baharatlı tantuni ekmek",
+    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 550,
+      "yag": 18,
+      "doymus_yag": 0,
+      "karbonhidrat": 65,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 25,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 25,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 65,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 18,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "yogurtlu-tavuk-tantuni",
+    "name": "Yoğurtlu Tavuk Tantuni",
+    "category": "tantuni",
+    "price": 230,
+    "description": "Tavuk tantuni, yoğurt ve sos",
+    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": 550,
+      "yag": 22,
+      "doymus_yag": 0,
+      "karbonhidrat": 50,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 30,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": 50,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": 22,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "et-tantuni-lavas",
+    "name": "Et Tantuni Lavaş",
     "category": "tantuni",
     "price": 300,
-    "description": "Lavaşa sarılı nefis dana etli tantuni, soğan ve maydanoz eşliğinde.",
+    "description": "Dana eti ve baharatlı tantuni lavaş",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 250 g",
-      "enerji": 720,
-      "yag": 28,
-      "doymus_yag": 11.2,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 48,
-      "tuz": 2.1
+      "porsiyon": "1 Porsiyon",
+      "enerji": 550,
+      "yag": 25,
+      "doymus_yag": 0,
+      "karbonhidrat": 45,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 48,
-        "yuzde": 32
+        "deger": 30,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 49
+        "deger": 45,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 28,
-        "yuzde": 19
+        "deger": 25,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
-    "id": "et-tantuni-ekmek-arasi",
-    "name": "Et Tantuni Ekmek Arası",
+    "id": "ekmek-arasi-et-tantuni",
+    "name": "Ekmek Arası Et Tantuni",
     "category": "tantuni",
     "price": 320,
-    "description": "Çıtır ekmek arasında marine dana eti tantuni, soğan ve domates ile.",
+    "description": "Dana eti ve baharatlı tantuni ekmek",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 300 g",
-      "enerji": 720,
-      "yag": 28,
-      "doymus_yag": 11.2,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 48,
-      "tuz": 2.1
+      "porsiyon": "1 Porsiyon",
+      "enerji": 650,
+      "yag": 25,
+      "doymus_yag": 0,
+      "karbonhidrat": 65,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 30,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 48,
-        "yuzde": 32
+        "deger": 30,
+        "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 49
+        "deger": 65,
+        "yuzde": 0
       },
       "yag": {
-        "deger": 28,
-        "yuzde": 19
+        "deger": 25,
+        "yuzde": 0
       }
     },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   },
   {
     "id": "yogurtlu-et-tantuni",
     "name": "Yoğurtlu Et Tantuni",
     "category": "tantuni",
-    "price": 320,
-    "description": "Kızarmış lavaş dilimleri üzerinde et tantuni, süzme yoğurt ve tereyağı sosuyla.",
+    "price": 350,
+    "description": "Et tantuni, yoğurt ve sos",
     "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 350 g",
-      "enerji": 720,
-      "yag": 28,
-      "doymus_yag": 11.2,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 48,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 48,
-        "yuzde": 32
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 49
-      },
-      "yag": {
-        "deger": 28,
-        "yuzde": 19
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "tavuk-tantuni-durum",
-    "name": "Tavuk Tantuni Dürüm",
-    "category": "tantuni",
-    "price": 190,
-    "description": "İnce lavaşa sarılı nefis tavuk tantuni, baharatlar ve yeşilliklerle.",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 250 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "tavuk-tantuni-ekmek-arasi",
-    "name": "Tavuk Tantuni Ekmek Arası",
-    "category": "tantuni",
-    "price": 190,
-    "description": "Çıtır ekmek arasında tavuk tantuni, domates, soğan ve baharatlar ile.",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 300 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "tavuk-tantuni-yogurtlu",
-    "name": "Tavuk Tantuni Yoğurtlu",
-    "category": "tantuni",
-    "price": 250,
-    "description": "Dilimlenmiş lavaş üzerinde tavuk tantuni, yoğurt ve özel tereyağı sosuyla.",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 350 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-mantarli-durum",
-    "name": "Zurna Mantarlı Dürüm",
-    "category": "tavuk",
-    "price": 240,
-    "description": "Mantar ve tavuk dönerin zurna lavaşta enfes buluşması, özel sos ile.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 320 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-cheddarli-tavuk-durum",
-    "name": "Zurna Cheddarlı Tavuk Dürüm",
-    "category": "tavuk",
-    "price": 240,
-    "description": "Erimiş cheddar peyniri ve zurna lavaşta tavuk döner, patates ve sos ile.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 330 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, cheddar peyniri, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-kasarli-tavuk-durum",
-    "name": "Zurna Kaşarlı Tavuk Dürüm",
-    "category": "tavuk",
-    "price": 240,
-    "description": "Erimiş kaşar peyniri ve zurna lavaşta tavuk döner, patates ve sos ile.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 330 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, kaşar peyniri, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-barbeku-soslu-zurna-tavuk",
-    "name": "Katık Barbekü Soslu Zurna Tavuk",
-    "category": "tavuk",
-    "price": 230,
-    "description": "Özel barbekü sosuyla zurna lavaşta tavuk döner, patates ve mayonez ile.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 320 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, barbekü sos, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-barbeku-soslu-tavuk-durum",
-    "name": "Katık Barbekü Soslu Tavuk Dürüm",
-    "category": "tavuk",
-    "price": 210,
-    "description": "Barbekü soslu, patatesli ve özel soslu katık tavuk döner dürüm.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 250 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, barbekü sos, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-tavuk-doner-durum",
-    "name": "Zurna Tavuk Döner Dürüm",
-    "category": "tavuk",
-    "price": 200,
-    "description": "Bol tavuk döner, patates ve özel katık soslu doyurucu zurna dürüm.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 300 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-mantarli-tavuk-doner-durum",
-    "name": "Katık Mantarlı Tavuk Döner Dürüm",
-    "category": "tavuk",
-    "price": 200,
-    "description": "Tavuk döner, sote mantar, patates kızartması ve özel soslu dürüm.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 260 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-kasarli-tavuk-doner-durum",
-    "name": "Katık Kaşarlı Tavuk Döner Dürüm",
-    "category": "tavuk",
-    "price": 210,
-    "description": "Kaşar peynirli, patatesli ve özel soslu katık tavuk döner dürüm.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 260 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, kaşar peyniri, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-cheddarli-tavuk-doner-durum",
-    "name": "Katık Cheddarlı Tavuk Döner Dürüm",
-    "category": "tavuk",
-    "price": 210,
-    "description": "Cheddar peynirli, patatesli ve özel soslu katık tavuk döner dürüm.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 260 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, cheddar peyniri, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-tavuk-doner-durum",
-    "name": "Katık Tavuk Döner Dürüm",
-    "category": "tavuk",
-    "price": 170,
-    "description": "Geleneksel katık sosu, patates kızartması ve tavuk döner dürüm.",
-    "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 240 g",
-      "enerji": 650,
-      "yag": 22,
-      "doymus_yag": 8.8,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 40,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 40,
-        "yuzde": 30
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 54
-      },
-      "yag": {
-        "deger": 22,
-        "yuzde": 16
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "ekmek-arasi-et-doner",
-    "name": "Ekmek Arası Et Döner",
-    "category": "et",
-    "price": 250,
-    "description": "Çıtır ekmek arasında nefis yaprak et döner, soğan, domates ve yeşillik ile.",
-    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 280 g",
-      "enerji": 720,
-      "yag": 28,
-      "doymus_yag": 11.2,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 48,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 48,
-        "yuzde": 32
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 49
-      },
-      "yag": {
-        "deger": 28,
-        "yuzde": 19
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "zurna-katik-et-doner-durum",
-    "name": "Zurna Katık Et Döner Dürüm",
-    "category": "et",
-    "price": 250,
-    "description": "Zurna lavaşta bol et döner, patates ve özel katık soslu dürüm.",
-    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 300 g",
-      "enerji": 720,
-      "yag": 28,
-      "doymus_yag": 11.2,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 48,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 48,
-        "yuzde": 32
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 49
-      },
-      "yag": {
-        "deger": 28,
-        "yuzde": 19
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "katik-et-doner-durum",
-    "name": "Katık Et Döner Dürüm",
-    "category": "et",
-    "price": 220,
-    "description": "Özel katık sosu, patates kızartması ve yaprak et döner dürüm.",
-    "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 240 g",
-      "enerji": 720,
-      "yag": 28,
-      "doymus_yag": 11.2,
-      "karbonhidrat": 72,
-      "sekerler": 4.2,
-      "lif": 3.6,
-      "protein": 48,
-      "tuz": 2.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 48,
-        "yuzde": 32
-      },
-      "karbonhidrat": {
-        "deger": 72,
-        "yuzde": 49
-      },
-      "yag": {
-        "deger": 28,
-        "yuzde": 19
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "soya",
-        "name": "Soya içerebilir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "veggie-durum",
-    "name": "Veggie Dürüm",
-    "category": "diger",
-    "price": 100,
-    "description": "Özel lavaşta bol patates kızartması, yeşillik, domates, soğan ve katık sosu.",
-    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 220 g",
-      "enerji": 420,
-      "yag": 12,
-      "doymus_yag": 3,
-      "karbonhidrat": 65,
-      "sekerler": 4.5,
-      "lif": 5.2,
-      "protein": 9.5,
-      "tuz": 1.2
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 9.5,
-        "yuzde": 11
-      },
-      "karbonhidrat": {
-        "deger": 65,
-        "yuzde": 75
-      },
-      "yag": {
-        "deger": 12,
-        "yuzde": 14
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "gluten",
-        "name": "Gluten içerir"
-      },
-      {
-        "id": "hardal",
-        "name": "Hardal içerebilir"
-      }
-    ],
-    "icindekiler": "Patates kızartması, yeşillik (marul, maydanoz), domates, soğan, buğday unundan yapılmış lavaş (gluten içerir), sıvı yağ, baharat karışımı, tuz.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "kutu-icecekler",
-    "name": "Kutu İçecekler (330 ml)",
-    "category": "diger",
-    "price": 85,
-    "description": "Pepsi, Yedigün, Fruko, Lipton veya Tropicana seçenekleriyle.",
-    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Kutu - 330 ml",
-      "enerji": 145,
-      "yag": 0,
+      "porsiyon": "1 Porsiyon",
+      "enerji": 680,
+      "yag": 30,
       "doymus_yag": 0,
-      "karbonhidrat": 36.3,
-      "sekerler": 36.3,
-      "lif": 0,
-      "protein": 0,
-      "tuz": 0.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 0,
-        "yuzde": 0
-      },
-      "karbonhidrat": {
-        "deger": 36.3,
-        "yuzde": 100
-      },
-      "yag": {
-        "deger": 0,
-        "yuzde": 0
-      }
-    },
-    "alerjenler": [],
-    "icindekiler": "Su, şeker veya fruktoz-glukoz şurubu, karbondioksit, renklendirici (karamel), asitliği düzenleyiciler, kafein, doğal aromalar.",
-    "katki_maddesi_icermez": false
-  },
-  {
-    "id": "ayran",
-    "name": "Ayran (300 ml)",
-    "category": "diger",
-    "price": 60,
-    "description": "Milli içeceğimiz, buz gibi köpüklü ayran.",
-    "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Bardak - 300 ml",
-      "enerji": 114,
-      "yag": 4.5,
-      "doymus_yag": 2.8,
-      "karbonhidrat": 8.4,
-      "sekerler": 8.4,
-      "lif": 0,
-      "protein": 6,
-      "tuz": 1.8
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 6,
-        "yuzde": 32
-      },
-      "karbonhidrat": {
-        "deger": 8.4,
-        "yuzde": 44
-      },
-      "yag": {
-        "deger": 4.5,
-        "yuzde": 24
-      }
-    },
-    "alerjenler": [
-      {
-        "id": "sut",
-        "name": "Süt ve süt ürünleri içerir"
-      }
-    ],
-    "icindekiler": "Yoğurt, su, tuz.",
-    "katki_maddesi_icermez": true
-  },
-  {
-    "id": "soda",
-    "name": "Soda (200 ml)",
-    "category": "diger",
-    "price": 25,
-    "description": "Doğal zengin mineralli maden suyu.",
-    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Şişe - 200 ml",
-      "enerji": 0,
-      "yag": 0,
-      "doymus_yag": 0,
-      "karbonhidrat": 0,
+      "karbonhidrat": 50,
       "sekerler": 0,
       "lif": 0,
-      "protein": 0,
-      "tuz": 0.1
-    },
-    "makrolar": {
-      "protein": {
-        "deger": 0,
-        "yuzde": 0
-      },
-      "karbonhidrat": {
-        "deger": 0,
-        "yuzde": 0
-      },
-      "yag": {
-        "deger": 0,
-        "yuzde": 0
-      }
-    },
-    "alerjenler": [],
-    "icindekiler": "Doğal kaynak suyu.",
-    "katki_maddesi_icermez": false
-  },
-  {
-    "id": "su",
-    "name": "Su (500 ml)",
-    "category": "diger",
-    "price": 20,
-    "description": "Doğal kaynak suyu.",
-    "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
-    "besin_degerleri": {
-      "porsiyon": "1 Şişe - 500 ml",
-      "enerji": 0,
-      "yag": 0,
-      "doymus_yag": 0,
-      "karbonhidrat": 0,
-      "sekerler": 0,
-      "lif": 0,
-      "protein": 0,
+      "protein": 35,
       "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 0,
+        "deger": 35,
         "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 0,
+        "deger": 50,
         "yuzde": 0
       },
       "yag": {
-        "deger": 0,
+        "deger": 30,
         "yuzde": 0
       }
     },
     "alerjenler": [],
-    "icindekiler": "Doğal kaynak suyu.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "pepsi-kutu",
+    "name": "Pepsi (Kutu)",
+    "category": "diger",
+    "price": 70,
+    "description": "Kutu İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "pepsi-sise",
+    "name": "Pepsi (Şişe)",
+    "category": "diger",
+    "price": 50,
+    "description": "Şişe İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "yedigun-kutu",
+    "name": "Yedigün (Kutu)",
+    "category": "diger",
+    "price": 70,
+    "description": "Kutu İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "yedigun-sise",
+    "name": "Yedigün (Şişe)",
+    "category": "diger",
+    "price": 50,
+    "description": "Şişe İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "baglar-gazoz",
+    "name": "Bağlar Gazoz",
+    "category": "diger",
+    "price": 50,
+    "description": "Şişe İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "seven-up",
+    "name": "Seven Up",
+    "category": "diger",
+    "price": 70,
+    "description": "Kutu İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "eksi-ayran",
+    "name": "Ekşi Ayran",
+    "category": "diger",
+    "price": 60,
+    "description": "Ayran",
+    "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "lipton-cesitleri",
+    "name": "Lipton (Çeşitleri)",
+    "category": "diger",
+    "price": 70,
+    "description": "Kutu İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "tropicana-meyve-suyu",
+    "name": "Tropicana (Meyve suyu)",
+    "category": "diger",
+    "price": 70,
+    "description": "Kutu İçecek",
+    "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "salgam",
+    "name": "Şalgam",
+    "category": "diger",
+    "price": 50,
+    "description": "İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "meyveli-soda",
+    "name": "Meyveli Soda",
+    "category": "diger",
+    "price": 40,
+    "description": "İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "ayran",
+    "name": "Ayran",
+    "category": "diger",
+    "price": 50,
+    "description": "İçecek",
+    "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "soda",
+    "name": "Soda",
+    "category": "diger",
+    "price": 30,
+    "description": "İçecek",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "su",
+    "name": "Su",
+    "category": "diger",
+    "price": 16,
+    "description": "İçecek",
+    "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "eker-tatli",
+    "name": "Eker Tatlı",
+    "category": "diger",
+    "price": 45,
+    "description": "Tatlı",
+    "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "patates-cips",
+    "name": "Patates Cips",
+    "category": "diger",
+    "price": 30,
+    "description": "Atıştırmalık",
+    "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "kasarli-ekstra-sos",
+    "name": "Kaşarlı (Ekstra Sos)",
+    "category": "diger",
+    "price": 50,
+    "description": "Peynir İlavesi",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "cedarli-ekstra-sos",
+    "name": "Çedarlı (Ekstra Sos)",
+    "category": "diger",
+    "price": 50,
+    "description": "Peynir İlavesi",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
+  },
+  {
+    "id": "barbeku-ekstra-sos",
+    "name": "Barbekü (Ekstra Sos)",
+    "category": "diger",
+    "price": 30,
+    "description": "Sos İlavesi",
+    "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
+    "besin_degerleri": {
+      "porsiyon": "1 Porsiyon",
+      "enerji": null,
+      "yag": null,
+      "doymus_yag": 0,
+      "karbonhidrat": null,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": null,
+      "tuz": 0
+    },
+    "makrolar": {
+      "protein": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "karbonhidrat": {
+        "deger": null,
+        "yuzde": 0
+      },
+      "yag": {
+        "deger": null,
+        "yuzde": 0
+      }
+    },
+    "alerjenler": [],
+    "icindekiler": "",
+    "katki_maddesi_icermez": false
   }
 ]

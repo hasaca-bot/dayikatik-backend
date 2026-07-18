@@ -3,6 +3,24 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-18 16:05 +03:00] — Menü Verilerinin Normalizasyonu ve Veritabanı Seeding İşlemleri
+
+### ➕ Eklenen Dosyalar
+- `backend/seedNewMenu.js` — Dayı Katık restoranının güncel menü verilerini parse edip veritabanına ekleyen dinamik seeding script'i.
+
+### 📝 Düzenlenen Dosyalar
+- `backend/seedData.js` — Kategori isimleri güncel Türkçe isimleriyle güncellendi (örn: "Tavuk Döner" -> "Tavuk Ürünleri", "Diğer & İçecek" -> "İçecekler ve Yan Ürünler").
+- `backend/db.js` — Kategori isimlerinin İngilizce çevirileri güncellendi ("Chicken Products", "Meat Products", "Tantuni Products", "Drinks & Sides").
+- `data/menu.json` — 53 adet güncellenmiş ve normalize edilmiş menü ürünüyle yeniden oluşturuldu.
+
+### ⚙️ Açıklama
+- Ham menü verileri parse edilerek isim, kategori, açıklama, fiyat (TL) ve makro/besin değerleri ayrıştırıldı.
+- Besin değerlerindeki "Tahmini", "kcal" ve "g" gibi metinler temizlenerek sadece sayısal değerler halinde veritabanına kaydedilmesi sağlandı.
+- İçecekler ve yan ürünler gibi besin değeri belirtilmeyen tüm menü kalemlerinin kalori ve makro değerleri veritabanı şemasına uygun olarak `null` olarak tanımlandı.
+- Eski ürün resimlerinin kaybolmaması için eski veritabanı kayıtlarından ürün ID'sine göre resim eşleştirmesi yapıldı; yeni eklenen ürünler için ise yüksek kaliteli Unsplash yemek ve içecek resimleri atandı.
+- Seeding script'i çalıştırılarak yerel SQLite veritabanı güncellendi ve Render/Neon.tech (PostgreSQL) ortamları için de uyumlu hale getirildi.
+
+---
 ## [2026-07-15 22:50 +03:00] — Bildirim Gizleme, Keep-Alive ve Veri Kalıcılığı Güvenliği
 
 ### 🛠️ Giderilen Hatalar ve Yapılan Düzenlemeler

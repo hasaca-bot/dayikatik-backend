@@ -322,9 +322,10 @@ async function runSeeds() {
     let index = 1;
     for (const [slug, data] of Object.entries(defaultCategoriesMap)) {
       let nameEn = data.name;
-      if (slug === 'tavuk') nameEn = 'Chicken Doner';
-      if (slug === 'et') nameEn = 'Beef Doner';
-      if (slug === 'diger') nameEn = 'Sides & Drinks';
+      if (slug === 'tavuk') nameEn = 'Chicken Products';
+      if (slug === 'et') nameEn = 'Meat Products';
+      if (slug === 'tantuni') nameEn = 'Tantuni Products';
+      if (slug === 'diger') nameEn = 'Drinks & Sides';
 
       if (dbDriver.type === 'pg') {
         await dbDriver.run(
