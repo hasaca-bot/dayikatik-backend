@@ -5935,8 +5935,13 @@ async function syncPushSubscriptionSilently() {
   try {
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.getSubscription();
-    if (!subscription) return;
-    
+    if (!subscription) {
+      // Permission is already granted but no local subscription exists yet
+      // (e.g. an earlier subscribe attempt failed silently) — try to create one now.
+      await subscribeUserToPush();
+      return;
+    }
+
     const { browser, platform } = getBrowserInfo();
     const payload = {
       token: subscription,

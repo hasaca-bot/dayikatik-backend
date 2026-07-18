@@ -3157,17 +3157,37 @@ body.theme-bw .rez-select-trigger:hover {
               <label class="admin-form-label">URL</label>
               <input type="url" id="pushUrl" class="admin-input" oninput="updatePushPreview()" placeholder="https://...">
             </div>
-            <input type="hidden" id="pushImage" value="">
+            <div style="margin-bottom:15px;">
+              <label class="admin-form-label">Görsel</label>
+              <input type="file" id="pushImageFile" class="admin-input" accept="image/png,image/jpeg,image/webp" onchange="handlePushImageUpload(this)">
+              <input type="hidden" id="pushImage" value="">
+            </div>
+            <div style="margin-bottom:15px;">
+              <label class="admin-form-label">Hedef Kitle</label>
+              <select id="pushTarget" class="admin-input">
+                <option value="all">Tüm Aboneler</option>
+                <option value="permitted">İzin Verenler</option>
+                <option value="test">Test Kullanıcıları</option>
+              </select>
+            </div>
+            <div style="margin-bottom:15px;">
+              <label class="admin-form-label">Gönderim Zamanı</label>
+              <select id="pushTimeOption" class="admin-input" onchange="toggleScheduledTimeInput()">
+                <option value="now">Şimdi Gönder</option>
+                <option value="scheduled">Zamanla</option>
+              </select>
+            </div>
+            <div id="scheduledTimeWrapper" style="display:none;margin-bottom:15px;">
+              <label class="admin-form-label">Planlanan Tarih ve Saat</label>
+              <input type="datetime-local" id="pushScheduledAt" class="admin-input">
+            </div>
             <input type="hidden" id="pushIcon" value="">
             <input type="hidden" id="pushBtnText" value="">
             <input type="hidden" id="pushType" value="kampanya">
-            <input type="hidden" id="pushTarget" value="all">
             <input type="hidden" id="pushPriority" value="normal">
             <input type="hidden" id="pushTtl" value="24">
             <input type="hidden" id="pushTag" value="">
             <input type="hidden" id="pushCollapseKey" value="">
-            <input type="hidden" id="pushTimeOption" value="now">
-            <input type="hidden" id="pushScheduledAt" value="">
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                <button class="admin-btn secondary" style="margin:0;" onclick="sendTestPush()">Test</button>
                <button class="admin-btn" style="margin:0; background:var(--fire);" onclick="openPushConfirmModal()">Gönder</button>
@@ -3249,8 +3269,8 @@ body.theme-bw .rez-select-trigger:hover {
 
 
 <!-- PUSH CONFIRM MODAL -->
-<div id="pushConfirmModal" class="admin-modal" style="display:none;">
-  <div class="admin-modal-content">
+<div id="pushConfirmModal" class="admin-modal-backdrop" onclick="closePushConfirmModal()">
+  <div class="admin-modal-card" onclick="event.stopPropagation()">
     <h2 data-i18n="push_confirm_title">Bildirimi Gönder?</h2>
     <div style="text-align:left;font-size:0.9rem;display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
       <div><strong>Başlık:</strong> <span id="confirmPushTitle"></span></div>
