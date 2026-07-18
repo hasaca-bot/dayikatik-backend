@@ -3117,6 +3117,9 @@ const i18nData = {
     info_rez_title: "Kolay Rezervasyon",
     info_rez_desc: "Masa Ayırtın",
     sec_tag_menu: "Ne Yesek?",
+    install_banner_text: "Dayı Katık'ı ana ekranına ekle, tek tıkla sipariş ver!",
+    install_banner_btn: "Ekle",
+    install_banner_ios_text: "Ana ekrana eklemek için altta Paylaş ikonuna, sonra 'Ana Ekrana Ekle'ye dokunun",
     lbl_hour: "Saat",
     menu_heading: "Menümüz",
     menu_subheading: "Seçkin lezzetlerimizi inceleyin",
@@ -3299,6 +3302,9 @@ const i18nData = {
     info_rez_title: "Easy Reservation",
     info_rez_desc: "Book a Table",
     sec_tag_menu: "What to Eat?",
+    install_banner_text: "Add Dayı Katık to your home screen, order in one tap!",
+    install_banner_btn: "Add",
+    install_banner_ios_text: "To add to home screen, tap the Share icon below, then 'Add to Home Screen'",
     lbl_hour: "Time",
     menu_heading: "Our Menu",
     menu_subheading: "Browse our select delicacies",
@@ -5956,6 +5962,81 @@ window.addEventListener('load', () => {
     setTimeout(checkPushSubscription, 1000);
   }
 });
+
+// ── "ANA EKRANA EKLE" INSTALL BANNER ──
+let deferredInstallPrompt = null;
+const INSTALL_DISMISS_KEY = 'install-banner-dismissed';
+const INSTALL_DISMISS_MS = 7 * 24 * 60 * 60 * 1000;
+
+function isAppStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+function isInstallDismissed() {
+  const ts = localStorage.getItem(INSTALL_DISMISS_KEY);
+  return ts && (Date.now() - parseInt(ts) < INSTALL_DISMISS_MS);
+}
+function isIOSDevice() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  if (!isAppStandalone() && !isInstallDismissed()) {
+    setTimeout(showInstallBanner, 4000);
+  }
+});
+
+window.addEventListener('load', () => {
+  if (isIOSDevice() && !isAppStandalone() && !isInstallDismissed()) {
+    setTimeout(showInstallBannerIOS, 4000);
+  }
+});
+
+function showInstallBanner() {
+  const el = document.getElementById('installBanner');
+  const btn = document.getElementById('installBannerActionBtn');
+  const txt = document.getElementById('installBannerText');
+  if (!el || !btn || !txt) return;
+  txt.textContent = i18nData[window.currentLanguage].install_banner_text;
+  btn.style.display = 'inline-block';
+  btn.textContent = i18nData[window.currentLanguage].install_banner_btn;
+  el.style.display = 'flex';
+}
+
+function showInstallBannerIOS() {
+  const el = document.getElementById('installBanner');
+  const btn = document.getElementById('installBannerActionBtn');
+  const txt = document.getElementById('installBannerText');
+  if (!el || !btn || !txt) return;
+  txt.textContent = i18nData[window.currentLanguage].install_banner_ios_text;
+  btn.style.display = 'none';
+  el.style.display = 'flex';
+}
+
+async function handleInstallBannerAction() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  console.log('[PWA] Install prompt outcome:', outcome);
+  deferredInstallPrompt = null;
+  const el = document.getElementById('installBanner');
+  if (el) el.style.display = 'none';
+}
+
+function dismissInstallBanner() {
+  const el = document.getElementById('installBanner');
+  if (el) el.style.display = 'none';
+  localStorage.setItem(INSTALL_DISMISS_KEY, Date.now().toString());
+}
+
+window.addEventListener('appinstalled', () => {
+  const el = document.getElementById('installBanner');
+  if (el) el.style.display = 'none';
+  localStorage.setItem(INSTALL_DISMISS_KEY, Date.now().toString());
+  deferredInstallPrompt = null;
+  console.log('[PWA] App installed');
+});
 </script>
 
 <!-- PUSH NOTIFICATION REQUEST DIALOG -->
@@ -5975,5 +6056,18 @@ window.addEventListener('load', () => {
     </div>
   </div>
 </div>
+
+<!-- "ANA EKRANA EKLE" INSTALL BANNER -->
+<div id="installBanner" style="display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:96px;width:calc(100% - 32px);max-width:480px;z-index:500;background:var(--card);border:1.5px solid rgba(255,87,34,0.25);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.4);padding:14px 16px;align-items:center;gap:12px;font-family:'DM Sans',sans-serif;">
+  <img src="/icons/icon-192.png" alt="" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+  <div style="flex:1;min-width:0;">
+    <p id="installBannerText" style="color:var(--cream);font-size:0.85rem;font-weight:600;line-height:1.3;margin:0;">Dayı Katık'ı ana ekranına ekle, tek tıkla sipariş ver!</p>
+  </div>
+  <button id="installBannerActionBtn" onclick="handleInstallBannerAction()" style="background:var(--fire);color:#fff;border:none;padding:9px 16px;border-radius:10px;font-weight:700;font-size:0.8rem;cursor:pointer;flex-shrink:0;">Ekle</button>
+  <button onclick="dismissInstallBanner()" aria-label="Kapat" style="background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:4px;flex-shrink:0;line-height:1;">✕</button>
+</div>
+<style>
+@media (min-width:768px){#installBanner{bottom:20px;}}
+</style>
 </body>
 </html>
