@@ -3,6 +3,30 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-18 18:40 +03:00] — Bildirim Gönder Sekmesi Onarımı ve "Ana Ekrana Ekle" Banner'ı
+
+### 🛠️ GÖREV 1 — "Bildirim Gönder" Ekranı Geri Getirildi (DÜZELTİLDİ)
+- **Önemli tespit:** Web Push (VAPID) bildirim altyapısı zaten tam ve çalışır haldeydi — `notifications`/`subscriptions` tabloları, 9 API endpoint'i, gerçek VAPID anahtarları (`data/vapid.json`), her 30 saniyede bekleyen bildirimleri gönderen bir zamanlayıcı, `service-worker.js`'de tam çalışan push/tıklama işleyicileri. Telegram sadece rezervasyon uyarıları için kullanılıyor, bu ekranla ilgisi yok.
+- Admin panelindeki "Bildirim Gönder" sekmesi `display:none` ile gizliydi (2026-07-15 tarihli onarımdan kalma) — açığa çıkarıldı.
+- Sekme sayısı 3'ten 2'ye düşürülürken güncellenmemiş `%50`/`%200` genişlik matematiği, orijinal `%33.333`/`%300` değerlerine döndürüldü (`switchAdminPanelTab()` fonksiyonu ve satır-içi stiller).
+- Önizleme alanında, gerçek önizleme elemanlarıyla aynı ID'leri (`phoneNotifTitlePreview` vb.) tekrar kullanan ve admin panelinin DOM ağacını böylen 46 satırlık **ölü/yinelenen bir HTML bloğu** tespit edilip silindi (div denge kontrolüyle doğrulandı: 341=341).
+- **Ek kritik hata bulundu:** Formun okumaya çalıştığı 11 alan (`pushTarget`, `pushPriority` vb.) HTML'de hiç yoktu — "Gönder" butonu tıklanınca JS hatasıyla çökerdi. Gizli varsayılan değerli input'lar eklenerek düzeltildi.
+- `sendTestPush()` fonksiyonu (Test butonu için hiç yazılmamıştı) uygulandı: en son aboneye gerçek bir test bildirimi gönderir.
+- Backend/veritabanı hiç değişmedi — sadece `admin.html` üzerinde UI onarımı yapıldı.
+
+### 🛠️ GÖREV 2 — "Ana Ekrana Ekle" Kurulum Banner'ı Eklendi
+- `index.html`'e `beforeinstallprompt` yakalama mantığı, özel tasarımlı banner (logo + mesaj + "Ekle"/"✕" butonları) eklendi.
+- Sayfa açıldıktan 4 saniye sonra gösteriliyor; zaten kurulu modda veya son 7 gün içinde kapatılmışsa hiç gösterilmiyor.
+- iOS Safari için ayrı, butonsuz, "Paylaş ikonuna dokunun" talimatlı banner eklendi (iOS bu native prompt'u desteklemiyor).
+- Site renklerine (CSS custom property'ler) bağlı, açık/koyu tema ile uyumlu; mobildeki alt navigasyon dock'unun üstünde çakışmadan duracak şekilde konumlandırıldı.
+- TR/EN çeviri anahtarları eklendi. Sadece `index.html`'e eklendi — `admin.html` şifre korumalı iç araç olduğu için kapsam dışı bırakıldı.
+
+### ✅ Doğrulama
+- Backend endpoint'leri (`/api/subscriptions`, `/api/notifications`, `/api/notifications/vapid-public-key`) canlıda curl ile test edildi, hepsi doğru yanıt verdi.
+- Commit'ler: `4a32580` (Bildirim Gönder onarımı), `bcebc50` (install banner). Netlify otomatik deploy ile canlıya yansıtıldı.
+- Not: Test bildirimi göndermek için önce canlı sitede bir cihazdan bildirim iznine "izin ver" denmesi gerekiyor (şu an sıfır abone var, veritabanı yakın zamanda kuruldu).
+
+---
 ## [2026-07-18 17:15 +03:00] — Kritik Altyapı Onarımı: Kalıcı Veritabanı Bağlantısı, Çeviri Sistemi ve Sosyal Medya Önizlemesi
 
 ### 🛠️ GÖREV 1 — Reset/Veri Kalıcılığı Sorunu (KÖKTEN ÇÖZÜLDÜ)
