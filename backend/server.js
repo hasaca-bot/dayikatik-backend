@@ -933,6 +933,44 @@ app.post('/api/notifications/test', adminAuth, rateLimiter(20), async (req, res)
   }
 });
 
+// POST /api/notifications/upload-image (Admin Only - store a push image on disk, return a small hosted URL)
+// Push payloads have a ~4KB size limit, so raw base64 images can never be sent inline in the
+// notification itself; the image must be hosted and referenced by URL instead.
+app.post('/api/notifications/upload-image', adminAuth, rateLimiter(10), async (req, res) => {
+  try {
+    const { image } = req.body;
+    if (!image || typeof image !== 'string' || !image.startsWith('data:image/')) {
+      return res.status(400).json({ error: 'Valid base64 image data is required' });
+    }
+    const matches = image.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+    if (!matches) {
+      return res.status(400).json({ error: 'Invalid image data format' });
+    }
+    const ext = matches[1].toLowerCase();
+    const allowed = ['png', 'jpeg', 'jpg', 'webp'];
+    if (!allowed.includes(ext)) {
+      return res.status(400).json({ error: 'Unsupported image format. Use PNG, JPG or WEBP.' });
+    }
+    const buffer = Buffer.from(matches[2], 'base64');
+    if (buffer.length > 5 * 1024 * 1024) {
+      return res.status(400).json({ error: 'Image exceeds 5MB' });
+    }
+
+    const uploadsDir = path.join(rootDir, 'uploads');
+    if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+
+    const filename = `push-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext === 'jpeg' ? 'jpg' : ext}`;
+    fs.writeFileSync(path.join(uploadsDir, filename), buffer);
+
+    const proto = req.headers['x-forwarded-proto'] || req.protocol;
+    const publicUrl = `${proto}://${req.get('host')}/uploads/${filename}`;
+    res.json({ success: true, url: publicUrl });
+  } catch (err) {
+    console.error('[API ERROR] POST /api/notifications/upload-image:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/notifications/click (Track clicks)
 app.post('/api/notifications/click', rateLimiter(100), async (req, res) => {
   try {

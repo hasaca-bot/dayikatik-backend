@@ -3159,23 +3159,27 @@ body.theme-bw .rez-select-trigger:hover {
             </div>
             <div style="margin-bottom:15px;">
               <label class="admin-form-label">Görsel</label>
-              <input type="file" id="pushImageFile" class="admin-input" accept="image/png,image/jpeg,image/webp" onchange="handlePushImageUpload(this)">
+              <input type="file" id="pushImageFile" accept="image/png,image/jpeg,image/webp" style="display:none;" onchange="handlePushImageUpload(this)">
+              <button type="button" class="admin-btn secondary" style="margin:0;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="document.getElementById('pushImageFile').click()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span id="pushImageUploadLabel">Görsel Yükle</span>
+              </button>
               <input type="hidden" id="pushImage" value="">
             </div>
-            <div style="margin-bottom:15px;">
-              <label class="admin-form-label">Hedef Kitle</label>
-              <select id="pushTarget" class="admin-input">
-                <option value="all">Tüm Aboneler</option>
-                <option value="permitted">İzin Verenler</option>
-                <option value="test">Test Kullanıcıları</option>
-              </select>
-            </div>
+            <input type="hidden" id="pushTarget" value="all">
             <div style="margin-bottom:15px;">
               <label class="admin-form-label">Gönderim Zamanı</label>
-              <select id="pushTimeOption" class="admin-input" onchange="toggleScheduledTimeInput()">
-                <option value="now">Şimdi Gönder</option>
-                <option value="scheduled">Zamanla</option>
-              </select>
+              <div class="custom-select-container" id="pushTimeOptionContainer">
+                <div class="custom-select-trigger" onclick="togglePushTimeOptionDropdown(event)">
+                  <span id="pushTimeOptionSelectedText">Şimdi Gönder</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto; transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="custom-select-options" id="pushTimeOptionOptions">
+                  <div class="custom-select-option active" onclick="selectPushTimeOption(this, 'now', 'Şimdi Gönder')">Şimdi Gönder</div>
+                  <div class="custom-select-option" onclick="selectPushTimeOption(this, 'scheduled', 'Zamanla')">Zamanla</div>
+                </div>
+              </div>
+              <input type="hidden" id="pushTimeOption" value="now">
             </div>
             <div id="scheduledTimeWrapper" style="display:none;margin-bottom:15px;">
               <label class="admin-form-label">Planlanan Tarih ve Saat</label>
@@ -4465,6 +4469,7 @@ document.addEventListener('click', (e) => {
   document.getElementById('rezGunContainer')?.classList.remove('open');
   document.getElementById('rezAyContainer')?.classList.remove('open');
   document.getElementById('rezYilContainer')?.classList.remove('open');
+  document.getElementById('pushTimeOptionContainer')?.classList.remove('open');
 });
 
 const monthTranslations = {
@@ -6249,7 +6254,7 @@ function toggleScheduledTimeInput() {
 function handlePushImageUpload(input) {
   const file = input.files[0];
   if (!file) return;
-  
+
   // Validate format
   const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
   if (!validTypes.includes(file.type)) {
@@ -6261,13 +6266,50 @@ function handlePushImageUpload(input) {
     showCustomAlert(window.currentLanguage === 'tr' ? 'Görsel boyutu en fazla 5MB olabilir.' : 'Image size cannot exceed 5MB.');
     return;
   }
-  
+
+  const label = document.getElementById('pushImageUploadLabel');
+  const originalLabel = label.textContent;
+  label.textContent = window.currentLanguage === 'tr' ? 'Yükleniyor...' : 'Uploading...';
+
   const reader = new FileReader();
-  reader.onload = function(e) {
-    document.getElementById('pushImage').value = e.target.result;
-    updatePushPreview();
+  reader.onload = async function(e) {
+    // Push payloads are capped at ~4KB, so the raw file can never be embedded directly —
+    // it's uploaded to the backend and only the resulting (tiny) hosted URL is used.
+    try {
+      const res = await fetch('/api/notifications/upload-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
+        body: JSON.stringify({ image: e.target.result })
+      });
+      const data = await res.json();
+      if (res.ok && data.url) {
+        document.getElementById('pushImage').value = data.url;
+        label.textContent = '✓ ' + file.name;
+        updatePushPreview();
+      } else {
+        label.textContent = originalLabel;
+        showCustomAlert(window.currentLanguage === 'tr' ? ('Görsel yüklenemedi: ' + (data.error || '')) : ('Image upload failed: ' + (data.error || '')));
+      }
+    } catch (err) {
+      label.textContent = originalLabel;
+      showCustomAlert(window.currentLanguage === 'tr' ? 'Görsel yüklenirken ağ hatası oluştu.' : 'Network error while uploading image.');
+    }
   };
   reader.readAsDataURL(file);
+}
+
+function togglePushTimeOptionDropdown(event) {
+  event.stopPropagation();
+  document.getElementById('pushTimeOptionContainer')?.classList.toggle('open');
+}
+
+function selectPushTimeOption(optionElem, val, label) {
+  document.getElementById('pushTimeOption').value = val;
+  document.getElementById('pushTimeOptionSelectedText').textContent = label;
+  document.querySelectorAll('#pushTimeOptionOptions .custom-select-option').forEach(o => o.classList.remove('active'));
+  optionElem.classList.add('active');
+  document.getElementById('pushTimeOptionContainer')?.classList.remove('open');
+  toggleScheduledTimeInput();
 }
 
 async function sendTestPush() {

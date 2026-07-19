@@ -8,6 +8,9 @@ yarn-error.log*
 backend/dayikatik.db
 *.db
 
+# Uploaded push notification images (ephemeral, generated at runtime)
+/uploads/
+
 # OS Files
 desktop.ini
 thumbs.db
