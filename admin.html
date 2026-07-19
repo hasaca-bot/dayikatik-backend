@@ -1959,280 +1959,128 @@ body.theme-bw .admin-panel-tabs {
   opacity: 1;
 }
 
-/* Push Notification Styles - Production Level */
-.push-container {
+/* ── Push Notification Compose/Preview (ported from style.css so admin.html stays self-contained) ── */
+.push-send-screen {
+  padding: 10px 0;
+}
+.push-screen-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1.2fr 1fr;
   gap: 24px;
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+  align-items: start;
 }
-@media (max-width: 1000px) {
-  .push-container { grid-template-columns: 1fr; }
-  .push-preview-sticky { position: static !important; }
+@media(max-width: 992px) {
+  .push-screen-layout {
+    grid-template-columns: 1fr;
+  }
 }
-
-.push-form-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.push-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 24px;
-}
-
-.push-card-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--cream);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.push-input-group {
-  margin-bottom: 16px;
-  position: relative;
-}
-
-.push-label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--muted);
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.push-char-counter {
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.push-dropzone {
-  border: 2px dashed rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  background: rgba(255, 255, 255, 0.01);
-}
-
-.push-dropzone:hover, .push-dropzone.dragover {
-  border-color: var(--ember);
-  background: rgba(255, 112, 67, 0.05);
-}
-
-.push-image-preview-container {
-  position: relative;
-  margin-top: 12px;
-  display: none;
-}
-
-.push-image-preview-container img {
+.phone-mockup {
   width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.push-remove-img {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.push-switch-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-}
-
-.push-switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 20px;
-}
-
-.push-switch input { opacity: 0; width: 0; height: 0; }
-
-.push-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(255,255,255,0.1);
-  transition: .4s;
-  border-radius: 20px;
-}
-
-.push-slider:before {
-  position: absolute;
-  content: "";
-  height: 14px; width: 14px;
-  left: 3px; bottom: 3px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-input:checked + .push-slider { background-color: var(--ember); }
-input:checked + .push-slider:before { transform: translateX(24px); }
-
-.push-preview-sticky {
+  max-width: 320px;
+  margin: 0 auto;
+  background: #000;
+  border-radius: 40px;
+  padding: 12px;
+  border: 4px solid #222;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
   position: sticky;
   top: 20px;
 }
-
-.android-phone {
-  width: 320px;
-  height: 640px;
-  background: #111;
-  border: 12px solid #222;
-  border-radius: 36px;
-  position: relative;
+.phone-screen {
+  width: 100%;
+  height: 560px;
+  background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop') center/cover;
+  border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
 }
-
-.android-status-bar {
-  height: 24px;
-  padding: 0 20px;
+.phone-status-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.8);
+  padding: 0 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  z-index: 10;
 }
-
-.android-notification-center {
-  padding: 12px;
+.phone-notification-card {
+  margin: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 16px;
+  color: #1a1a1a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideInNotif 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.notif-card {
-  background: rgba(45, 45, 45, 0.95);
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.05);
+@keyframes slideInNotif {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
-
-.notif-header {
+.phone-notif-header {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 6px;
+  font-size: 0.7rem;
+  margin-bottom: 8px;
+  color: #444;
 }
-
-.notif-header img { width: 14px; height: 14px; border-radius: 50%; }
-
-.notif-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
+.phone-notif-header img {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+.phone-notif-time {
+  margin-left: auto;
+}
+.phone-notif-title {
+  font-weight: 800;
+  font-size: 0.9rem;
   margin-bottom: 2px;
 }
-
-.notif-body {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.3;
+.phone-notif-body {
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
-
-.notif-image {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-top: 8px;
-  display: none;
+.phone-notif-icon-small {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  margin-left: 12px;
+  flex-shrink: 0;
 }
-
-.notif-footer {
+.phone-notif-content-row {
   display: flex;
-  gap: 12px;
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  justify-content: space-between;
 }
-
-.notif-btn {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--ember);
-  text-transform: uppercase;
-}
-
-.push-history-table-container {
-  margin-top: 40px;
-  overflow-x: auto;
-}
-
-.push-status-pill {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.push-status-sent { background: rgba(76, 175, 80, 0.15); color: #81c784; }
-.push-status-pending { background: rgba(255, 152, 0, 0.15); color: #ffb74d; }
-.push-status-failed { background: rgba(244, 67, 54, 0.15); color: #e57373; }
-
-.push-progress-container {
-  height: 4px;
+.phone-notif-image-big {
   width: 100%;
-  background: rgba(255,255,255,0.05);
-  border-radius: 2px;
-  margin-top: 10px;
+  height: 160px;
+  border-radius: 16px;
+  margin-top: 12px;
+  background-size: cover;
+  background-position: center;
   display: none;
-  overflow: hidden;
 }
-
-.push-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--ember);
-  transition: width 0.3s;
-}
-
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 8px;
-  margin-top: 4px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #3897f0;
+.phone-notif-action-btn {
+  margin-top: 12px;
+  padding: 8px;
   text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #1a1a1a;
 }
 .push-history-card {
   background: rgba(255, 248, 240, 0.02);
@@ -6271,15 +6119,17 @@ function handlePushImageUpload(input) {
   const originalLabel = label.textContent;
   label.textContent = window.currentLanguage === 'tr' ? 'Yükleniyor...' : 'Uploading...';
 
-  const reader = new FileReader();
-  reader.onload = async function(e) {
+  (async function() {
     // Push payloads are capped at ~4KB, so the raw file can never be embedded directly —
     // it's uploaded to the backend and only the resulting (tiny) hosted URL is used.
+    // The file itself is first downscaled/re-compressed in the browser so the upload
+    // stays fast and reliable even on slow mobile connections with large source photos.
     try {
+      const compressedDataUrl = await compressImageForUpload(file, 1280, 0.8);
       const res = await fetch('/api/notifications/upload-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
-        body: JSON.stringify({ image: e.target.result })
+        body: JSON.stringify({ image: compressedDataUrl })
       });
       const data = await res.json();
       if (res.ok && data.url) {
@@ -6294,8 +6144,39 @@ function handlePushImageUpload(input) {
       label.textContent = originalLabel;
       showCustomAlert(window.currentLanguage === 'tr' ? 'Görsel yüklenirken ağ hatası oluştu.' : 'Network error while uploading image.');
     }
-  };
-  reader.readAsDataURL(file);
+  })();
+}
+
+// Downscales an image file in-browser (Canvas) before upload so large source photos
+// don't time out on slow connections. Resolves to a compressed JPEG data URL.
+function compressImageForUpload(file, maxDimension, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('File read failed'));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Image decode failed'));
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width >= height) {
+            height = Math.round(height * (maxDimension / width));
+            width = maxDimension;
+          } else {
+            width = Math.round(width * (maxDimension / height));
+            height = maxDimension;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 function togglePushTimeOptionDropdown(event) {
