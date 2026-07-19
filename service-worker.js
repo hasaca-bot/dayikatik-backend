@@ -5,7 +5,8 @@ const STATIC_ASSETS = [
   '/style.css',
   '/manifest.json',
   '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/icons/icon-512.png',
+  '/icons/badge.png'
 ];
 
 self.addEventListener('install', event => {
@@ -56,7 +57,7 @@ self.addEventListener('push', event => {
     const options = {
       body: data.body || '',
       icon: data.icon || '/icons/icon-192.png',
-      badge: '/icons/icon-192.png',
+      badge: data.badge || '/icons/badge.png',
       image: data.image || undefined,
       tag: data.tag || 'dayikatik-notification',
       renotify: true,
@@ -77,6 +78,7 @@ self.addEventListener('push', event => {
       self.registration.showNotification('Dayı Katık', {
         body: text,
         icon: '/icons/icon-192.png',
+        badge: '/icons/badge.png',
         data: { url: '/' }
       })
     );
