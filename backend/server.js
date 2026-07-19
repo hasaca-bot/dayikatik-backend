@@ -53,6 +53,8 @@ const allowedOrigins = [
   'https://dayikatikornek.netlify.app',
   'https://resonant-elf-d2b58b.netlify.app',
   'https://glittering-raindrop-435319.netlify.app',
+  'https://dayikatik.com',
+  'https://www.dayikatik.com',
   'http://localhost:12000',
   'http://127.0.0.1:12000',
   'http://localhost:5500',
