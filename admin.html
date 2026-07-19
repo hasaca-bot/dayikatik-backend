@@ -3005,15 +3005,7 @@ body.theme-bw .rez-select-trigger:hover {
               <label class="admin-form-label">URL</label>
               <input type="url" id="pushUrl" class="admin-input" oninput="updatePushPreview()" placeholder="https://...">
             </div>
-            <div style="margin-bottom:15px;">
-              <label class="admin-form-label">Görsel</label>
-              <input type="file" id="pushImageFile" accept="image/png,image/jpeg,image/webp" style="display:none;" onchange="handlePushImageUpload(this)">
-              <button type="button" class="admin-btn secondary" style="margin:0;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="document.getElementById('pushImageFile').click()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <span id="pushImageUploadLabel">Görsel Yükle</span>
-              </button>
-              <input type="hidden" id="pushImage" value="">
-            </div>
+            <input type="hidden" id="pushImage" value="">
             <input type="hidden" id="pushTarget" value="all">
             <div style="margin-bottom:15px;">
               <label class="admin-form-label">Gönderim Zamanı</label>
@@ -6097,86 +6089,6 @@ function toggleScheduledTimeInput() {
   const option = document.getElementById('pushTimeOption').value;
   const wrapper = document.getElementById('scheduledTimeWrapper');
   wrapper.style.display = option === 'scheduled' ? 'block' : 'none';
-}
-
-function handlePushImageUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-
-  // Validate format
-  const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-  if (!validTypes.includes(file.type)) {
-    showCustomAlert(window.currentLanguage === 'tr' ? 'Lütfen geçerli bir görsel yükleyin (PNG, JPG, WEBP).' : 'Please upload a valid image file (PNG, JPG, WEBP).');
-    return;
-  }
-  // Validate size: 5MB
-  if (file.size > 5 * 1024 * 1024) {
-    showCustomAlert(window.currentLanguage === 'tr' ? 'Görsel boyutu en fazla 5MB olabilir.' : 'Image size cannot exceed 5MB.');
-    return;
-  }
-
-  const label = document.getElementById('pushImageUploadLabel');
-  const originalLabel = label.textContent;
-  label.textContent = window.currentLanguage === 'tr' ? 'Yükleniyor...' : 'Uploading...';
-
-  (async function() {
-    // Push payloads are capped at ~4KB, so the raw file can never be embedded directly —
-    // it's uploaded to the backend and only the resulting (tiny) hosted URL is used.
-    // The file itself is first downscaled/re-compressed in the browser so the upload
-    // stays fast and reliable even on slow mobile connections with large source photos.
-    try {
-      const compressedDataUrl = await compressImageForUpload(file, 1280, 0.8);
-      const res = await fetch('/api/notifications/upload-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
-        body: JSON.stringify({ image: compressedDataUrl })
-      });
-      const data = await res.json();
-      if (res.ok && data.url) {
-        document.getElementById('pushImage').value = data.url;
-        label.textContent = '✓ ' + file.name;
-        updatePushPreview();
-      } else {
-        label.textContent = originalLabel;
-        showCustomAlert(window.currentLanguage === 'tr' ? ('Görsel yüklenemedi: ' + (data.error || '')) : ('Image upload failed: ' + (data.error || '')));
-      }
-    } catch (err) {
-      label.textContent = originalLabel;
-      showCustomAlert(window.currentLanguage === 'tr' ? 'Görsel yüklenirken ağ hatası oluştu.' : 'Network error while uploading image.');
-    }
-  })();
-}
-
-// Downscales an image file in-browser (Canvas) before upload so large source photos
-// don't time out on slow connections. Resolves to a compressed JPEG data URL.
-function compressImageForUpload(file, maxDimension, quality) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = () => reject(new Error('File read failed'));
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onerror = () => reject(new Error('Image decode failed'));
-      img.onload = () => {
-        let { width, height } = img;
-        if (width > maxDimension || height > maxDimension) {
-          if (width >= height) {
-            height = Math.round(height * (maxDimension / width));
-            width = maxDimension;
-          } else {
-            width = Math.round(width * (maxDimension / height));
-            height = maxDimension;
-          }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
 }
 
 function togglePushTimeOptionDropdown(event) {
