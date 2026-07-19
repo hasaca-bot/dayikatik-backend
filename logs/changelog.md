@@ -3,6 +3,33 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-07-19 11:35 +03:00] — Bildirim Sistemi Tamamlandı: Görsel Yükleme, Logo/Badge İkonu, Render Bağlantısı
+
+Önceki oturumun devamı — kullanıcı gerçek telefonunda test etmeye devam etti, 5 yeni konu bulundu ve hepsi çözüldü.
+
+### 🛠️ Görsel yükleme "network error" veriyordu
+Kök neden boyut değil, **backend deploy'unun tamamen durmuş olmasıydı**: Render'ın GitHub hesabına erişimi saatlerce 403 hatasıyla kesikti (`fatal: unable to access ... 403`, `It looks like we don't have access to your repo`). İncelemede Render'ın GitHub'daki "Installed GitHub Apps" listesinden **tamamen kaldırılmış** olduğu ortaya çıktı (sadece Netlify vardı). Kullanıcı GitHub'da Render uygulamasını yeniden kurup yetkilendirdikten sonra deploy'lar tekrar çalışmaya başladı. Bu arada backend'e `POST /api/notifications/upload-image` endpoint'i eklendi (`backend/server.js`) — görsel artık push payload'ına gömülmüyor (4KB sınırı zaten buydu), `uploads/` klasörüne kaydedilip küçük bir URL olarak kullanılıyor. İstemci tarafında da (Canvas ile max 1280px + JPEG %80) otomatik sıkıştırma eklendi. Uçtan uca test edildi: gerçek görsel yüklendi, gerçek URL döndü, görselli bildirim 2/2 aboneye ulaştı.
+
+### 🛠️ Bildirimde telefonun durum çubuğunda köşeli kutu çıkıyordu
+`service-worker.js`'nin `badge` alanı sabit olarak `icons/icon-192.png`'ye bağlıydı — bu dosya PNG/RGBA olsa da **hiçbir pikselinde gerçek saydamlık yoktu** (alpha her yerde 255). Android badge görselini beyaz silüete maskeliyor; saydam alan olmayınca düz kare çiziyordu. Kullanıcının verdiği gerçek saydam logo (Pillow ile doğrulandı: alpha 0-255 arası değişiyor) kaynak alınarak tüm favicon/icon seti + ayrı bir `icons/badge.png` yeniden üretildi. `badge` artık `data.badge || '/icons/badge.png'` şeklinde ayrı bir dosyaya bağlı. Test bildirimiyle telefonda doğrulandı.
+
+### 🛠️ Site logosu değiştirildi
+`index.html` ve `admin.html`'deki (topbar + footer, 2'şer kopya) ~6.5KB'lık eski, opak base64 logo `<img>`'ı kaldırılıp yeni saydam `/logo.png` referansıyla değiştirildi.
+
+### 🛠️ Admin panelindeki "Canlı Önizleme" dağınık görünüyordu
+Kök neden: bu önizleme için özel yazılmış CSS (`style.css` satır 2220-2396) zaten vardı ama `admin.html` bu dosyayı **hiç yüklemiyordu** (tamamen kendi içine gömülü stil sistemiyle çalışıyor). Gerekli kurallar `admin.html`'in kendi `<style>` bloğuna taşındı; ayrıca hiçbir HTML tarafından kullanılmayan ~270 satırlık eski/ölü CSS sistemi (`.push-container`/`.android-phone`/`.notif-card`) ve seçicisi eksik bozuk bir CSS parçası temizlendi. "Küçük logo görünmüyor" şikayeti de aynı kök nedenin bir belirtisiydi, bu düzeltmeyle birlikte çözüldü.
+
+### 🛠️ Türkçe karakter "bozukluğu" — araştırıldı, gerçek bir hata çıkmadı
+Kullanıcı bazı Türkçe karakterlerin (ör. "ö") bildirimde "?" göründüğünü bildirdi. İnceleme: veritabanındaki 2 bozuk kayıt, **yapay zekanın kendi Windows terminalinden gönderdiği test komutlarının konsol kod sayfası (857) uyuşmazlığından** kaynaklanıyordu — uygulamanın kendisinde hata yoktu. Kanıt: kullanıcının admin panelinden yazdığı test bildirimi ("ş" harfi içeren) sorunsuzdu; tarayıcı üzerinden gönderilen "Öğün, şiş, çöp, güç, İstanbul" test bildirimi de kusursuz kaydedildi. Bozuk 2 test kaydı silindi, gerçek bir kod değişikliği gerekmedi.
+
+### ✅ Son durum
+- Commit'ler: `71be817`, `e8df0f3`, `0cbbaf9`, `9e579f3`, `efffc19`.
+- Render backend canlı ve güncel (`live`, commit `9e579f3` ve sonrası — admin.html-only commit'ler Render'ı etkilemiyor).
+- Netlify frontend canlı ve güncel.
+- Sağlık kontrolü: 53 ürün, 4 kategori, 2 aktif abone, veritabanı (Neon PostgreSQL) bağlantısı sağlam.
+- Bildirim sistemi artık uçtan uca gerçek kullanımda doğrulanmış durumda: anlık gönderim, zamanlanmış gönderim, görsel yükleme, doğru badge ikonu, doğru logo.
+
+---
 ## [2026-07-18 21:10 +03:00] — Bildirim Gönderme Sistemi Gerçek Testte Bulunan 3 Hatanın Onarımı
 
 Bir önceki oturumda "Bildirim Gönder" sekmesi görünür yapılmıştı ama kullanıcı gerçekten denedi ve iki şey çalışmadı: "Gönder"e basınca hiçbir şey olmuyordu, telefonda izin verilmesine rağmen abone kaydı oluşmuyordu. İki paralel kod incelemesiyle kesin kök nedenler bulundu (tahmin değil):
