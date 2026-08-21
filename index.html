@@ -2430,7 +2430,7 @@ body.theme-bw .rez-select-trigger:hover {
   <div style="flex-grow:1;"></div>
 
   <div style="display:flex;align-items:center;gap:10px;">
-    <button id="cart-topbar-btn" class="lang-btn" onclick="openCartPanel()" style="position:relative;" aria-label="Sepet">
+    <button id="cart-topbar-btn" class="lang-btn" onclick="openCartPanel()" style="position:relative;" aria-label="Cart" data-i18n-aria-label="cart_aria_label">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <span id="cart-topbar-badge" class="cart-badge" style="display:none;position:absolute;top:-4px;right:-4px;">0</span>
     </button>
@@ -2738,7 +2738,7 @@ body.theme-bw .rez-select-trigger:hover {
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="detail-header-title"><span data-i18n="brand_name">Dayı Katık</span></div>
-    <button class="detail-header-cart" onclick="closeFoodDetail();openCartPanel();" aria-label="Sepet">
+    <button class="detail-header-cart" onclick="closeFoodDetail();openCartPanel();" aria-label="Cart" data-i18n-aria-label="cart_aria_label">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <span id="detail-cart-badge" class="cart-badge" style="display:none;">0</span>
     </button>
@@ -2797,7 +2797,7 @@ body.theme-bw .rez-select-trigger:hover {
     <div id="checkoutSummary" style="background:rgba(255,248,240,0.04);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:0.85rem;"></div>
 
     <button class="admin-btn" id="checkoutSubmitBtn" onclick="submitOrder()">Siparişi Onayla</button>
-    <button class="admin-btn secondary" onclick="closeCheckout()">Vazgeç</button>
+    <button class="admin-btn secondary" data-i18n="admin_btn_cancel" onclick="closeCheckout()">Vazgeç</button>
   </div>
 </div>
 
@@ -2810,7 +2810,7 @@ body.theme-bw .rez-select-trigger:hover {
     <h3 class="custom-popup-title" id="orderSuccessTitle">Siparişiniz Alındı!</h3>
     <p class="custom-popup-message" id="orderSuccessMessage"></p>
     <div class="custom-popup-actions">
-      <button class="admin-btn" onclick="closeOrderSuccess()" style="margin:0;width:100%;">Tamam</button>
+      <button class="admin-btn" data-i18n="ok" onclick="closeOrderSuccess()" style="margin:0;width:100%;">Tamam</button>
     </div>
   </div>
 </div>
@@ -3256,6 +3256,7 @@ const i18nData = {
     rez_info_note: "Rezervasyonunuz restorana iletilecektir.<br>Onay için sizi arayabiliriz.",
     alert_title_notification: "Bildirim",
     confirm_title_sure: "Emin misiniz?",
+    cart_aria_label: "Sepet",
     admin_btn_yes: "Evet",
     admin_lbl_edit_product: "Ürün Düzenle",
     call: "Ara",
@@ -3441,6 +3442,7 @@ const i18nData = {
     rez_info_note: "Your reservation will be forwarded to the restaurant.<br>We may call you for confirmation.",
     alert_title_notification: "Notification",
     confirm_title_sure: "Are you sure?",
+    cart_aria_label: "Cart",
     admin_btn_yes: "Yes",
     admin_lbl_edit_product: "Edit Product",
     call: "Call",
@@ -3853,6 +3855,14 @@ function applyLanguage(lang) {
     const key = el.getAttribute('data-i18n-alt');
     if (i18nData[lang] && i18nData[lang][key]) {
       el.setAttribute('alt', i18nData[lang][key]);
+    }
+  });
+
+  // Update aria-label with data-i18n-aria-label attribute
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    if (i18nData[lang] && i18nData[lang][key]) {
+      el.setAttribute('aria-label', i18nData[lang][key]);
     }
   });
 
@@ -6501,17 +6511,17 @@ window.addEventListener('appinstalled', () => {
 
 <!-- PUSH NOTIFICATION REQUEST DIALOG -->
 <div id="pushPromptBackdrop" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:999999;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease;">
-  <div style="background:rgba(20,18,17,0.85);border:1.5px solid rgba(255,248,240,0.1);backdrop-filter:blur(25px);border-radius:24px;padding:30px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.5);transform:scale(0.9);transition:transform 0.3s ease;font-family:'DM Sans',sans-serif;color:var(--cream);">
+  <div style="background:#FFFFFF;border:1.5px solid rgba(44,26,16,0.12);border-radius:24px;padding:30px;width:90%;max-width:400px;text-align:center;box-shadow:0 20px 40px rgba(44,26,16,0.15);transform:scale(0.9);transition:transform 0.3s ease;font-family:'DM Sans',sans-serif;color:var(--cream);">
     <div style="width:60px;height:60px;background:rgba(217,59,10,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;border:1px solid rgba(217,59,10,0.2);">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--ember)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
       </svg>
     </div>
-    <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:10px;" data-i18n="push_prompt_title">Kampanyalardan Haberdar Olun</h3>
-    <p style="font-size:0.9rem;opacity:0.8;line-height:1.5;margin-bottom:24px;" data-i18n="push_prompt_desc">En güncel lezzet kampanyaları, indirimler ve yeni menülerden anında haberdar olmak ister misiniz?</p>
+    <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:10px;color:var(--cream);" data-i18n="push_prompt_title">Kampanyalardan Haberdar Olun</h3>
+    <p style="font-size:0.9rem;opacity:0.75;line-height:1.5;margin-bottom:24px;color:var(--cream);" data-i18n="push_prompt_desc">En güncel lezzet kampanyaları, indirimler ve yeni menülerden anında haberdar olmak ister misiniz?</p>
     <div style="display:flex;gap:12px;">
-      <button id="pushPromptDecline" style="flex:1;background:rgba(255,248,240,0.06);border:1px solid rgba(255,248,240,0.1);color:var(--cream);padding:12px;border-radius:12px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:background 0.2s;" data-i18n="push_prompt_later" onclick="closePushPrompt(true)">Daha Sonra</button>
+      <button id="pushPromptDecline" style="flex:1;background:rgba(44,26,16,0.04);border:1px solid rgba(44,26,16,0.12);color:var(--cream);padding:12px;border-radius:12px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:background 0.2s;" data-i18n="push_prompt_later" onclick="closePushPrompt(true)">Daha Sonra</button>
       <button id="pushPromptAccept" style="flex:1;background:var(--ember);border:none;color:#FFFFFF;padding:12px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;transition:transform 0.2s, background-color 0.2s;" data-i18n="push_prompt_allow" onclick="acceptPushPrompt()">İzin Ver</button>
     </div>
   </div>

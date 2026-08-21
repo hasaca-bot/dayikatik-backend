@@ -2928,7 +2928,7 @@ body.theme-bw .rez-select-trigger:hover {
     </button>
     <button class="admin-tab-btn" id="adminTabBtnPush" onclick="switchAdminPanelTab(this, 2)">Bildirim Gönder</button>
     <button class="admin-tab-btn" id="adminTabBtnOrders" onclick="switchAdminPanelTab(this, 3)">
-      <span>Siparişler</span> <span class="badge" id="adminOrdersBadge" style="display:none;">0</span>
+      <span data-i18n="admin_tab_orders">Siparişler</span> <span class="badge" id="adminOrdersBadge" style="display:none;">0</span>
     </button>
     <div class="admin-tab-indicator" id="adminTabIndicator"></div>
   </div>
@@ -3122,7 +3122,7 @@ body.theme-bw .rez-select-trigger:hover {
       <!-- ORDERS TAB CONTENT -->
       <div id="adminTabOrdersCont" class="admin-tab-content">
         <div class="admin-rez-header">
-          <h3>Müşteri Siparişleri</h3>
+          <h3 data-i18n="admin_orders_title">Müşteri Siparişleri</h3>
         </div>
         <div class="admin-rez-list" id="adminOrdersList"></div>
       </div>
@@ -3137,8 +3137,8 @@ body.theme-bw .rez-select-trigger:hover {
     <h3 class="admin-modal-title" id="orderDetailNumber" style="text-align:center;"></h3>
     <div id="orderDetailBody" style="display:flex;flex-direction:column;gap:10px;font-size:0.9rem;"></div>
     <div style="display:flex;gap:8px;margin-top:18px;">
-      <button class="admin-btn secondary" style="margin:0;flex:1;" onclick="closeOrderDetail()">Kapat</button>
-      <button class="admin-btn danger" style="margin:0;flex:1;background:#D84315;color:#fff;" onclick="deleteOrder(window.currentOrderDetailId)">Sil</button>
+      <button class="admin-btn secondary" style="margin:0;flex:1;" data-i18n="admin_btn_cancel" onclick="closeOrderDetail()">Kapat</button>
+      <button class="admin-btn danger" style="margin:0;flex:1;background:#D84315;color:#fff;" data-i18n="admin_btn_delete" onclick="deleteOrder(window.currentOrderDetailId)">Sil</button>
     </div>
   </div>
 </div>
@@ -3576,6 +3576,9 @@ const i18nData = {
     admin_panel_title: "Yönetim Paneli",
     admin_tab_prod: "Ürün Yönetimi",
     admin_tab_rez: "Rezervasyonlar",
+    admin_tab_orders: "Siparişler",
+    admin_orders_title: "Müşteri Siparişleri",
+    admin_btn_delete: "Sil",
     admin_tab_push: "Bildirimler",
     push_stat_total: "Toplam Gönderilen",
     push_stat_today: "Bugün Gönderilen",
@@ -3817,6 +3820,9 @@ const i18nData = {
     admin_panel_title: "Admin Panel",
     admin_tab_prod: "Product Management",
     admin_tab_rez: "Reservations",
+    admin_tab_orders: "Orders",
+    admin_orders_title: "Customer Orders",
+    admin_btn_delete: "Delete",
     admin_add_product: "Add New Product",
     admin_category_not_found: "Can't find the category you're looking for?",
     admin_add_category_btn: "Add New Category",

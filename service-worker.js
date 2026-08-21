@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dayikatik-v1';
+const CACHE_NAME = 'dayikatik-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -31,16 +31,18 @@ self.addEventListener('fetch', event => {
   // API isteklerini cache'leme
   if (url.pathname.startsWith('/api/')) return;
 
+  // Network-first: her zaman en güncel dosyayı ağdan almayı dene, önbelleği
+  // sadece internet yokken yedek olarak kullan. Böylece bir sonraki deploy
+  // her zaman ziyaretçilere ulaşır; eski bir sürüm sonsuza dek önbellekte
+  // takılı kalmaz.
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        if (!response || response.status !== 200 || response.type !== 'basic') return response;
+    fetch(event.request).then(response => {
+      if (response && response.status === 200 && response.type === 'basic') {
         const cloned = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, cloned));
-        return response;
-      });
-    })
+      }
+      return response;
+    }).catch(() => caches.match(event.request))
   );
 });
 
