@@ -1071,7 +1071,7 @@
     "price": 180,
     "description": "Tavuk eti ve baharatlı tantuni lavaş",
     "description_en": "Chicken meat and spiced tantuni in lavash wrap",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": 450,
@@ -1109,7 +1109,7 @@
     "price": 200,
     "description": "Tavuk eti ve baharatlı tantuni ekmek",
     "description_en": "Chicken meat and spiced tantuni in bread",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": 550,
@@ -1147,7 +1147,7 @@
     "price": 230,
     "description": "Tavuk tantuni, yoğurt ve sos",
     "description_en": "Chicken tantuni served with yogurt and sauce",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": 550,
@@ -1185,7 +1185,7 @@
     "price": 300,
     "description": "Dana eti ve baharatlı tantuni lavaş",
     "description_en": "Beef and spiced tantuni in lavash wrap",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": 550,
@@ -1223,7 +1223,7 @@
     "price": 320,
     "description": "Dana eti ve baharatlı tantuni ekmek",
     "description_en": "Beef and spiced tantuni in bread",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": 650,
@@ -1261,7 +1261,7 @@
     "price": 350,
     "description": "Et tantuni, yoğurt ve sos",
     "description_en": "Beef tantuni served with yogurt and sauce",
-    "image": "https://images.unsplash.com/photo-1624697257428-87cc14260b2b?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": 680,
@@ -1603,7 +1603,7 @@
     "price": 70,
     "description": "Kutu İçecek",
     "description_en": "Canned Soft Drink",
-    "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": null,
@@ -1793,7 +1793,7 @@
     "price": 16,
     "description": "İçecek",
     "description_en": "Beverage",
-    "image": "https://images.unsplash.com/photo-1548839140-29a88648f138?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon",
       "enerji": null,

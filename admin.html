@@ -4656,6 +4656,10 @@ async function loadMenuDatabase() {
   }
 }
 
+// Self-contained placeholder shown whenever a product image URL fails to load
+// (dead link, rate limit, network issue) so a broken-image icon is never visible.
+const PRODUCT_IMG_FALLBACK = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjIwIiBmaWxsPSIjRjNFQkU0Ii8+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQzQ5MDZBIiBzdHJva2Utd2lkdGg9IjciIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHJlY3QgeD0iMzgiIHk9IjQ4IiB3aWR0aD0iMTI0IiBoZWlnaHQ9IjEwNCIgcng9IjEwIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSI4MiIgcj0iMTEiLz48cGF0aCBkPSJNMzggMTMyIEw4MiA5OCBMMTEyIDEyMCBMMTQyIDkyIEwxNjIgMTEyIEwxNjIgMTQyIEExMCAxMCAwIDAgMSAxNTIgMTUyIEw0OCAxNTIgQTEwIDEwIDAgMCAxIDM4IDE0MiBaIi8+PC9nPjwvc3ZnPg==';
+
 // Render food cards based on category
 function renderMenuCards(category) {
   const container = document.getElementById('menuCardsContainer');
@@ -4685,7 +4689,7 @@ function renderMenuCards(category) {
     return `
       <div class="food-card" onclick="openFoodDetail('${item.id}')">
         <div class="food-card-img">
-          <img src="${item.image}" alt="${itemName}" loading="lazy">
+          <img src="${item.image}" alt="${itemName}" loading="lazy" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
         </div>
         <div class="food-card-info">
           <h4 class="food-card-title">${itemName}</h4>
@@ -4786,7 +4790,7 @@ function openFoodDetail(id, updateHash = true) {
 
   const content = `
     <div class="detail-img-container">
-      <img src="${item.image}" alt="${itemName}">
+      <img src="${item.image}" alt="${itemName}" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
     </div>
     
     <div class="detail-title-row">
@@ -5873,7 +5877,7 @@ function renderAdminProductList() {
     row.className = 'admin-product-row';
     row.innerHTML = `
       <div class="admin-prod-info">
-        <img class="admin-prod-thumb" src="${item.image}" alt="" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=120&q=80'">
+        <img class="admin-prod-thumb" src="${item.image}" alt="" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
         <div class="admin-prod-details">
           <span class="admin-prod-name">${item.name}</span>
           <span class="admin-prod-meta">
@@ -6107,7 +6111,7 @@ async function saveAdminProduct() {
   const id = document.getElementById('formProductId').value;
   const name = document.getElementById('formProductName').value.trim();
   const price = parseFloat(document.getElementById('formProductPrice').value);
-  const image = document.getElementById('formProductImage').value.trim() || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80';
+  const image = document.getElementById('formProductImage').value.trim() || PRODUCT_IMG_FALLBACK;
   const category = window.selectedFormProductCategory;
   const desc = document.getElementById('formProductDesc').value.trim();
   
