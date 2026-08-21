@@ -3,7 +3,7 @@
 
 services:
   - type: web
-    name: dayikatik-api
+    name: dayikatik
     runtime: node
     region: frankfurt
     plan: free
