@@ -2338,7 +2338,7 @@ body.theme-bw .rez-select-trigger:hover {
 }
 </style>
 </head>
-<body>
+<body class="theme-bw">
 
 <!-- TOP BAR -->
 <header class="topbar">
@@ -4672,22 +4672,9 @@ document.addEventListener('click', () => {
   if (container) container.classList.remove('open');
 });
 
-// Theme Toggle Logic
-function applyTheme(themeName) {
-  const themeSwitch = document.getElementById('switch');
-  if (themeName === 'light') {
-    document.body.classList.add('theme-bw');
-    if (themeSwitch) themeSwitch.checked = true;
-  } else {
-    document.body.classList.remove('theme-bw');
-    if (themeSwitch) themeSwitch.checked = false;
-  }
-}
-
-function toggleMonochromeTheme(checkbox) {
-  const themeName = checkbox.checked ? 'light' : 'dark';
-  localStorage.setItem('theme', themeName);
-  applyTheme(themeName);
+// Theme: site is always the light theme (dark mode / toggle removed)
+function applyTheme() {
+  document.body.classList.add('theme-bw');
 }
 
 // Load theme and language on page load
@@ -4695,38 +4682,21 @@ function initializeApp() {
   // Apply saved or default language
   applyLanguage(window.currentLanguage);
 
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  } else {
-    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    applyTheme(systemPrefersLight ? 'light' : 'dark');
-  }
+  applyTheme();
   updateAdminRezBadge();
 
   // Initialize custom reservation date dropdowns
   updateRezDateOptions();
-  
+
   // Periodically check and sync reservations from Telegram every 10 seconds
   syncReservationsWithTelegram();
   setInterval(syncReservationsWithTelegram, 10000);
-  
-  // OS color scheme listener disabled to prevent unexpected site color changes
-  /* window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      applyTheme(e.matches ? 'light' : 'dark');
-    }
-  }); */
-  
-  // Dynamic instant synchronization for reservations, theme, and language changes across tabs/windows
+
+  // Dynamic instant synchronization for reservations and language changes across tabs/windows
   window.addEventListener('storage', (e) => {
     if (e.key === 'reservationsData') {
       renderAdminRezList();
       updateAdminRezBadge();
-    }
-    if (e.key === 'theme') {
-      const newTheme = e.newValue || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-      applyTheme(newTheme);
     }
     if (e.key === 'lang') {
       applyLanguage(e.newValue || 'tr');
