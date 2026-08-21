@@ -1917,7 +1917,7 @@ body.theme-bw .admin-panel-tabs {
   position: absolute;
   bottom: -1px;
   left: 0;
-  width: 33.333%;
+  width: 25%;
   height: 2.5px;
   background: var(--ember);
   border-radius: 2px;
@@ -1939,13 +1939,13 @@ body.theme-bw .admin-panel-tabs {
 }
 .admin-tab-content-slider {
   display: flex;
-  width: 300%;
+  width: 400%;
   height: 100%;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   flex-shrink: 0;
 }
 .admin-tab-content {
-  width: 33.333%;
+  width: 25%;
   height: 100%;
   flex-shrink: 0;
   display: block;
@@ -2927,6 +2927,9 @@ body.theme-bw .rez-select-trigger:hover {
       <span data-i18n="admin_tab_rez">Rezervasyonlar</span> <span class="badge" id="adminRezBadge" style="display:none;">0</span>
     </button>
     <button class="admin-tab-btn" id="adminTabBtnPush" onclick="switchAdminPanelTab(this, 2)">Bildirim Gönder</button>
+    <button class="admin-tab-btn" id="adminTabBtnOrders" onclick="switchAdminPanelTab(this, 3)">
+      <span>Siparişler</span> <span class="badge" id="adminOrdersBadge" style="display:none;">0</span>
+    </button>
     <div class="admin-tab-indicator" id="adminTabIndicator"></div>
   </div>
   
@@ -3112,13 +3115,33 @@ body.theme-bw .rez-select-trigger:hover {
               </table>
             </div>
           </div>
-          
+
         </div>
+      </div>
+
+      <!-- ORDERS TAB CONTENT -->
+      <div id="adminTabOrdersCont" class="admin-tab-content">
+        <div class="admin-rez-header">
+          <h3>Müşteri Siparişleri</h3>
+        </div>
+        <div class="admin-rez-list" id="adminOrdersList"></div>
       </div>
     </div>
   </div>
 </div>
 
+
+<!-- ORDER DETAIL MODAL -->
+<div id="orderDetailBackdrop" class="admin-modal-backdrop" onclick="closeOrderDetail()">
+  <div class="admin-modal-card" onclick="event.stopPropagation()" style="max-width:480px;max-height:85vh;overflow-y:auto;text-align:left;">
+    <h3 class="admin-modal-title" id="orderDetailNumber" style="text-align:center;"></h3>
+    <div id="orderDetailBody" style="display:flex;flex-direction:column;gap:10px;font-size:0.9rem;"></div>
+    <div style="display:flex;gap:8px;margin-top:18px;">
+      <button class="admin-btn secondary" style="margin:0;flex:1;" onclick="closeOrderDetail()">Kapat</button>
+      <button class="admin-btn danger" style="margin:0;flex:1;background:#D84315;color:#fff;" onclick="deleteOrder(window.currentOrderDetailId)">Sil</button>
+    </div>
+  </div>
+</div>
 
 <!-- PUSH CONFIRM MODAL -->
 <div id="pushConfirmModal" class="admin-modal-backdrop" onclick="closePushConfirmModal()">
@@ -5101,11 +5124,15 @@ function initializeApp() {
 
   // Initialize custom reservation date dropdowns
   updateRezDateOptions();
-  
+
   // Periodically check and sync reservations from Telegram every 10 seconds
   syncReservationsWithTelegram();
   setInterval(syncReservationsWithTelegram, 10000);
-  
+
+  // Load orders and keep the unread badge/list fresh
+  loadOrders();
+  setInterval(loadOrders, 10000);
+
   // OS color scheme listener disabled to prevent unexpected site color changes
   /* window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {
@@ -5420,34 +5447,40 @@ function switchAdminPanelTab(btn, idx) {
   container.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   
+  const tabCount = container.querySelectorAll('.admin-tab-btn').length;
+  const tabPct = 100 / tabCount;
+
   // Slide indicator
   const indicator = document.getElementById('adminTabIndicator');
   if (indicator) {
-    indicator.style.left = (idx * 33.3333) + '%';
-    indicator.style.width = '33.3333%';
+    indicator.style.left = (idx * tabPct) + '%';
+    indicator.style.width = tabPct + '%';
   }
 
   // Slide content
   const slider = document.getElementById('adminTabSlider');
   if (slider) {
-    slider.style.transform = `translateX(-${idx * 33.3333}%)`;
+    slider.style.transform = `translateX(-${idx * tabPct}%)`;
   }
-  
+
   // Toggle active-tab class for opacity
   const panels = document.querySelectorAll('.admin-tab-content');
   panels.forEach((p, i) => {
     p.classList.toggle('active-tab', i === idx);
   });
-  
+
   // Hide/Show Product/Category buttons based on tab
   const addBtn = document.getElementById('adminAddNewProductBtn');
   const addCatBtn = document.getElementById('adminAddNewCategoryBtn');
   const isProdTab = (idx === 0);
   if (addBtn) addBtn.style.display = isProdTab ? 'inline-block' : 'none';
   if (addCatBtn) addCatBtn.style.display = isProdTab ? 'inline-block' : 'none';
-  
+
   if (idx === 2) {
     loadPushDashboardData();
+  }
+  if (idx === 3) {
+    loadOrders();
   }
 }
 
@@ -5594,6 +5627,199 @@ async function deleteReservation(id) {
   } catch (e) {
     console.error("Error deleting reservation:", e);
   }
+}
+
+// ── ORDERS ──
+const ADMIN_AUTH_HEADER = { 'Authorization': 'Bearer dayikatik123' };
+const ORDER_STATUS_LABELS = {
+  new: { tr: 'Yeni', en: 'New' },
+  preparing: { tr: 'Hazırlanıyor', en: 'Preparing' },
+  ready: { tr: 'Hazır', en: 'Ready' },
+  delivered: { tr: 'Teslim Edildi', en: 'Delivered' },
+  cancelled: { tr: 'İptal Edildi', en: 'Cancelled' }
+};
+window.ordersData = [];
+window.currentOrderDetailId = null;
+
+function statusLabel(status) {
+  const l = ORDER_STATUS_LABELS[status];
+  if (!l) return status;
+  return window.currentLanguage === 'tr' ? l.tr : l.en;
+}
+
+async function loadOrders() {
+  try {
+    const res = await fetch('/api/orders', { headers: ADMIN_AUTH_HEADER });
+    if (!res.ok) throw new Error('Failed to fetch orders');
+    window.ordersData = await res.json();
+    renderAdminOrdersList();
+    updateOrdersBadge();
+  } catch (e) {
+    console.error("Error loading orders:", e);
+  }
+}
+
+function updateOrdersBadge() {
+  const badge = document.getElementById('adminOrdersBadge');
+  if (!badge) return;
+  const unreadCount = (window.ordersData || []).filter(o => !o.is_read).length;
+  if (unreadCount > 0) {
+    badge.textContent = unreadCount;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function renderAdminOrdersList() {
+  const container = document.getElementById('adminOrdersList');
+  if (!container) return;
+  const isTr = window.currentLanguage === 'tr';
+  const orders = window.ordersData || [];
+
+  if (orders.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding:40px 20px; color:var(--muted); font-size:0.9rem; grid-column: 1 / -1;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:0.6;color:var(--muted);"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <p>${isTr ? 'Henüz bir sipariş bulunmuyor.' : 'No orders yet.'}</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = orders.map(order => {
+    const itemsSummary = order.items.map(it => `${it.quantity}x ${it.product_name}`).join(', ');
+    const paymentLabel = order.payment_method === 'card' ? (isTr ? 'Kart' : 'Card') : (isTr ? 'Nakit' : 'Cash');
+    return `
+    <div class="admin-rez-item ${order.is_read ? 'read' : 'unread'}" id="order-card-${order.id}" onclick="openOrderDetail('${order.id}')">
+      <div class="rez-details">
+        <div class="rez-top-row">
+          <span>${order.order_number}</span>
+          <span class="rez-pax">₺${order.total}</span>
+        </div>
+        <div class="rez-meta-row">
+          <span>${order.customer_name}</span>
+          <span>${order.customer_phone}</span>
+          <span>${paymentLabel}</span>
+          <span>${statusLabel(order.status)}</span>
+        </div>
+        <div class="rez-note">${itemsSummary}</div>
+      </div>
+      <div class="rez-actions" onclick="event.stopPropagation()">
+        ${!order.is_read ? `
+          <button class="rez-action-btn" onclick="markOrderRead('${order.id}')" title="${isTr ? 'Okundu Olarak İşaretle' : 'Mark as Read'}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        ` : `
+          <span class="read-badge">${isTr ? 'Okundu' : 'Read'}</span>
+        `}
+        <button class="rez-action-btn delete" onclick="deleteOrder('${order.id}')" title="${isTr ? 'Sil' : 'Delete'}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #FF5252;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+async function markOrderRead(id) {
+  try {
+    const res = await fetch(`/api/orders/${id}/read`, {
+      method: 'PATCH',
+      headers: ADMIN_AUTH_HEADER
+    });
+    if (!res.ok) throw new Error('Failed to mark order as read');
+    await loadOrders();
+  } catch (e) {
+    console.error("Error marking order as read:", e);
+  }
+}
+
+async function changeOrderStatus(id, status) {
+  try {
+    const res = await fetch(`/api/orders/${id}`, {
+      method: 'PATCH',
+      headers: { ...ADMIN_AUTH_HEADER, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    });
+    if (!res.ok) throw new Error('Failed to update order status');
+    await loadOrders();
+    if (window.currentOrderDetailId === id) openOrderDetail(id);
+  } catch (e) {
+    console.error("Error updating order status:", e);
+  }
+}
+
+async function deleteOrder(id) {
+  if (!id) return;
+  const confirmMsg = window.currentLanguage === 'tr'
+    ? 'Bu siparişi silmek istediğinize emin misiniz?'
+    : 'Are you sure you want to delete this order?';
+  const confirmDelete = await showCustomConfirm(confirmMsg);
+  if (!confirmDelete) return;
+
+  try {
+    const res = await fetch(`/api/orders/${id}`, {
+      method: 'DELETE',
+      headers: ADMIN_AUTH_HEADER
+    });
+    if (!res.ok) throw new Error('Failed to delete order');
+    closeOrderDetail();
+    await loadOrders();
+  } catch (e) {
+    console.error("Error deleting order:", e);
+  }
+}
+
+function openOrderDetail(id) {
+  const order = (window.ordersData || []).find(o => o.id === id);
+  if (!order) return;
+  window.currentOrderDetailId = id;
+  const isTr = window.currentLanguage === 'tr';
+
+  if (!order.is_read) markOrderRead(id);
+
+  document.getElementById('orderDetailNumber').textContent = order.order_number;
+  const itemsRows = order.items.map(it => `
+    <div style="display:flex;justify-content:space-between;">
+      <span>${it.quantity}x ${it.product_name}</span>
+      <span>₺${it.line_total}</span>
+    </div>
+  `).join('');
+
+  const statusOptions = Object.keys(ORDER_STATUS_LABELS).map(s => `
+    <option value="${s}" ${s === order.status ? 'selected' : ''}>${statusLabel(s)}</option>
+  `).join('');
+
+  const paymentLabel = order.payment_method === 'card' ? (isTr ? 'Kart' : 'Card') : (isTr ? 'Nakit' : 'Cash');
+
+  document.getElementById('orderDetailBody').innerHTML = `
+    <div><strong>${isTr ? 'Müşteri' : 'Customer'}:</strong> ${order.customer_name}</div>
+    <div><strong>${isTr ? 'Telefon' : 'Phone'}:</strong> ${order.customer_phone}</div>
+    <div><strong>${isTr ? 'Adres' : 'Address'}:</strong> ${order.customer_address}</div>
+    <div><strong>${isTr ? 'Ödeme' : 'Payment'}:</strong> ${paymentLabel}</div>
+    <div><strong>${isTr ? 'Tarih' : 'Date'}:</strong> ${order.created_at}</div>
+    <div style="border-top:1px solid rgba(255,248,240,0.08);padding-top:10px;display:flex;flex-direction:column;gap:6px;">
+      ${itemsRows}
+    </div>
+    <div style="display:flex;justify-content:space-between;font-weight:800;border-top:1px solid rgba(255,248,240,0.08);padding-top:10px;">
+      <span>${isTr ? 'Genel Toplam' : 'Total'}</span>
+      <span>₺${order.total}</span>
+    </div>
+    <div>
+      <label class="admin-form-label">${isTr ? 'Sipariş Durumu' : 'Order Status'}</label>
+      <select class="admin-input" onchange="changeOrderStatus('${order.id}', this.value)">
+        ${statusOptions}
+      </select>
+    </div>
+  `;
+
+  document.getElementById('orderDetailBackdrop').classList.add('open');
+}
+
+function closeOrderDetail() {
+  document.getElementById('orderDetailBackdrop').classList.remove('open');
+  window.currentOrderDetailId = null;
 }
 
 function closeAdminPanel() {

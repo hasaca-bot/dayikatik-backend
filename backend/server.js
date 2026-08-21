@@ -993,6 +993,258 @@ app.post('/api/notifications/click', rateLimiter(100), async (req, res) => {
 
 
 // ==========================================
+// ORDERS API
+// ==========================================
+
+const ORDER_STATUSES = ['new', 'preparing', 'ready', 'delivered', 'cancelled'];
+const PAYMENT_METHODS = ['cash', 'card'];
+const MAX_ITEM_QUANTITY = 50;
+
+function generateOrderNumber() {
+  const tail = String(Date.now()).slice(-6);
+  const rand = String(Math.floor(Math.random() * 90) + 10);
+  return `DK-${tail}${rand}`;
+}
+
+function mapOrderRow(row, items) {
+  return {
+    id: row.id,
+    order_number: row.order_number,
+    customer_name: row.customer_name,
+    customer_phone: row.customer_phone,
+    customer_address: row.customer_address,
+    payment_method: row.payment_method,
+    subtotal: row.subtotal,
+    delivery_fee: row.delivery_fee,
+    total: row.total,
+    status: row.status,
+    is_read: !!row.is_read,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    items: (items || []).map(it => ({
+      id: it.id,
+      product_id: it.product_id,
+      product_name: it.product_name_snapshot,
+      unit_price: it.unit_price,
+      quantity: it.quantity,
+      line_total: it.line_total
+    }))
+  };
+}
+
+async function getOrderItems(orderId) {
+  return db.all(
+    isPg ? 'SELECT * FROM order_items WHERE order_id = $1' : 'SELECT * FROM order_items WHERE order_id = ?',
+    [orderId]
+  );
+}
+
+// POST /api/orders — public: customer places an order
+app.post('/api/orders', rateLimiter(30), async (req, res) => {
+  try {
+    const body = req.body || {};
+    const customer_name = (body.customer_name || '').trim();
+    const customer_phone = (body.customer_phone || '').trim();
+    const customer_address = (body.customer_address || '').trim();
+    const payment_method = body.payment_method;
+    const idempotency_key = (body.idempotency_key || '').trim();
+    const requestedItems = Array.isArray(body.items) ? body.items : [];
+
+    if (!customer_name) {
+      return res.status(400).json({ error: 'Ad soyad zorunludur.' });
+    }
+    const phoneDigits = customer_phone.replace(/\D/g, '');
+    if (!/^0?5\d{9}$/.test(phoneDigits)) {
+      return res.status(400).json({ error: 'Geçerli bir telefon numarası girin.' });
+    }
+    if (!customer_address) {
+      return res.status(400).json({ error: 'Adres zorunludur.' });
+    }
+    if (!PAYMENT_METHODS.includes(payment_method)) {
+      return res.status(400).json({ error: 'Geçersiz ödeme yöntemi.' });
+    }
+    if (requestedItems.length === 0) {
+      return res.status(400).json({ error: 'Sepet boş olamaz.' });
+    }
+    for (const it of requestedItems) {
+      const qty = Number(it.quantity);
+      if (!it.product_id || !Number.isInteger(qty) || qty <= 0 || qty > MAX_ITEM_QUANTITY) {
+        return res.status(400).json({ error: 'Geçersiz ürün miktarı.' });
+      }
+    }
+
+    // Idempotency: if this exact checkout attempt already produced an order, return it instead of duplicating
+    if (idempotency_key) {
+      const existing = await db.get(
+        isPg ? 'SELECT * FROM orders WHERE idempotency_key = $1' : 'SELECT * FROM orders WHERE idempotency_key = ?',
+        [idempotency_key]
+      );
+      if (existing) {
+        const items = await getOrderItems(existing.id);
+        return res.status(200).json(mapOrderRow(existing, items));
+      }
+    }
+
+    // Re-validate every product against the database — never trust client-sent prices/names
+    const lineItems = [];
+    let subtotal = 0;
+    for (const it of requestedItems) {
+      const productRow = await db.get(
+        isPg ? 'SELECT * FROM products WHERE id = $1' : 'SELECT * FROM products WHERE id = ?',
+        [it.product_id]
+      );
+      if (!productRow) {
+        return res.status(400).json({ error: `Ürün bulunamadı: ${it.product_id}` });
+      }
+      const quantity = Number(it.quantity);
+      const unitPrice = productRow.price;
+      const lineTotal = Math.round(unitPrice * quantity * 100) / 100;
+      subtotal += lineTotal;
+      lineItems.push({
+        product_id: productRow.id,
+        product_name_snapshot: productRow.name_tr,
+        unit_price: unitPrice,
+        quantity,
+        line_total: lineTotal
+      });
+    }
+    subtotal = Math.round(subtotal * 100) / 100;
+    const delivery_fee = 0;
+    const total = Math.round((subtotal + delivery_fee) * 100) / 100;
+
+    const orderId = `order-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+    const orderNumber = generateOrderNumber();
+
+    const insertOrderSql = isPg
+      ? `INSERT INTO orders (id, order_number, customer_name, customer_phone, customer_address, payment_method, subtotal, delivery_fee, total, status, is_read, idempotency_key)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'new',0,$10)`
+      : `INSERT INTO orders (id, order_number, customer_name, customer_phone, customer_address, payment_method, subtotal, delivery_fee, total, status, is_read, idempotency_key)
+         VALUES (?,?,?,?,?,?,?,?,?,'new',0,?)`;
+    await db.run(insertOrderSql, [
+      orderId, orderNumber, customer_name, customer_phone, customer_address,
+      payment_method, subtotal, delivery_fee, total, idempotency_key || null
+    ]);
+
+    for (const li of lineItems) {
+      const itemId = `oi-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+      const insertItemSql = isPg
+        ? `INSERT INTO order_items (id, order_id, product_id, product_name_snapshot, unit_price, quantity, line_total) VALUES ($1,$2,$3,$4,$5,$6,$7)`
+        : `INSERT INTO order_items (id, order_id, product_id, product_name_snapshot, unit_price, quantity, line_total) VALUES (?,?,?,?,?,?,?)`;
+      await db.run(insertItemSql, [itemId, orderId, li.product_id, li.product_name_snapshot, li.unit_price, li.quantity, li.line_total]);
+    }
+
+    const createdOrder = await db.get(
+      isPg ? 'SELECT * FROM orders WHERE id = $1' : 'SELECT * FROM orders WHERE id = ?',
+      [orderId]
+    );
+    const items = await getOrderItems(orderId);
+    res.status(201).json(mapOrderRow(createdOrder, items));
+  } catch (err) {
+    console.error('[API ERROR] POST /api/orders:', err);
+    res.status(500).json({ error: 'Sipariş oluşturulamadı. Lütfen tekrar deneyin.' });
+  }
+});
+
+// GET /api/orders (Admin Only)
+app.get('/api/orders', adminAuth, async (req, res) => {
+  try {
+    const rows = await db.all('SELECT * FROM orders ORDER BY created_at DESC');
+    const result = [];
+    for (const row of rows) {
+      const items = await getOrderItems(row.id);
+      result.push(mapOrderRow(row, items));
+    }
+    res.json(result);
+  } catch (err) {
+    console.error('[API ERROR] GET /api/orders:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/orders/:id (Admin Only)
+app.get('/api/orders/:id', adminAuth, async (req, res) => {
+  try {
+    const row = await db.get(
+      isPg ? 'SELECT * FROM orders WHERE id = $1' : 'SELECT * FROM orders WHERE id = ?',
+      [req.params.id]
+    );
+    if (!row) return res.status(404).json({ error: 'Order not found' });
+    const items = await getOrderItems(row.id);
+    res.json(mapOrderRow(row, items));
+  } catch (err) {
+    console.error('[API ERROR] GET /api/orders/:id:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH /api/orders/:id/read (Admin Only)
+app.patch('/api/orders/:id/read', adminAuth, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updateSql = isPg
+      ? 'UPDATE orders SET is_read = 1, updated_at = CURRENT_TIMESTAMP WHERE id = $1'
+      : 'UPDATE orders SET is_read = 1, updated_at = CURRENT_TIMESTAMP WHERE id = ?';
+    const result = await db.run(updateSql, [id]);
+    if (result.changes === 0) return res.status(404).json({ error: 'Order not found' });
+    const row = await db.get(
+      isPg ? 'SELECT * FROM orders WHERE id = $1' : 'SELECT * FROM orders WHERE id = ?',
+      [id]
+    );
+    const items = await getOrderItems(id);
+    res.json(mapOrderRow(row, items));
+  } catch (err) {
+    console.error('[API ERROR] PATCH /api/orders/:id/read:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH /api/orders/:id (Admin Only) — update status
+app.patch('/api/orders/:id', adminAuth, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { status } = req.body || {};
+    if (!ORDER_STATUSES.includes(status)) {
+      return res.status(400).json({ error: 'Geçersiz sipariş durumu.' });
+    }
+    const updateSql = isPg
+      ? 'UPDATE orders SET status = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2'
+      : 'UPDATE orders SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?';
+    const result = await db.run(updateSql, [status, id]);
+    if (result.changes === 0) return res.status(404).json({ error: 'Order not found' });
+    const row = await db.get(
+      isPg ? 'SELECT * FROM orders WHERE id = $1' : 'SELECT * FROM orders WHERE id = ?',
+      [id]
+    );
+    const items = await getOrderItems(id);
+    res.json(mapOrderRow(row, items));
+  } catch (err) {
+    console.error('[API ERROR] PATCH /api/orders/:id:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE /api/orders/:id (Admin Only)
+app.delete('/api/orders/:id', adminAuth, async (req, res) => {
+  try {
+    const id = req.params.id;
+    await db.run(
+      isPg ? 'DELETE FROM order_items WHERE order_id = $1' : 'DELETE FROM order_items WHERE order_id = ?',
+      [id]
+    );
+    const result = await db.run(
+      isPg ? 'DELETE FROM orders WHERE id = $1' : 'DELETE FROM orders WHERE id = ?',
+      [id]
+    );
+    if (result.changes === 0) return res.status(404).json({ error: 'Order not found' });
+    res.json({ success: true, message: 'Order deleted successfully' });
+  } catch (err) {
+    console.error('[API ERROR] DELETE /api/orders/:id:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+// ==========================================
 // RETRO COMPATIBILITY FOR PREVIOUS SAVE API
 // ==========================================
 app.post('/api/save-menu', (req, res) => {

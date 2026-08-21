@@ -50,7 +50,7 @@ if (DATABASE_URL) {
 } else {
   // ── SQLITE MODE (Local Development) ──
   const { DatabaseSync } = require('node:sqlite');
-  const dbPath = path.join(__dirname, 'dayikatik.db');
+  const dbPath = process.env.SQLITE_DB_PATH || path.join(__dirname, 'dayikatik.db');
   const sqliteDb = new DatabaseSync(dbPath);
 
   dbDriver = {
@@ -87,7 +87,7 @@ if (DATABASE_URL) {
     return sql.replace(/\$(\d+)/g, '?');
   }
 
-  console.log(`[DB] Using SQLite (local mode) at: ${path.join(__dirname, 'dayikatik.db')}`);
+  console.log(`[DB] Using SQLite (local mode) at: ${dbPath}`);
 }
 
 // ── MIGRATIONS ──
@@ -197,6 +197,37 @@ async function runMigrations() {
         enabled INTEGER DEFAULT 1
       );
     `);
+
+    await dbDriver.exec(`
+      CREATE TABLE IF NOT EXISTS orders (
+        id TEXT PRIMARY KEY,
+        order_number TEXT UNIQUE NOT NULL,
+        customer_name TEXT NOT NULL,
+        customer_phone TEXT NOT NULL,
+        customer_address TEXT NOT NULL,
+        payment_method TEXT NOT NULL,
+        subtotal REAL NOT NULL,
+        delivery_fee REAL NOT NULL DEFAULT 0,
+        total REAL NOT NULL,
+        status TEXT NOT NULL DEFAULT 'new',
+        is_read INTEGER NOT NULL DEFAULT 0,
+        idempotency_key TEXT UNIQUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await dbDriver.exec(`
+      CREATE TABLE IF NOT EXISTS order_items (
+        id TEXT PRIMARY KEY,
+        order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+        product_id TEXT NOT NULL,
+        product_name_snapshot TEXT NOT NULL,
+        unit_price REAL NOT NULL,
+        quantity INTEGER NOT NULL,
+        line_total REAL NOT NULL
+      );
+    `);
   } else {
     // SQLite DDL (same as original)
     await dbDriver.exec(`
@@ -298,6 +329,37 @@ async function runMigrations() {
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         last_seen TEXT DEFAULT CURRENT_TIMESTAMP,
         enabled INTEGER DEFAULT 1
+      );
+    `);
+
+    await dbDriver.exec(`
+      CREATE TABLE IF NOT EXISTS orders (
+        id TEXT PRIMARY KEY,
+        order_number TEXT UNIQUE NOT NULL,
+        customer_name TEXT NOT NULL,
+        customer_phone TEXT NOT NULL,
+        customer_address TEXT NOT NULL,
+        payment_method TEXT NOT NULL,
+        subtotal REAL NOT NULL,
+        delivery_fee REAL NOT NULL DEFAULT 0,
+        total REAL NOT NULL,
+        status TEXT NOT NULL DEFAULT 'new',
+        is_read INTEGER NOT NULL DEFAULT 0,
+        idempotency_key TEXT UNIQUE,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await dbDriver.exec(`
+      CREATE TABLE IF NOT EXISTS order_items (
+        id TEXT PRIMARY KEY,
+        order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+        product_id TEXT NOT NULL,
+        product_name_snapshot TEXT NOT NULL,
+        unit_price REAL NOT NULL,
+        quantity INTEGER NOT NULL,
+        line_total REAL NOT NULL
       );
     `);
   }
