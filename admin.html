@@ -1883,80 +1883,92 @@ body.theme-bw .admin-file-upload-btn {
 }
 
 /* ── ADMIN RESERVATIONS TABS & DRAG-DROP STYLING ── */
-.admin-panel-tabs {
+.admin-panel-body {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255,248,240,0.06);
-  position: relative;
-}
-body.theme-bw .admin-panel-tabs {
-  border-bottom-color: rgba(44, 26, 16, 0.1);
-}
-.admin-tab-btn {
   flex: 1;
+  overflow: hidden;
+  gap: 16px;
+}
+.admin-sidebar {
+  width: 170px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255,248,240,0.06);
+  overflow-y: auto;
+}
+body.theme-bw .admin-sidebar {
+  border-right-color: rgba(44, 26, 16, 0.1);
+}
+.admin-sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   background: transparent;
   border: none;
+  border-radius: 10px;
   color: var(--muted);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
-  padding: 10px 16px;
+  padding: 12px 14px;
   cursor: pointer;
-  position: relative;
-  transition: color 0.2s;
-  text-align: center;
+  text-align: left;
+  transition: background-color 0.2s, color 0.2s;
 }
-.admin-tab-btn:hover {
+.admin-sidebar-btn:hover {
   color: var(--cream);
+  background: rgba(255,248,240,0.05);
 }
-.admin-tab-btn.active {
+body.theme-bw .admin-sidebar-btn:hover {
+  background: rgba(44,26,16,0.04);
+}
+.admin-sidebar-btn.active {
   color: var(--ember);
+  background: rgba(217,59,10,0.1);
 }
-.admin-tab-indicator {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 25%;
-  height: 2.5px;
-  background: var(--ember);
-  border-radius: 2px;
-  transition: left 0.35s cubic-bezier(0.25, 1, 0.5, 1), width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-}
-.admin-tab-btn .badge {
+.admin-sidebar-btn .badge {
   background: var(--fire);
   color: #FFFFFF;
   font-size: 0.7rem;
   padding: 2px 6px;
   border-radius: 10px;
-  margin-left: 6px;
+  margin-left: 4px;
 }
-.admin-tab-content-wrapper {
-  overflow: hidden;
-  width: 100%;
+.admin-content-area {
   flex: 1;
-  display: flex;
-}
-.admin-tab-content-slider {
-  display: flex;
-  width: 400%;
-  height: 100%;
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  flex-shrink: 0;
-}
-.admin-tab-content {
-  width: 25%;
-  height: 100%;
-  flex-shrink: 0;
-  display: block;
-  opacity: 0.35;
-  transition: opacity 0.4s ease;
+  min-width: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 120px;
 }
+.admin-tab-content {
+  display: none;
+}
 .admin-tab-content.active-tab {
-  opacity: 1;
+  display: block;
+}
+@media (max-width: 480px) {
+  .admin-panel-body {
+    gap: 8px;
+  }
+  .admin-sidebar {
+    width: 84px;
+    padding-right: 6px;
+  }
+  .admin-sidebar-btn {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 10px 8px;
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+  .admin-sidebar-btn .badge {
+    margin-left: 0;
+  }
 }
 
 /* ── Push Notification Compose/Preview (ported from style.css so admin.html stays self-contained) ── */
@@ -2921,20 +2933,19 @@ body.theme-bw .rez-select-trigger:hover {
     </div>
   </div>
   
-  <div class="admin-panel-tabs">
-    <button class="admin-tab-btn active" id="adminTabBtnProd" data-i18n="admin_tab_prod" onclick="switchAdminPanelTab(this, 0)">Ürün Yönetimi</button>
-    <button class="admin-tab-btn" id="adminTabBtnRez" onclick="switchAdminPanelTab(this, 1)">
-      <span data-i18n="admin_tab_rez">Rezervasyonlar</span> <span class="badge" id="adminRezBadge" style="display:none;">0</span>
-    </button>
-    <button class="admin-tab-btn" id="adminTabBtnPush" onclick="switchAdminPanelTab(this, 2)">Bildirim Gönder</button>
-    <button class="admin-tab-btn" id="adminTabBtnOrders" onclick="switchAdminPanelTab(this, 3)">
-      <span data-i18n="admin_tab_orders">Siparişler</span> <span class="badge" id="adminOrdersBadge" style="display:none;">0</span>
-    </button>
-    <div class="admin-tab-indicator" id="adminTabIndicator"></div>
-  </div>
-  
-  <div class="admin-tab-content-wrapper">
-    <div class="admin-tab-content-slider" id="adminTabSlider">
+  <div class="admin-panel-body">
+    <div class="admin-sidebar" id="adminSidebar">
+      <button class="admin-sidebar-btn active" id="adminTabBtnProd" data-i18n="admin_tab_prod" onclick="switchAdminPanelTab(this, 0)">Ürün Yönetimi</button>
+      <button class="admin-sidebar-btn" id="adminTabBtnRez" onclick="switchAdminPanelTab(this, 1)">
+        <span data-i18n="admin_tab_rez">Rezervasyonlar</span> <span class="badge" id="adminRezBadge" style="display:none;">0</span>
+      </button>
+      <button class="admin-sidebar-btn" id="adminTabBtnPush" onclick="switchAdminPanelTab(this, 2)">Bildirim Gönder</button>
+      <button class="admin-sidebar-btn" id="adminTabBtnOrders" onclick="switchAdminPanelTab(this, 3)">
+        <span data-i18n="admin_tab_orders">Siparişler</span> <span class="badge" id="adminOrdersBadge" style="display:none;">0</span>
+      </button>
+    </div>
+
+    <div class="admin-content-area">
       <!-- PRODUCTS TAB CONTENT -->
       <div id="adminTabProducts" class="admin-tab-content active-tab">
         <div style="margin-bottom: 16px;">
@@ -5454,26 +5465,10 @@ function openAdminPanel() {
 
 function switchAdminPanelTab(btn, idx) {
   const container = btn.parentElement;
-  container.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.admin-sidebar-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  
-  const tabCount = container.querySelectorAll('.admin-tab-btn').length;
-  const tabPct = 100 / tabCount;
 
-  // Slide indicator
-  const indicator = document.getElementById('adminTabIndicator');
-  if (indicator) {
-    indicator.style.left = (idx * tabPct) + '%';
-    indicator.style.width = tabPct + '%';
-  }
-
-  // Slide content
-  const slider = document.getElementById('adminTabSlider');
-  if (slider) {
-    slider.style.transform = `translateX(-${idx * tabPct}%)`;
-  }
-
-  // Toggle active-tab class for opacity
+  // Show only the selected panel
   const panels = document.querySelectorAll('.admin-tab-content');
   panels.forEach((p, i) => {
     p.classList.toggle('active-tab', i === idx);
