@@ -48,6 +48,7 @@ const PORT = process.env.PORT || 12000;
 
 // Enable CORS with robust origin support for Netlify subdomains, previews, and local development
 const allowedOrigins = [
+  'https://dayikatik.onrender.com',
   'https://dayikatik.netlify.app',
   'https://hasacadesign.netlify.app',
   'https://dayikatikornek.netlify.app',
@@ -1274,6 +1275,19 @@ app.use(express.static(rootDir));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(rootDir, 'index.html'));
+});
+
+// ==========================================
+// GLOBAL ERROR HANDLER
+// ==========================================
+// Catches anything that reaches next(err) unhandled (e.g. a rejected CORS
+// origin) and returns clean JSON instead of Express's default HTML crash
+// page, so a misconfigured origin shows up as a normal API error rather
+// than a blank "Internal Server Error" page for the visitor.
+app.use((err, req, res, next) => {
+  console.error('[UNHANDLED ERROR]', err);
+  if (res.headersSent) return next(err);
+  res.status(500).json({ error: 'Sunucu hatası. Lütfen tekrar deneyin.' });
 });
 
 
