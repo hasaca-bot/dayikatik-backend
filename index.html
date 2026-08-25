@@ -6247,9 +6247,21 @@ async function deletePush(id) {
 </script>
 <script>
 if ('serviceWorker' in navigator) {
+  // If a newer service worker takes control while an old one already served
+  // this page, the page's own JS (API_BASE, etc.) is still the stale version.
+  // Reload once — automatically, without asking the visitor to do anything —
+  // so they always end up on the version the new service worker actually serves.
+  let swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (swReloaded) return;
+    swReloaded = true;
+    window.location.reload();
+  });
+
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js').then(reg => {
       console.log('[SW] Service worker registered successfully');
+      reg.update();
     }).catch(err => {
       console.error('[SW ERROR] Service worker registration failed:', err);
     });
