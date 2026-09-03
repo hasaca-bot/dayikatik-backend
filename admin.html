@@ -4748,6 +4748,29 @@ function getAllergenIcon(id) {
   }
 }
 
+// ── SCROLL LOCK (shared by every sliding panel/modal) ──
+// Remembers the page's scroll position right before a panel locks
+// background scrolling, and restores that exact position once the last
+// open panel unlocks it — this is what keeps the page where you were
+// instead of jumping to the top when you close a panel. Counter-based
+// so nested panels don't unlock too early.
+window.__scrollLockY = 0;
+window.__scrollLockCount = 0;
+function lockBodyScroll() {
+  if (window.__scrollLockCount === 0) {
+    window.__scrollLockY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.overflow = 'hidden';
+  }
+  window.__scrollLockCount++;
+}
+function unlockBodyScroll() {
+  window.__scrollLockCount = Math.max(0, window.__scrollLockCount - 1);
+  if (window.__scrollLockCount === 0) {
+    document.body.style.overflow = '';
+    window.scrollTo(0, window.__scrollLockY);
+  }
+}
+
 // Open Food Detail panel
 function openFoodDetail(id, updateHash = true) {
   const item = window.menuData.find(x => x.id === id);
@@ -5017,19 +5040,21 @@ function openFoodDetail(id, updateHash = true) {
   // Show Panel
   document.getElementById('foodDetailBackdrop').classList.add('open');
   document.getElementById('foodDetailPanel').classList.add('open');
-  document.body.style.overflow = 'hidden'; // prevent background scrolling
+  lockBodyScroll();
 }
 
 // Close Food Detail panel
 function closeFoodDetail(updateHash = true) {
   document.getElementById('foodDetailBackdrop').classList.remove('open');
   document.getElementById('foodDetailPanel').classList.remove('open');
-  document.body.style.overflow = '';
-  
-  // Clear Hash
+
+  // Clear Hash (this can itself make the browser jump the scroll position,
+  // so it must happen BEFORE unlockBodyScroll() — that call always finishes
+  // with the real restore, undoing any jump the hash change just caused)
   if (updateHash && window.location.hash.startsWith('#detay-')) {
     window.location.hash = '';
   }
+  unlockBodyScroll();
 }
 
 // Tab Switcher inside Detail Panel

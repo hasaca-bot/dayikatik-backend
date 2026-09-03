@@ -4480,6 +4480,31 @@ function getAllergenIcon(id) {
   }
 }
 
+// ── SCROLL LOCK (shared by every sliding panel/modal) ──
+// Remembers the page's scroll position right before a panel locks
+// background scrolling, and restores that exact position once the last
+// open panel unlocks it — this is what keeps the page where you were
+// instead of jumping to the top when you close the cart, a product's
+// detail view, checkout, etc. Counter-based so nested panels (e.g. the
+// admin login dialog opening on top of the admin panel) don't unlock
+// too early.
+window.__scrollLockY = 0;
+window.__scrollLockCount = 0;
+function lockBodyScroll() {
+  if (window.__scrollLockCount === 0) {
+    window.__scrollLockY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.overflow = 'hidden';
+  }
+  window.__scrollLockCount++;
+}
+function unlockBodyScroll() {
+  window.__scrollLockCount = Math.max(0, window.__scrollLockCount - 1);
+  if (window.__scrollLockCount === 0) {
+    document.body.style.overflow = '';
+    window.scrollTo(0, window.__scrollLockY);
+  }
+}
+
 // Open Food Detail panel
 function openFoodDetail(id, updateHash = true) {
   const item = window.menuData.find(x => x.id === id);
@@ -4754,7 +4779,7 @@ function openFoodDetail(id, updateHash = true) {
   // Show Panel
   document.getElementById('foodDetailBackdrop').classList.add('open');
   document.getElementById('foodDetailPanel').classList.add('open');
-  document.body.style.overflow = 'hidden'; // prevent background scrolling
+  lockBodyScroll();
 }
 
 function renderDetailFooterActions() {
@@ -4784,12 +4809,14 @@ function changeDetailPanelQty(delta) {
 function closeFoodDetail(updateHash = true) {
   document.getElementById('foodDetailBackdrop').classList.remove('open');
   document.getElementById('foodDetailPanel').classList.remove('open');
-  document.body.style.overflow = '';
-  
-  // Clear Hash
+
+  // Clear Hash (this can itself make the browser jump the scroll position,
+  // so it must happen BEFORE unlockBodyScroll() — that call always finishes
+  // with the real restore, undoing any jump the hash change just caused)
   if (updateHash && window.location.hash.startsWith('#detay-')) {
     window.location.hash = '';
   }
+  unlockBodyScroll();
 }
 
 // Tab Switcher inside Detail Panel
@@ -5022,13 +5049,13 @@ function openCartPanel() {
   updateCartBadge();
   document.getElementById('cartBackdrop').classList.add('open');
   document.getElementById('cartPanel').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function closeCartPanel() {
   document.getElementById('cartBackdrop').classList.remove('open');
   document.getElementById('cartPanel').classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
 }
 
 // ── CHECKOUT ──
@@ -5088,12 +5115,12 @@ function openCheckout() {
     : ('idem-' + Date.now() + '-' + Math.random().toString(36).slice(2));
 
   document.getElementById('checkoutBackdrop').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function closeCheckout() {
   document.getElementById('checkoutBackdrop').classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
 }
 
 function showCheckoutError(text) {
@@ -5454,14 +5481,12 @@ function openAdminLogin(e) {
   document.getElementById('adminPassword').value = '';
   document.getElementById('adminLoginError').style.display = 'none';
   document.getElementById('adminLoginBackdrop').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function closeAdminLogin() {
   document.getElementById('adminLoginBackdrop').classList.remove('open');
-  if(!document.getElementById('adminPanelOverlay').classList.contains('open')) {
-    document.body.style.overflow = '';
-  }
+  unlockBodyScroll();
 }
 
 function submitAdminLogin() {
@@ -5481,8 +5506,8 @@ async function openAdminPanel() {
   updateFormCategoryOptions();
   document.getElementById('adminSearchInput').value = '';
   document.getElementById('adminPanelOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  
+  lockBodyScroll();
+
   // Activate Products Tab by default
   const prodTabBtn = document.getElementById('adminTabBtnProd');
   if (prodTabBtn) switchAdminPanelTab(prodTabBtn, 0);
@@ -5672,7 +5697,7 @@ async function deleteReservation(id) {
 
 function closeAdminPanel() {
   document.getElementById('adminPanelOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
   // Reload homepage cards to show updates immediately
   const activeTab = document.querySelector('.category-dropdown-option.active');
   if(activeTab) {
