@@ -3419,19 +3419,20 @@ body.theme-bw .rez-select-trigger:hover {
 window.isStandaloneAdmin = true;
 
 // ── API BASE URL CONFIGURATION ──
-// Automatically detects environment:
-// - localhost/127.0.0.1 → relative paths (local development)
-// - *.onrender.com → relative paths (the Render web service serves both
-//   this HTML and the /api/* routes from the same origin, so a relative
-//   path always works no matter what the Render-assigned subdomain is —
-//   this survives the service being renamed/recreated with a new URL)
-// - Any other host (e.g. Netlify) → fixed cloud backend URL, since the
-//   frontend and backend are on different origins there
+// This HTML is always served by the same Express service that exposes
+// /api/*, whether that's localhost, any onrender.com subdomain Render
+// happens to assign, or a custom domain (e.g. dayikatik.com) pointed at
+// that same Render service — so the default is a relative path, which
+// is same-origin and always correct no matter what the host is called.
+// The one real exception is a *separate* static deployment (Netlify),
+// which has no backend of its own and must call the Render API
+// cross-origin — that's the only case that needs a fixed absolute URL.
 window.API_BASE = (() => {
   const h = window.location.hostname;
-  if (h === 'localhost' || h === '127.0.0.1') return '';
-  if (h.endsWith('.onrender.com')) return '';
-  return 'https://dayikatik.onrender.com';
+  if (h.endsWith('.netlify.app') || h.endsWith('.netlify.com')) {
+    return 'https://dayikatik-18f2.onrender.com';
+  }
+  return '';
 })();
 
 // Fetch interceptor: automatically prepends API_BASE to /api/ requests
