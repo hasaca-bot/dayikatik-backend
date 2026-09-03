@@ -5,11 +5,11 @@
     "name_en": "Beef Iskender",
     "category": "et",
     "price": 350,
-    "description": "Muhteşem sos, et, biber ve yoğurt ile",
-    "description_en": "Served with special sauce, beef, peppers and yogurt",
+    "description": "Tereyağlı domates sos, pide üstü et döner, yoğurt",
+    "description_en": "Thinly sliced beef doner over pita bread, butter tomato sauce, yogurt",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~100g Et / Porsiyon",
       "enerji": 750,
       "yag": 40,
       "doymus_yag": 0,
@@ -34,8 +34,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Tereyağlı domates sos, pide üstü et döner, yoğurt",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Thinly sliced beef doner over pita bread, butter tomato sauce, yogurt",
+    "portion_en": "~100g Beef / Platter"
   },
   {
     "id": "et-beyti",
@@ -43,11 +45,11 @@
     "name_en": "Beef Beyti",
     "category": "et",
     "price": 310,
-    "description": "Muhteşem et döner ile",
-    "description_en": "Served with delicious beef doner",
+    "description": "Lavaşa sarılı et döner, tereyağı, yoğurt, sos",
+    "description_en": "Beef doner rolled in lavash, topped with tomato sauce & butter, yogurt",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~100g Et / Sarma Porsiyon",
       "enerji": 700,
       "yag": 35,
       "doymus_yag": 0,
@@ -72,8 +74,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Lavaşa sarılı et döner, tereyağı, yoğurt, sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Beef doner rolled in lavash, topped with tomato sauce & butter, yogurt",
+    "portion_en": "~100g Beef / Rolled Platter"
   },
   {
     "id": "beyti-tavuk",
@@ -81,11 +85,11 @@
     "name_en": "Chicken Beyti",
     "category": "et",
     "price": 250,
-    "description": "Muhteşem tavuk döner ile",
-    "description_en": "Served with delicious chicken doner",
+    "description": "Lavaşa sarılı tavuk döner, tereyağı, yoğurt, sos",
+    "description_en": "Chicken doner rolled in lavash, topped with butter & tomato sauce, yogurt",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~110g Tavuk / Porsiyon",
       "enerji": 600,
       "yag": 25,
       "doymus_yag": 0,
@@ -110,8 +114,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Lavaşa sarılı tavuk döner, tereyağı, yoğurt, sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chicken doner rolled in lavash, topped with butter & tomato sauce, yogurt",
+    "portion_en": "~110g Chicken / Rolled Platter"
   },
   {
     "id": "katik-et-durum",
@@ -119,11 +125,11 @@
     "name_en": "Katik Beef Wrap",
     "category": "et",
     "price": 220,
-    "description": "Muhteşem sos ve etin eşsiz lezzeti",
-    "description_en": "Unique taste of special sauce and beef",
+    "description": "Özel sos, dana et döner, patates, turşu",
+    "description_en": "Special sauce, seasoned beef doner, french fries, pickles",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Et / Standart Lavaş",
       "enerji": 600,
       "yag": 28,
       "doymus_yag": 0,
@@ -148,8 +154,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Özel sos, dana et döner, patates, turşu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Special sauce, seasoned beef doner, french fries, pickles",
+    "portion_en": "~80g Beef / Standard Lavash"
   },
   {
     "id": "katik-et-ekmek-arasi",
@@ -157,11 +165,11 @@
     "name_en": "Katik Beef Sandwich",
     "category": "et",
     "price": 260,
-    "description": "Muhteşem sos ve etin eşsiz lezzeti",
-    "description_en": "Unique taste of special sauce and beef",
+    "description": "Ekmek arası et döner, patates, özel sos",
+    "description_en": "Special sauce, sliced beef doner, french fries in crusty bread",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Et / Somun Ekmek",
       "enerji": 650,
       "yag": 25,
       "doymus_yag": 0,
@@ -186,8 +194,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Ekmek arası et döner, patates, özel sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Special sauce, sliced beef doner, french fries in crusty bread",
+    "portion_en": "~80g Beef / Baguette Bread"
   },
   {
     "id": "zurna-katik-et-durum",
@@ -195,11 +205,11 @@
     "name_en": "Zurna Katik Beef Wrap",
     "category": "et",
     "price": 250,
-    "description": "Muhteşem 40 cm katık et dürüm lezzeti",
-    "description_en": "Delicious 40 cm Katik beef wrap",
+    "description": "40 cm lavaş, bol et döner, patates, katık sos",
+    "description_en": "40 cm XL lavash loaded with beef doner, fries, signature sauce",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Et / 40 cm Lavaş",
       "enerji": 850,
       "yag": 40,
       "doymus_yag": 0,
@@ -224,8 +234,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm lavaş, bol et döner, patates, katık sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL lavash loaded with beef doner, fries, signature sauce",
+    "portion_en": "~120g Beef / 40 cm Lavash"
   },
   {
     "id": "katik-et-menu-1",
@@ -233,11 +245,11 @@
     "name_en": "Katik Beef Menu 1",
     "category": "et",
     "price": 300,
-    "description": "Et dürüm, ayran, cips ve tatlı",
-    "description_en": "Beef wrap served with ayran, french fries and dessert",
+    "description": "Et dürüm, ayran, cips/patates, tatlı",
+    "description_en": "Beef wrap, ayran (200ml), french fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "80g Et Dürüm + Ayran",
       "enerji": 1100,
       "yag": null,
       "doymus_yag": 0,
@@ -262,8 +274,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Et dürüm, ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Beef wrap, ayran (200ml), french fries/chips, dessert",
+    "portion_en": "80g Beef Wrap + Ayran"
   },
   {
     "id": "katik-et-menu-2",
@@ -271,11 +285,11 @@
     "name_en": "Katik Beef Menu 2",
     "category": "et",
     "price": 340,
-    "description": "Et dürüm, kutu içecek, cips ve tatlı",
-    "description_en": "Beef wrap served with canned soft drink, french fries and dessert",
+    "description": "Et dürüm, kutu içecek, cips/patates, tatlı",
+    "description_en": "Beef wrap, canned soda (330ml), french fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "80g Et Dürüm + Kutu İçecek",
       "enerji": 1150,
       "yag": null,
       "doymus_yag": 0,
@@ -300,8 +314,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Et dürüm, kutu içecek, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Beef wrap, canned soda (330ml), french fries/chips, dessert",
+    "portion_en": "80g Beef Wrap + Canned Soda"
   },
   {
     "id": "combo-et-menu-1",
@@ -309,11 +325,11 @@
     "name_en": "Combo Beef Menu 1",
     "category": "et",
     "price": 370,
-    "description": "Et dürüm, kutu içecek, cips ve tatlı (Ekstra büyük)",
-    "description_en": "Beef wrap served with canned soft drink, french fries and dessert (Extra large)",
+    "description": "Et dürüm, ayran, patates, tatlı",
+    "description_en": "Beef wrap, ayran, crispy french fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "Et Dürüm + Ayran + Ekstra",
       "enerji": 1300,
       "yag": null,
       "doymus_yag": 0,
@@ -338,8 +354,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Et dürüm, ayran, patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Beef wrap, ayran, crispy french fries/chips, dessert",
+    "portion_en": "Beef Wrap + Ayran + Extra Sides"
   },
   {
     "id": "combo-et-menu-2",
@@ -347,11 +365,11 @@
     "name_en": "Combo Beef Menu 2",
     "category": "et",
     "price": 350,
-    "description": "Et dürüm, kutu içecek, cips ve tatlı (Ekstra büyük)",
-    "description_en": "Beef wrap served with canned soft drink, french fries and dessert (Extra large)",
+    "description": "Et dürüm, kutu içecek, patates, tatlı",
+    "description_en": "Beef wrap, canned soda, crispy french fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "Et Dürüm + Kutu İçecek",
       "enerji": 1250,
       "yag": null,
       "doymus_yag": 0,
@@ -376,8 +394,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Et dürüm, kutu içecek, patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Beef wrap, canned soda, crispy french fries/chips, dessert",
+    "portion_en": "Beef Wrap + Canned Soda + Extra"
   },
   {
     "id": "zurna-et-menu-1",
@@ -385,11 +405,11 @@
     "name_en": "Zurna Beef Menu 1",
     "category": "et",
     "price": 340,
-    "description": "Et dürüm, kutu içecek, cips ve tatlı",
-    "description_en": "Beef wrap served with canned soft drink, french fries and dessert",
+    "description": "40 cm zurna et dürüm, ayran, cips, tatlı",
+    "description_en": "40 cm XL beef wrap, ayran or soda, fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "40 cm Dürüm + Ayran",
       "enerji": 1350,
       "yag": null,
       "doymus_yag": 0,
@@ -414,8 +434,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm zurna et dürüm, ayran, cips, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL beef wrap, ayran or soda, fries/chips, dessert",
+    "portion_en": "40 cm Wrap + Ayran"
   },
   {
     "id": "zurna-et-menu-2",
@@ -423,11 +445,11 @@
     "name_en": "Zurna Beef Menu 2",
     "category": "et",
     "price": 360,
-    "description": "Et dürüm, kutu içecek, cips ve tatlı",
-    "description_en": "Beef wrap served with canned soft drink, french fries and dessert",
+    "description": "40 cm zurna et dürüm, kutu içecek, cips, tatlı",
+    "description_en": "40 cm XL beef wrap, canned soda, fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "40 cm Dürüm + Kutu İçecek",
       "enerji": 1400,
       "yag": null,
       "doymus_yag": 0,
@@ -452,8 +474,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm zurna et dürüm, kutu içecek, cips, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL beef wrap, canned soda, fries/chips, dessert",
+    "portion_en": "40 cm Wrap + Canned Soda"
   },
   {
     "id": "katik-tavuk",
@@ -461,11 +485,11 @@
     "name_en": "Katik Chicken",
     "category": "tavuk",
     "price": 160,
-    "description": "Muhteşem sos ve tavuk etinin eşsiz lezzeti",
-    "description_en": "Unique taste of special sauce and chicken",
+    "description": "Özel sos, tavuk döner, patates kızartması, turşu",
+    "description_en": "Special garlic mayonnaise sauce, chicken doner, french fries, pickles",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk / Standart Lavaş",
       "enerji": 500,
       "yag": 20,
       "doymus_yag": 0,
@@ -490,8 +514,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Özel sos, tavuk döner, patates kızartması, turşu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Special garlic mayonnaise sauce, chicken doner, french fries, pickles",
+    "portion_en": "~80g Chicken / Standard Lavash"
   },
   {
     "id": "ekmek-arasi-tavuk",
@@ -499,11 +525,11 @@
     "name_en": "Chicken Sandwich",
     "category": "tavuk",
     "price": 200,
-    "description": "Muhteşem sos ve tavuk etinin eşsiz lezzeti",
-    "description_en": "Unique taste of special sauce and chicken",
+    "description": "Özel sos, tavuk döner, patates, turşu",
+    "description_en": "Signature sauce, tender chicken doner, crispy french fries, pickles",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk / Yarım Ekmek",
       "enerji": 550,
       "yag": 18,
       "doymus_yag": 0,
@@ -528,8 +554,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Özel sos, tavuk döner, patates, turşu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Signature sauce, tender chicken doner, crispy french fries, pickles",
+    "portion_en": "~80g Chicken / Half Loaf Bread"
   },
   {
     "id": "katik-kasarli-tavuk",
@@ -537,11 +565,11 @@
     "name_en": "Katik Chicken with Kashar",
     "category": "tavuk",
     "price": 210,
-    "description": "Muhteşem sos, kaşar ve tavuk etinin eşsiz lezzeti",
-    "description_en": "Unique taste of special sauce, kashar cheese and chicken",
+    "description": "Özel sos, eritilmiş taze kaşar ve tavuk döner",
+    "description_en": "Signature sauce, melted fresh kashar cheese, chicken doner",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk + 30g Kaşar",
       "enerji": 600,
       "yag": 28,
       "doymus_yag": 0,
@@ -566,8 +594,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Özel sos, eritilmiş taze kaşar ve tavuk döner",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Signature sauce, melted fresh kashar cheese, chicken doner",
+    "portion_en": "~80g Chicken + 30g Kashar"
   },
   {
     "id": "katik-cedarli-tavuk",
@@ -575,11 +605,11 @@
     "name_en": "Katik Chicken with Cheddar",
     "category": "tavuk",
     "price": 210,
-    "description": "Muhteşem sos, çedar peynirinin ve tavuk etinin eşsiz lezzeti",
-    "description_en": "Unique taste of special sauce, cheddar cheese and chicken",
+    "description": "Özel sos, eritilmiş çedar peyniri ve tavuk döner",
+    "description_en": "Signature sauce, melted creamy cheddar cheese, chicken doner",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk + 30g Çedar",
       "enerji": 610,
       "yag": 30,
       "doymus_yag": 0,
@@ -604,8 +634,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Özel sos, eritilmiş çedar peyniri ve tavuk döner",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Signature sauce, melted creamy cheddar cheese, chicken doner",
+    "portion_en": "~80g Chicken + 30g Cheddar"
   },
   {
     "id": "katik-kasarli-mantarli",
@@ -613,11 +645,11 @@
     "name_en": "Katik Chicken with Kashar and Mushroom",
     "category": "tavuk",
     "price": 240,
-    "description": "40 cm katık tavuk dürüm, kaşarın eşsiz lezzeti",
-    "description_en": "40 cm Katik chicken wrap, unique taste of kashar cheese",
+    "description": "Sotelenmiş mantar, eritilmiş kaşar, özel sos",
+    "description_en": "Sautéed mushrooms, melted cheese, signature sauce, chicken doner",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk + Mantar & Kaşar",
       "enerji": 850,
       "yag": 40,
       "doymus_yag": 0,
@@ -642,8 +674,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Sotelenmiş mantar, eritilmiş kaşar, özel sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Sautéed mushrooms, melted cheese, signature sauce, chicken doner",
+    "portion_en": "~80g Chicken + Mushrooms & Cheese"
   },
   {
     "id": "zurna-tavuk",
@@ -651,11 +685,11 @@
     "name_en": "Zurna Chicken",
     "category": "tavuk",
     "price": 190,
-    "description": "40 cm katık tavuk dürüm lezzeti",
-    "description_en": "40 cm Katik chicken wrap",
+    "description": "40 cm lavaş, bol tavuk döner, patates, özel sos",
+    "description_en": "40 cm extra-long lavash, special sauce, chicken doner, fries",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Tavuk / 40 cm Lavaş",
       "enerji": 750,
       "yag": 30,
       "doymus_yag": 0,
@@ -680,8 +714,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm lavaş, bol tavuk döner, patates, özel sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm extra-long lavash, special sauce, chicken doner, fries",
+    "portion_en": "~120g Chicken / 40 cm Lavash"
   },
   {
     "id": "zurna-katik-kasarli",
@@ -689,11 +725,11 @@
     "name_en": "Zurna Katik Chicken with Kashar",
     "category": "tavuk",
     "price": 240,
-    "description": "40 cm katık tavuk dürüm, kaşarın eşsiz lezzeti",
-    "description_en": "40 cm Katik chicken wrap, unique taste of kashar cheese",
+    "description": "40 cm lavaşta bol tavuk döner, eritilmiş kaşar",
+    "description_en": "40 cm XL chicken wrap with generous melted kashar cheese",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Tavuk + Kaşar",
       "enerji": 850,
       "yag": 38,
       "doymus_yag": 0,
@@ -718,8 +754,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm lavaşta bol tavuk döner, eritilmiş kaşar",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL chicken wrap with generous melted kashar cheese",
+    "portion_en": "~120g Chicken + Kashar"
   },
   {
     "id": "zurna-katik-cedarli",
@@ -727,11 +765,11 @@
     "name_en": "Zurna Katik Chicken with Cheddar",
     "category": "tavuk",
     "price": 240,
-    "description": "40 cm katık tavuk dürüm, çedar peynirinin eşsiz lezzeti",
-    "description_en": "40 cm Katik chicken wrap, unique taste of cheddar cheese",
+    "description": "40 cm lavaşta tavuk döner, eritilmiş çedar peyniri",
+    "description_en": "40 cm XL chicken wrap with rich melted cheddar sauce",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Tavuk + Çedar",
       "enerji": 860,
       "yag": 40,
       "doymus_yag": 0,
@@ -756,8 +794,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm lavaşta tavuk döner, eritilmiş çedar peyniri",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL chicken wrap with rich melted cheddar sauce",
+    "portion_en": "~120g Chicken + Cheddar"
   },
   {
     "id": "zurna-barbeku-soslu",
@@ -765,11 +805,11 @@
     "name_en": "Zurna Chicken with BBQ Sauce",
     "category": "tavuk",
     "price": 220,
-    "description": "40 cm katık tavuk dürüm, barbekünün eşsiz lezzeti",
-    "description_en": "40 cm Katik chicken wrap, unique taste of BBQ sauce",
+    "description": "40 cm tavuk dürüm, özel tütsülü barbekü sosu",
+    "description_en": "40 cm XL chicken wrap with smoky barbecue sauce",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Tavuk + Barbekü",
       "enerji": 800,
       "yag": 30,
       "doymus_yag": 0,
@@ -794,8 +834,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm tavuk dürüm, özel tütsülü barbekü sosu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL chicken wrap with smoky barbecue sauce",
+    "portion_en": "~120g Chicken + BBQ Sauce"
   },
   {
     "id": "zurna-katik-mantarli",
@@ -803,11 +845,11 @@
     "name_en": "Zurna Katik Chicken with Mushroom",
     "category": "tavuk",
     "price": 220,
-    "description": "40 cm katık tavuk dürüm ve mantarın eşsiz lezzeti",
-    "description_en": "40 cm Katik chicken wrap and the unique taste of mushrooms",
+    "description": "40 cm tavuk dürüm, sotelenmiş mantar, özel sos",
+    "description_en": "40 cm XL chicken wrap with sautéed mushrooms & special sauce",
     "image": "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Tavuk + Mantar",
       "enerji": 770,
       "yag": 31,
       "doymus_yag": 0,
@@ -832,8 +874,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "40 cm tavuk dürüm, sotelenmiş mantar, özel sos",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL chicken wrap with sautéed mushrooms & special sauce",
+    "portion_en": "~120g Chicken + Mushrooms"
   },
   {
     "id": "katik-tavuk-menu-1",
@@ -841,11 +885,11 @@
     "name_en": "Katik Chicken Menu 1",
     "category": "tavuk",
     "price": 240,
-    "description": "Tavuk dürüm, ayran, cips ve tatlı",
-    "description_en": "Chicken wrap served with ayran, french fries and dessert",
+    "description": "Tavuk dürüm, 200ml ayran, cips/patates, tatlı",
+    "description_en": "Chicken wrap, traditional ayran (200ml), french fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "80g Dürüm + Ayran + Yanlar",
       "enerji": 1000,
       "yag": null,
       "doymus_yag": 0,
@@ -870,8 +914,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Tavuk dürüm, 200ml ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chicken wrap, traditional ayran (200ml), french fries/chips, dessert",
+    "portion_en": "80g Wrap + Ayran + Sides"
   },
   {
     "id": "katik-tavuk-menu-2",
@@ -879,11 +925,11 @@
     "name_en": "Katik Chicken Menu 2",
     "category": "tavuk",
     "price": 260,
-    "description": "Tavuk dürüm, kutu içecek, cips ve tatlı",
-    "description_en": "Chicken wrap served with canned soft drink, french fries and dessert",
+    "description": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
+    "description_en": "Chicken wrap, canned soft drink (330ml), fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "80g Dürüm + Kutu İçecek",
       "enerji": 1050,
       "yag": null,
       "doymus_yag": 0,
@@ -908,8 +954,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chicken wrap, canned soft drink (330ml), fries/chips, dessert",
+    "portion_en": "80g Wrap + Canned Soda"
   },
   {
     "id": "combo-tavuk-menu-1",
@@ -917,11 +965,11 @@
     "name_en": "Combo Chicken Menu 1",
     "category": "tavuk",
     "price": 280,
-    "description": "Tavuk dürüm, ayran, cips ve tatlı (Ekstra büyük)",
-    "description_en": "Chicken wrap served with ayran, french fries and dessert (Extra large)",
+    "description": "Tavuk dürüm, ayran, cips/patates, tatlı",
+    "description_en": "Chicken wrap, ayran, extra crispy french fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "Dürüm + Ayran + Ekstra",
       "enerji": 1200,
       "yag": null,
       "doymus_yag": 0,
@@ -946,8 +994,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Tavuk dürüm, ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chicken wrap, ayran, extra crispy french fries/chips, dessert",
+    "portion_en": "Wrap + Ayran + Extra Sides"
   },
   {
     "id": "combo-tavuk-menu-2",
@@ -955,11 +1005,11 @@
     "name_en": "Combo Chicken Menu 2",
     "category": "tavuk",
     "price": 300,
-    "description": "Tavuk dürüm, ayran, cips ve tatlı (Ekstra büyük)",
-    "description_en": "Chicken wrap served with ayran, french fries and dessert (Extra large)",
+    "description": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
+    "description_en": "Chicken wrap, canned soft drink, extra crispy fries/chips, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "Dürüm + Kutu İçecek",
       "enerji": 1250,
       "yag": null,
       "doymus_yag": 0,
@@ -984,8 +1034,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chicken wrap, canned soft drink, extra crispy fries/chips, dessert",
+    "portion_en": "Wrap + Canned Soda + Extra"
   },
   {
     "id": "zurna-tavuk-menu-1",
@@ -993,11 +1045,11 @@
     "name_en": "Zurna Chicken Menu 1",
     "category": "tavuk",
     "price": 270,
-    "description": "Tavuk dürüm, ayran, cips and tatlı",
-    "description_en": "Chicken wrap served with ayran, french fries and dessert",
+    "description": "Zurna tavuk dürüm, ayran, cips/patates, tatlı",
+    "description_en": "40 cm XL chicken wrap, ayran, crispy fries, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "40 cm Dürüm + Ayran",
       "enerji": 1250,
       "yag": null,
       "doymus_yag": 0,
@@ -1022,8 +1074,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Zurna tavuk dürüm, ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL chicken wrap, ayran, crispy fries, dessert",
+    "portion_en": "40 cm Wrap + Ayran"
   },
   {
     "id": "zurna-tavuk-menu-2",
@@ -1031,11 +1085,11 @@
     "name_en": "Zurna Chicken Menu 2",
     "category": "tavuk",
     "price": 290,
-    "description": "Tavuk dürüm, ayran, cips ve tatlı",
-    "description_en": "Chicken wrap served with ayran, french fries and dessert",
+    "description": "Zurna tavuk dürüm, kutu içecek, cips, tatlı",
+    "description_en": "40 cm XL chicken wrap, canned soda, crispy fries, dessert",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "40 cm Dürüm + Kutu İçecek",
       "enerji": 1300,
       "yag": null,
       "doymus_yag": 0,
@@ -1060,8 +1114,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Zurna tavuk dürüm, kutu içecek, cips, tatlı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "40 cm XL chicken wrap, canned soda, crispy fries, dessert",
+    "portion_en": "40 cm Wrap + Canned Soda"
   },
   {
     "id": "tavuk-tantuni-lavas",
@@ -1069,11 +1125,11 @@
     "name_en": "Chicken Tantuni in Lavash",
     "category": "tantuni",
     "price": 180,
-    "description": "Tavuk eti ve baharatlı tantuni lavaş",
-    "description_en": "Chicken meat and spiced tantuni in lavash wrap",
+    "description": "Sacda sotelenmiş tavuk kuşbaşı, sumaklı soğan, domates",
+    "description_en": "Wok-seared diced spiced chicken, sumac onions, tomatoes in thin lavash",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk Tantuni",
       "enerji": 450,
       "yag": 18,
       "doymus_yag": 0,
@@ -1098,8 +1154,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Sacda sotelenmiş tavuk kuşbaşı, sumaklı soğan, domates",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Wok-seared diced spiced chicken, sumac onions, tomatoes in thin lavash",
+    "portion_en": "~80g Chicken Tantuni"
   },
   {
     "id": "ekmek-arasi-tavuk-tantuni",
@@ -1107,11 +1165,11 @@
     "name_en": "Chicken Tantuni Sandwich",
     "category": "tantuni",
     "price": 200,
-    "description": "Tavuk eti ve baharatlı tantuni ekmek",
-    "description_en": "Chicken meat and spiced tantuni in bread",
+    "description": "Somun ekmekte tavuk tantuni, maydanoz, domates",
+    "description_en": "Diced chicken tantuni, fresh greens, tomatoes in half loaf bread",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Tavuk / Yarım Ekmek",
       "enerji": 550,
       "yag": 18,
       "doymus_yag": 0,
@@ -1136,8 +1194,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Somun ekmekte tavuk tantuni, maydanoz, domates",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Diced chicken tantuni, fresh greens, tomatoes in half loaf bread",
+    "portion_en": "~80g Chicken / Bread"
   },
   {
     "id": "yogurtlu-tavuk-tantuni",
@@ -1145,11 +1205,11 @@
     "name_en": "Chicken Tantuni with Yogurt",
     "category": "tantuni",
     "price": 230,
-    "description": "Tavuk tantuni, yoğurt ve sos",
-    "description_en": "Chicken tantuni served with yogurt and sauce",
+    "description": "Dilimli lavaş tantuni, yoğurt ve kızgın tereyağı",
+    "description_en": "Sliced chicken tantuni wrap smothered in strained yogurt & melted butter",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~100g Tavuk / Dilimli Porsiyon",
       "enerji": 550,
       "yag": 22,
       "doymus_yag": 0,
@@ -1174,8 +1234,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Dilimli lavaş tantuni, yoğurt ve kızgın tereyağı",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Sliced chicken tantuni wrap smothered in strained yogurt & melted butter",
+    "portion_en": "~100g Chicken / Platter"
   },
   {
     "id": "et-tantuni-lavas",
@@ -1183,11 +1245,11 @@
     "name_en": "Beef Tantuni in Lavash",
     "category": "tantuni",
     "price": 300,
-    "description": "Dana eti ve baharatlı tantuni lavaş",
-    "description_en": "Beef and spiced tantuni in lavash wrap",
+    "description": "Sacda pişen dana eti, pamuk yağı, sumaklı soğan, domates",
+    "description_en": "Finely minced beef seared in pan, cotton oil, sumac onion, tomatoes",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Dana Et Tantuni",
       "enerji": 550,
       "yag": 25,
       "doymus_yag": 0,
@@ -1212,8 +1274,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Sacda pişen dana eti, pamuk yağı, sumaklı soğan, domates",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Finely minced beef seared in pan, cotton oil, sumac onion, tomatoes",
+    "portion_en": "~80g Beef Tantuni"
   },
   {
     "id": "ekmek-arasi-et-tantuni",
@@ -1221,11 +1285,11 @@
     "name_en": "Beef Tantuni Sandwich",
     "category": "tantuni",
     "price": 320,
-    "description": "Dana eti ve baharatlı tantuni ekmek",
-    "description_en": "Beef and spiced tantuni in bread",
+    "description": "Somun ekmek arası et tantuni, taze yeşillikler",
+    "description_en": "Minced beef tantuni with fresh tomatoes and herbs in crusty bread",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~80g Dana Et / Ekmek",
       "enerji": 650,
       "yag": 25,
       "doymus_yag": 0,
@@ -1250,8 +1314,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Somun ekmek arası et tantuni, taze yeşillikler",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Minced beef tantuni with fresh tomatoes and herbs in crusty bread",
+    "portion_en": "~80g Beef / Bread"
   },
   {
     "id": "yogurtlu-et-tantuni",
@@ -1259,11 +1325,11 @@
     "name_en": "Beef Tantuni with Yogurt",
     "category": "tantuni",
     "price": 350,
-    "description": "Et tantuni, yoğurt ve sos",
-    "description_en": "Beef tantuni served with yogurt and sauce",
+    "description": "Dilimli et tantuni, süzme yoğurt, tereyağı sosu",
+    "description_en": "Sliced beef tantuni wrap topped with garlic yogurt & melted butter",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~100g Dana Et / Porsiyon",
       "enerji": 680,
       "yag": 30,
       "doymus_yag": 0,
@@ -1288,8 +1354,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Dilimli et tantuni, süzme yoğurt, tereyağı sosu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Sliced beef tantuni wrap topped with garlic yogurt & melted butter",
+    "portion_en": "~100g Beef / Platter"
   },
   {
     "id": "pepsi-kutu",
@@ -1297,11 +1365,11 @@
     "name_en": "Pepsi (Can)",
     "category": "diger",
     "price": 70,
-    "description": "Kutu İçecek",
-    "description_en": "Canned Soft Drink",
+    "description": "Soğuk kutu Pepsi",
+    "description_en": "Chilled canned Pepsi",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "330 ml Kutu",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1326,8 +1394,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Soğuk kutu Pepsi",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chilled canned Pepsi",
+    "portion_en": "330 ml Can"
   },
   {
     "id": "pepsi-sise",
@@ -1335,11 +1405,11 @@
     "name_en": "Pepsi (Bottle)",
     "category": "diger",
     "price": 50,
-    "description": "Şişe İçecek",
-    "description_en": "Bottled Soft Drink",
+    "description": "Cam şişe Pepsi",
+    "description_en": "Glass bottle Pepsi",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200-300 ml Şişe",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1364,8 +1434,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Cam şişe Pepsi",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Glass bottle Pepsi",
+    "portion_en": "200-300 ml Bottle"
   },
   {
     "id": "yedigun-kutu",
@@ -1373,11 +1445,11 @@
     "name_en": "Yedigun (Can)",
     "category": "diger",
     "price": 70,
-    "description": "Kutu İçecek",
-    "description_en": "Canned Soft Drink",
+    "description": "Soğuk kutu Yedigün",
+    "description_en": "Chilled canned Yedigün soda",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "330 ml Kutu",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1402,8 +1474,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Soğuk kutu Yedigün",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chilled canned Yedigün soda",
+    "portion_en": "330 ml Can"
   },
   {
     "id": "yedigun-sise",
@@ -1411,11 +1485,11 @@
     "name_en": "Yedigun (Bottle)",
     "category": "diger",
     "price": 50,
-    "description": "Şişe İçecek",
-    "description_en": "Bottled Soft Drink",
+    "description": "Cam şişe Yedigün",
+    "description_en": "Glass bottle Yedigün soda",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200-300 ml Şişe",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1440,8 +1514,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Cam şişe Yedigün",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Glass bottle Yedigün soda",
+    "portion_en": "200-300 ml Bottle"
   },
   {
     "id": "baglar-gazoz",
@@ -1449,11 +1525,11 @@
     "name_en": "Baglar Soda",
     "category": "diger",
     "price": 50,
-    "description": "Şişe İçecek",
-    "description_en": "Bottled local soda",
+    "description": "Cam şişe Bağlar gazoz",
+    "description_en": "Glass bottle Bağlar soda",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200-300 ml Şişe",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1478,8 +1554,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Cam şişe Bağlar gazoz",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Glass bottle Bağlar soda",
+    "portion_en": "200-300 ml Bottle"
   },
   {
     "id": "seven-up",
@@ -1487,11 +1565,11 @@
     "name_en": "Seven Up (Can)",
     "category": "diger",
     "price": 70,
-    "description": "Kutu İçecek",
-    "description_en": "Canned Soft Drink",
+    "description": "Soğuk kutu Seven Up",
+    "description_en": "Chilled canned Seven Up",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "330 ml Kutu",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1516,8 +1594,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Soğuk kutu Seven Up",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chilled canned Seven Up",
+    "portion_en": "330 ml Can"
   },
   {
     "id": "eksi-ayran",
@@ -1525,11 +1605,11 @@
     "name_en": "Sour Ayran",
     "category": "diger",
     "price": 60,
-    "description": "Ayran",
-    "description_en": "Ayran",
+    "description": "Geleneksel yayık ekşi ayran",
+    "description_en": "Traditional tart cultured yogurt drink",
     "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200 ml",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1554,8 +1634,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Geleneksel yayık ekşi ayran",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Traditional tart cultured yogurt drink",
+    "portion_en": "200 ml"
   },
   {
     "id": "lipton-cesitleri",
@@ -1563,11 +1645,11 @@
     "name_en": "Lipton Ice Tea (Varieties)",
     "category": "diger",
     "price": 70,
-    "description": "Kutu İçecek",
-    "description_en": "Canned Soft Drink",
+    "description": "Soğuk kutu ice tea (Lipton çeşitleri)",
+    "description_en": "Chilled canned iced tea (assorted Lipton flavors)",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "330 ml Kutu",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1592,8 +1674,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Soğuk kutu ice tea (Lipton çeşitleri)",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chilled canned iced tea (assorted Lipton flavors)",
+    "portion_en": "330 ml Can"
   },
   {
     "id": "tropicana-meyve-suyu",
@@ -1601,11 +1685,11 @@
     "name_en": "Tropicana Juice",
     "category": "diger",
     "price": 70,
-    "description": "Kutu İçecek",
-    "description_en": "Canned Soft Drink",
+    "description": "Soğuk kutu meyve suyu (Tropicana)",
+    "description_en": "Chilled canned fruit juice (Tropicana)",
     "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "330 ml Kutu",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1630,8 +1714,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Soğuk kutu meyve suyu (Tropicana)",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Chilled canned fruit juice (Tropicana)",
+    "portion_en": "330 ml Can"
   },
   {
     "id": "salgam",
@@ -1639,11 +1725,11 @@
     "name_en": "Shalgam (Turnip Juice)",
     "category": "diger",
     "price": 50,
-    "description": "İçecek",
-    "description_en": "Beverage",
+    "description": "Cam şişe acılı/acısız şalgam suyu",
+    "description_en": "Glass bottle fermented turnip juice (mild or spicy)",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200-300 ml Şişe",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1668,8 +1754,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Cam şişe acılı/acısız şalgam suyu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Glass bottle fermented turnip juice (mild or spicy)",
+    "portion_en": "200-300 ml Bottle"
   },
   {
     "id": "meyveli-soda",
@@ -1677,11 +1765,11 @@
     "name_en": "Fruit Flavored Mineral Water",
     "category": "diger",
     "price": 40,
-    "description": "İçecek",
-    "description_en": "Beverage",
+    "description": "Meyveli maden suyu",
+    "description_en": "Fruit-flavored mineral water",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200 ml",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1706,8 +1794,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Meyveli maden suyu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Fruit-flavored mineral water",
+    "portion_en": "200 ml"
   },
   {
     "id": "ayran",
@@ -1715,11 +1805,11 @@
     "name_en": "Ayran",
     "category": "diger",
     "price": 50,
-    "description": "İçecek",
-    "description_en": "Beverage",
+    "description": "Cam şişe geleneksel ayran",
+    "description_en": "Glass bottle traditional ayran",
     "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200-300 ml Şişe",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1744,8 +1834,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Cam şişe geleneksel ayran",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Glass bottle traditional ayran",
+    "portion_en": "200-300 ml Bottle"
   },
   {
     "id": "soda",
@@ -1753,11 +1845,11 @@
     "name_en": "Mineral Water",
     "category": "diger",
     "price": 30,
-    "description": "İçecek",
-    "description_en": "Beverage",
+    "description": "Sade maden sodası",
+    "description_en": "Plain mineral soda water",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "200 ml",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1782,8 +1874,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Sade maden sodası",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Plain mineral soda water",
+    "portion_en": "200 ml"
   },
   {
     "id": "su",
@@ -1791,11 +1885,11 @@
     "name_en": "Water",
     "category": "diger",
     "price": 16,
-    "description": "İçecek",
-    "description_en": "Beverage",
+    "description": "Doğal kaynak suyu",
+    "description_en": "Natural spring water",
     "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "500 ml Pet Şişe",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1820,8 +1914,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Doğal kaynak suyu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Natural spring water",
+    "portion_en": "500 ml Bottle"
   },
   {
     "id": "eker-tatli",
@@ -1829,11 +1925,11 @@
     "name_en": "Eker Dessert",
     "category": "diger",
     "price": 45,
-    "description": "Tatlı",
-    "description_en": "Dessert",
+    "description": "Sütlaç, kazandibi veya puding",
+    "description_en": "Traditional rice pudding (Sütlaç) or caramelized pudding",
     "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "1 Adet (~120-150g)",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1858,8 +1954,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Sütlaç, kazandibi veya puding",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Traditional rice pudding (Sütlaç) or caramelized pudding",
+    "portion_en": "1 Portion (~120-150g)"
   },
   {
     "id": "patates-cips",
@@ -1867,11 +1965,11 @@
     "name_en": "French Fries",
     "category": "diger",
     "price": 30,
-    "description": "Atıştırmalık",
-    "description_en": "Snack",
+    "description": "Baharatlı çıtır patates kızartması",
+    "description_en": "Crispy seasoned golden potato fries",
     "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "~120g Porsiyon",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1896,8 +1994,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Baharatlı çıtır patates kızartması",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Crispy seasoned golden potato fries",
+    "portion_en": "~120g Portion"
   },
   {
     "id": "kasarli-ekstra-sos",
@@ -1905,11 +2005,11 @@
     "name_en": "Kashar Cheese (Extra)",
     "category": "diger",
     "price": 50,
-    "description": "Peynir İlavesi",
-    "description_en": "Cheese Addition",
+    "description": "Eritilmiş sıcak kaşar peyniri ilavesi",
+    "description_en": "Melted Turkish kashar cheese addition",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "30g Porsiyon",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1934,8 +2034,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Eritilmiş sıcak kaşar peyniri ilavesi",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Melted Turkish kashar cheese addition",
+    "portion_en": "30g Portion"
   },
   {
     "id": "cedarli-ekstra-sos",
@@ -1943,11 +2045,11 @@
     "name_en": "Cheddar Cheese (Extra)",
     "category": "diger",
     "price": 50,
-    "description": "Peynir İlavesi",
-    "description_en": "Cheese Addition",
+    "description": "Eritilmiş sıcak çedar peyniri sosu",
+    "description_en": "Warm melted creamy cheddar cheese dip",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "35g Porsiyon",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -1972,8 +2074,10 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Eritilmiş sıcak çedar peyniri sosu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Warm melted creamy cheddar cheese dip",
+    "portion_en": "35g Portion"
   },
   {
     "id": "barbeku-ekstra-sos",
@@ -1981,11 +2085,11 @@
     "name_en": "BBQ Sauce (Extra)",
     "category": "diger",
     "price": 30,
-    "description": "Sos İlavesi",
-    "description_en": "Sauce Addition",
+    "description": "Özel tütsülü barbekü sosu",
+    "description_en": "Smoky barbecue dipping sauce",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon",
+      "porsiyon": "40 ml",
       "enerji": null,
       "yag": null,
       "doymus_yag": 0,
@@ -2010,7 +2114,9 @@
       }
     },
     "alerjenler": [],
-    "icindekiler": "",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Özel tütsülü barbekü sosu",
+    "katki_maddesi_icermez": false,
+    "ingredients_en": "Smoky barbecue dipping sauce",
+    "portion_en": "40 ml"
   }
 ]

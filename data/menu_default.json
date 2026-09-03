@@ -4,30 +4,30 @@
     "name": "Katık Tavuk Döner Dürüm Menü 1",
     "category": "tavuk",
     "price": 255,
-    "description": "Katık tavuk döner dürüm, patates kızartması ve ayran (300 ml) ile birlikte.",
+    "description": "Tavuk dürüm, 200ml ayran, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 450 g",
+      "porsiyon": "80g Dürüm + Ayran + Yanlar",
       "enerji": 1000,
-      "yag": 34.0,
+      "yag": 34,
       "doymus_yag": 13.6,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 46.0,
+      "protein": 46,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 46.0,
+        "deger": 46,
         "yuzde": 24
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 59
       },
       "yag": {
-        "deger": 34.0,
+        "deger": 34,
         "yuzde": 17
       }
     },
@@ -49,38 +49,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Tavuk dürüm, 200ml ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Chicken wrap, traditional ayran (200ml), french fries/chips, dessert",
+    "ingredients_en": "Chicken wrap, traditional ayran (200ml), french fries/chips, dessert",
+    "portion_en": "80g Wrap + Ayran + Sides"
   },
   {
     "id": "katik-tavuk-menu-2",
     "name": "Katık Tavuk Döner Dürüm Menü 2",
     "category": "tavuk",
     "price": 270,
-    "description": "Katık tavuk döner dürüm, patates kızartması ve kutu içecek (330 ml) ile birlikte.",
+    "description": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 480 g",
+      "porsiyon": "80g Dürüm + Kutu İçecek",
       "enerji": 1000,
-      "yag": 34.0,
+      "yag": 34,
       "doymus_yag": 13.6,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 46.0,
+      "protein": 46,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 46.0,
+        "deger": 46,
         "yuzde": 24
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 59
       },
       "yag": {
-        "deger": 34.0,
+        "deger": 34,
         "yuzde": 17
       }
     },
@@ -102,38 +105,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Chicken wrap, canned soft drink (330ml), fries/chips, dessert",
+    "ingredients_en": "Chicken wrap, canned soft drink (330ml), fries/chips, dessert",
+    "portion_en": "80g Wrap + Canned Soda"
   },
   {
     "id": "zurna-tavuk-menu-1",
     "name": "Zurna Tavuk Menü 1",
     "category": "tavuk",
     "price": 275,
-    "description": "Doyurucu zurna tavuk döner dürüm, patates kızartması ve ayran (300 ml) ile birlikte.",
+    "description": "Zurna tavuk dürüm, ayran, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 550 g",
+      "porsiyon": "40 cm Dürüm + Ayran",
       "enerji": 1000,
-      "yag": 34.0,
+      "yag": 34,
       "doymus_yag": 13.6,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 46.0,
+      "protein": 46,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 46.0,
+        "deger": 46,
         "yuzde": 24
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 59
       },
       "yag": {
-        "deger": 34.0,
+        "deger": 34,
         "yuzde": 17
       }
     },
@@ -155,38 +161,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Zurna tavuk dürüm, ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "40 cm XL chicken wrap, ayran, crispy fries, dessert",
+    "ingredients_en": "40 cm XL chicken wrap, ayran, crispy fries, dessert",
+    "portion_en": "40 cm Wrap + Ayran"
   },
   {
     "id": "zurna-tavuk-menu-2",
     "name": "Zurna Tavuk Menü 2",
     "category": "tavuk",
     "price": 295,
-    "description": "Doyurucu zurna tavuk döner dürüm, patates kızartması ve kutu içecek (330 ml) ile birlikte.",
+    "description": "Zurna tavuk dürüm, kutu içecek, cips, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 580 g",
+      "porsiyon": "40 cm Dürüm + Kutu İçecek",
       "enerji": 1000,
-      "yag": 34.0,
+      "yag": 34,
       "doymus_yag": 13.6,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 46.0,
+      "protein": 46,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 46.0,
+        "deger": 46,
         "yuzde": 24
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 59
       },
       "yag": {
-        "deger": 34.0,
+        "deger": 34,
         "yuzde": 17
       }
     },
@@ -208,38 +217,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Zurna tavuk dürüm, kutu içecek, cips, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "40 cm XL chicken wrap, canned soda, crispy fries, dessert",
+    "ingredients_en": "40 cm XL chicken wrap, canned soda, crispy fries, dessert",
+    "portion_en": "40 cm Wrap + Canned Soda"
   },
   {
     "id": "katik-et-menu-1",
     "name": "Katık Et Döner Dürüm Menü 1",
     "category": "et",
     "price": 300,
-    "description": "Katık et döner dürüm, patates kızartması ve ayran (300 ml) ile birlikte.",
+    "description": "Et dürüm, ayran, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 450 g",
+      "porsiyon": "80g Et Dürüm + Ayran",
       "enerji": 1070,
-      "yag": 40.0,
-      "doymus_yag": 16.0,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "yag": 40,
+      "doymus_yag": 16,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 54.0,
+      "protein": 54,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 54.0,
+        "deger": 54,
         "yuzde": 26
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 55
       },
       "yag": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 19
       }
     },
@@ -261,38 +273,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Et dürüm, ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Beef wrap, ayran (200ml), french fries/chips, dessert",
+    "ingredients_en": "Beef wrap, ayran (200ml), french fries/chips, dessert",
+    "portion_en": "80g Beef Wrap + Ayran"
   },
   {
     "id": "katik-et-menu-2",
     "name": "Katık Et Döner Dürüm Menü 2",
     "category": "et",
     "price": 310,
-    "description": "Katık et döner dürüm, patates kızartması ve kutu içecek (330 ml) ile birlikte.",
+    "description": "Et dürüm, kutu içecek, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 480 g",
+      "porsiyon": "80g Et Dürüm + Kutu İçecek",
       "enerji": 1070,
-      "yag": 40.0,
-      "doymus_yag": 16.0,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "yag": 40,
+      "doymus_yag": 16,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 54.0,
+      "protein": 54,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 54.0,
+        "deger": 54,
         "yuzde": 26
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 55
       },
       "yag": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 19
       }
     },
@@ -314,38 +329,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Et dürüm, kutu içecek, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Beef wrap, canned soda (330ml), french fries/chips, dessert",
+    "ingredients_en": "Beef wrap, canned soda (330ml), french fries/chips, dessert",
+    "portion_en": "80g Beef Wrap + Canned Soda"
   },
   {
     "id": "combo-tavuk-menu-1",
     "name": "Combo Tavuk Menü 1",
     "category": "tavuk",
     "price": 280,
-    "description": "Katık tavuk döner dürüm, patates kızartması, günün tatlısı ve ayran (300 ml) ile birlikte.",
+    "description": "Tavuk dürüm, ayran, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 550 g",
+      "porsiyon": "Dürüm + Ayran + Ekstra",
       "enerji": 1000,
-      "yag": 34.0,
+      "yag": 34,
       "doymus_yag": 13.6,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 46.0,
+      "protein": 46,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 46.0,
+        "deger": 46,
         "yuzde": 24
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 59
       },
       "yag": {
-        "deger": 34.0,
+        "deger": 34,
         "yuzde": 17
       }
     },
@@ -367,38 +385,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Tavuk dürüm, ayran, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Chicken wrap, ayran, extra crispy french fries/chips, dessert",
+    "ingredients_en": "Chicken wrap, ayran, extra crispy french fries/chips, dessert",
+    "portion_en": "Wrap + Ayran + Extra Sides"
   },
   {
     "id": "combo-tavuk-menu-2",
     "name": "Combo Tavuk Menü 2",
     "category": "tavuk",
     "price": 300,
-    "description": "Katık tavuk döner dürüm, patates kızartması, günün tatlısı ve kutu içecek (330 ml) ile birlikte.",
+    "description": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 580 g",
+      "porsiyon": "Dürüm + Kutu İçecek",
       "enerji": 1000,
-      "yag": 34.0,
+      "yag": 34,
       "doymus_yag": 13.6,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 46.0,
+      "protein": 46,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 46.0,
+        "deger": 46,
         "yuzde": 24
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 59
       },
       "yag": {
-        "deger": 34.0,
+        "deger": 34,
         "yuzde": 17
       }
     },
@@ -420,38 +441,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Tavuk döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Tavuk dürüm, kutu içecek, cips/patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Chicken wrap, canned soft drink, extra crispy fries/chips, dessert",
+    "ingredients_en": "Chicken wrap, canned soft drink, extra crispy fries/chips, dessert",
+    "portion_en": "Wrap + Canned Soda + Extra"
   },
   {
     "id": "combo-et-menu-1",
     "name": "Combo Et Menü 1",
     "category": "et",
     "price": 320,
-    "description": "Katık et döner dürüm, patates kızartması, günün tatlısı ve ayran (300 ml) ile birlikte.",
+    "description": "Et dürüm, ayran, patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 550 g",
+      "porsiyon": "Et Dürüm + Ayran + Ekstra",
       "enerji": 1070,
-      "yag": 40.0,
-      "doymus_yag": 16.0,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "yag": 40,
+      "doymus_yag": 16,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 54.0,
+      "protein": 54,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 54.0,
+        "deger": 54,
         "yuzde": 26
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 55
       },
       "yag": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 19
       }
     },
@@ -473,38 +497,41 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Et dürüm, ayran, patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Beef wrap, ayran, crispy french fries/chips, dessert",
+    "ingredients_en": "Beef wrap, ayran, crispy french fries/chips, dessert",
+    "portion_en": "Beef Wrap + Ayran + Extra Sides"
   },
   {
     "id": "combo-et-menu-2",
     "name": "Combo Et Menü 2",
     "category": "et",
     "price": 350,
-    "description": "Katık et döner dürüm, patates kızartması, günün tatlısı ve kutu içecek (330 ml) ile birlikte.",
+    "description": "Et dürüm, kutu içecek, patates, tatlı",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Menü - 580 g",
+      "porsiyon": "Et Dürüm + Kutu İçecek",
       "enerji": 1070,
-      "yag": 40.0,
-      "doymus_yag": 16.0,
-      "karbonhidrat": 115.0,
-      "sekerler": 15.0,
+      "yag": 40,
+      "doymus_yag": 16,
+      "karbonhidrat": 115,
+      "sekerler": 15,
       "lif": 6.8,
-      "protein": 54.0,
+      "protein": 54,
       "tuz": 3.5
     },
     "makrolar": {
       "protein": {
-        "deger": 54.0,
+        "deger": 54,
         "yuzde": 26
       },
       "karbonhidrat": {
-        "deger": 115.0,
+        "deger": 115,
         "yuzde": 55
       },
       "yag": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 19
       }
     },
@@ -526,8 +553,11 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Dana yaprak et döner, patates kızartması, özel katık sosu, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, sıvı yağ, tuz, baharatlar. Menü içeriğinde patates kızartması ve içecek (veya ayran) bulunmaktadır.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Et dürüm, kutu içecek, patates, tatlı",
+    "katki_maddesi_icermez": true,
+    "description_en": "Beef wrap, canned soda, crispy french fries/chips, dessert",
+    "ingredients_en": "Beef wrap, canned soda, crispy french fries/chips, dessert",
+    "portion_en": "Beef Wrap + Canned Soda + Extra"
   },
   {
     "id": "et-tantuni-durum",
@@ -539,25 +569,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 250 g",
       "enerji": 720,
-      "yag": 28.0,
+      "yag": 28,
       "doymus_yag": 11.2,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 48.0,
+      "protein": 48,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 48.0,
+        "deger": 48,
         "yuzde": 32
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 49
       },
       "yag": {
-        "deger": 28.0,
+        "deger": 28,
         "yuzde": 19
       }
     },
@@ -588,25 +618,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 300 g",
       "enerji": 720,
-      "yag": 28.0,
+      "yag": 28,
       "doymus_yag": 11.2,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 48.0,
+      "protein": 48,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 48.0,
+        "deger": 48,
         "yuzde": 32
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 49
       },
       "yag": {
-        "deger": 28.0,
+        "deger": 28,
         "yuzde": 19
       }
     },
@@ -632,30 +662,30 @@
     "name": "Yoğurtlu Et Tantuni",
     "category": "tantuni",
     "price": 320,
-    "description": "Kızarmış lavaş dilimleri üzerinde et tantuni, süzme yoğurt ve tereyağı sosuyla.",
+    "description": "Dilimli et tantuni, süzme yoğurt, tereyağı sosu",
     "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Porsiyon - 350 g",
+      "porsiyon": "~100g Dana Et / Porsiyon",
       "enerji": 720,
-      "yag": 28.0,
+      "yag": 28,
       "doymus_yag": 11.2,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 48.0,
+      "protein": 48,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 48.0,
+        "deger": 48,
         "yuzde": 32
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 49
       },
       "yag": {
-        "deger": 28.0,
+        "deger": 28,
         "yuzde": 19
       }
     },
@@ -677,8 +707,11 @@
         "name": "Hardal içerebilir"
       }
     ],
-    "icindekiler": "Dana eti, soğan, maydanoz, domates, buğday unundan yapılmış lavaş (gluten içerir) veya ekmek, pamuk yağı/sıvı yağ, tuz, baharat karışımı.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Dilimli et tantuni, süzme yoğurt, tereyağı sosu",
+    "katki_maddesi_icermez": true,
+    "description_en": "Sliced beef tantuni wrap topped with garlic yogurt & melted butter",
+    "ingredients_en": "Sliced beef tantuni wrap topped with garlic yogurt & melted butter",
+    "portion_en": "~100g Beef / Platter"
   },
   {
     "id": "tavuk-tantuni-durum",
@@ -690,25 +723,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 250 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -739,25 +772,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 300 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -788,25 +821,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 350 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -841,25 +874,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 320 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -890,25 +923,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 330 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -943,25 +976,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 330 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -996,25 +1029,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 320 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1045,25 +1078,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 250 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1094,25 +1127,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 300 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1143,25 +1176,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 260 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1192,25 +1225,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 260 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1245,25 +1278,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 260 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1298,25 +1331,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 240 g",
       "enerji": 650,
-      "yag": 22.0,
+      "yag": 22,
       "doymus_yag": 8.8,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 40.0,
+      "protein": 40,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 40.0,
+        "deger": 40,
         "yuzde": 30
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 54
       },
       "yag": {
-        "deger": 22.0,
+        "deger": 22,
         "yuzde": 16
       }
     },
@@ -1347,25 +1380,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 280 g",
       "enerji": 720,
-      "yag": 28.0,
+      "yag": 28,
       "doymus_yag": 11.2,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 48.0,
+      "protein": 48,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 48.0,
+        "deger": 48,
         "yuzde": 32
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 49
       },
       "yag": {
-        "deger": 28.0,
+        "deger": 28,
         "yuzde": 19
       }
     },
@@ -1396,25 +1429,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 300 g",
       "enerji": 720,
-      "yag": 28.0,
+      "yag": 28,
       "doymus_yag": 11.2,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 48.0,
+      "protein": 48,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 48.0,
+        "deger": 48,
         "yuzde": 32
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 49
       },
       "yag": {
-        "deger": 28.0,
+        "deger": 28,
         "yuzde": 19
       }
     },
@@ -1445,25 +1478,25 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 240 g",
       "enerji": 720,
-      "yag": 28.0,
+      "yag": 28,
       "doymus_yag": 11.2,
-      "karbonhidrat": 72.0,
+      "karbonhidrat": 72,
       "sekerler": 4.2,
       "lif": 3.6,
-      "protein": 48.0,
+      "protein": 48,
       "tuz": 2.1
     },
     "makrolar": {
       "protein": {
-        "deger": 48.0,
+        "deger": 48,
         "yuzde": 32
       },
       "karbonhidrat": {
-        "deger": 72.0,
+        "deger": 72,
         "yuzde": 49
       },
       "yag": {
-        "deger": 28.0,
+        "deger": 28,
         "yuzde": 19
       }
     },
@@ -1494,9 +1527,9 @@
     "besin_degerleri": {
       "porsiyon": "1 Porsiyon - 220 g",
       "enerji": 420,
-      "yag": 12.0,
-      "doymus_yag": 3.0,
-      "karbonhidrat": 65.0,
+      "yag": 12,
+      "doymus_yag": 3,
+      "karbonhidrat": 65,
       "sekerler": 4.5,
       "lif": 5.2,
       "protein": 9.5,
@@ -1508,11 +1541,11 @@
         "yuzde": 11
       },
       "karbonhidrat": {
-        "deger": 65.0,
+        "deger": 65,
         "yuzde": 75
       },
       "yag": {
-        "deger": 12.0,
+        "deger": 12,
         "yuzde": 14
       }
     },
@@ -1539,17 +1572,17 @@
     "besin_degerleri": {
       "porsiyon": "1 Kutu - 330 ml",
       "enerji": 145,
-      "yag": 0.0,
-      "doymus_yag": 0.0,
+      "yag": 0,
+      "doymus_yag": 0,
       "karbonhidrat": 36.3,
       "sekerler": 36.3,
-      "lif": 0.0,
-      "protein": 0.0,
+      "lif": 0,
+      "protein": 0,
       "tuz": 0.1
     },
     "makrolar": {
       "protein": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       },
       "karbonhidrat": {
@@ -1557,7 +1590,7 @@
         "yuzde": 100
       },
       "yag": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       }
     },
@@ -1570,22 +1603,22 @@
     "name": "Ayran (300 ml)",
     "category": "diger",
     "price": 60,
-    "description": "Milli içeceğimiz, buz gibi köpüklü ayran.",
+    "description": "Cam şişe geleneksel ayran",
     "image": "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Bardak - 300 ml",
+      "porsiyon": "200-300 ml Şişe",
       "enerji": 114,
       "yag": 4.5,
       "doymus_yag": 2.8,
       "karbonhidrat": 8.4,
       "sekerler": 8.4,
-      "lif": 0.0,
-      "protein": 6.0,
+      "lif": 0,
+      "protein": 6,
       "tuz": 1.8
     },
     "makrolar": {
       "protein": {
-        "deger": 6.0,
+        "deger": 6,
         "yuzde": 32
       },
       "karbonhidrat": {
@@ -1603,79 +1636,88 @@
         "name": "Süt ve süt ürünleri içerir"
       }
     ],
-    "icindekiler": "Yoğurt, su, tuz.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Cam şişe geleneksel ayran",
+    "katki_maddesi_icermez": true,
+    "description_en": "Glass bottle traditional ayran",
+    "ingredients_en": "Glass bottle traditional ayran",
+    "portion_en": "200-300 ml Bottle"
   },
   {
     "id": "soda",
     "name": "Soda (200 ml)",
     "category": "diger",
     "price": 25,
-    "description": "Doğal zengin mineralli maden suyu.",
+    "description": "Sade maden sodası",
     "image": "https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Şişe - 200 ml",
+      "porsiyon": "200 ml",
       "enerji": 0,
-      "yag": 0.0,
-      "doymus_yag": 0.0,
-      "karbonhidrat": 0.0,
-      "sekerler": 0.0,
-      "lif": 0.0,
-      "protein": 0.0,
+      "yag": 0,
+      "doymus_yag": 0,
+      "karbonhidrat": 0,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 0,
       "tuz": 0.1
     },
     "makrolar": {
       "protein": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       },
       "yag": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       }
     },
     "alerjenler": [],
-    "icindekiler": "Doğal kaynak suyu.",
-    "katki_maddesi_icermez": false
+    "icindekiler": "Sade maden sodası",
+    "katki_maddesi_icermez": false,
+    "description_en": "Plain mineral soda water",
+    "ingredients_en": "Plain mineral soda water",
+    "portion_en": "200 ml"
   },
   {
     "id": "su",
     "name": "Su (500 ml)",
     "category": "diger",
     "price": 20,
-    "description": "Doğal kaynak suyu.",
+    "description": "Doğal kaynak suyu",
     "image": "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=500&q=80",
     "besin_degerleri": {
-      "porsiyon": "1 Şişe - 500 ml",
+      "porsiyon": "500 ml Pet Şişe",
       "enerji": 0,
-      "yag": 0.0,
-      "doymus_yag": 0.0,
-      "karbonhidrat": 0.0,
-      "sekerler": 0.0,
-      "lif": 0.0,
-      "protein": 0.0,
-      "tuz": 0.0
+      "yag": 0,
+      "doymus_yag": 0,
+      "karbonhidrat": 0,
+      "sekerler": 0,
+      "lif": 0,
+      "protein": 0,
+      "tuz": 0
     },
     "makrolar": {
       "protein": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       },
       "karbonhidrat": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       },
       "yag": {
-        "deger": 0.0,
+        "deger": 0,
         "yuzde": 0
       }
     },
     "alerjenler": [],
-    "icindekiler": "Doğal kaynak suyu.",
-    "katki_maddesi_icermez": true
+    "icindekiler": "Doğal kaynak suyu",
+    "katki_maddesi_icermez": true,
+    "description_en": "Natural spring water",
+    "ingredients_en": "Natural spring water",
+    "portion_en": "500 ml Bottle"
   }
 ]
