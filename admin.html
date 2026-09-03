@@ -3421,10 +3421,16 @@ window.isStandaloneAdmin = true;
 // ── API BASE URL CONFIGURATION ──
 // Automatically detects environment:
 // - localhost/127.0.0.1 → relative paths (local development)
-// - Any other host → cloud backend URL (production on Netlify)
+// - *.onrender.com → relative paths (the Render web service serves both
+//   this HTML and the /api/* routes from the same origin, so a relative
+//   path always works no matter what the Render-assigned subdomain is —
+//   this survives the service being renamed/recreated with a new URL)
+// - Any other host (e.g. Netlify) → fixed cloud backend URL, since the
+//   frontend and backend are on different origins there
 window.API_BASE = (() => {
   const h = window.location.hostname;
   if (h === 'localhost' || h === '127.0.0.1') return '';
+  if (h.endsWith('.onrender.com')) return '';
   return 'https://dayikatik.onrender.com';
 })();
 

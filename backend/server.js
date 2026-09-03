@@ -65,9 +65,10 @@ const allowedOrigins = [
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    const isAllowed = allowedOrigins.includes(origin) || 
-                      origin.endsWith('.netlify.app') || 
-                      origin.endsWith('.netlify.com');
+    const isAllowed = allowedOrigins.includes(origin) ||
+                      origin.endsWith('.netlify.app') ||
+                      origin.endsWith('.netlify.com') ||
+                      origin.endsWith('.onrender.com');
     if (isAllowed) {
       callback(null, true);
     } else {
