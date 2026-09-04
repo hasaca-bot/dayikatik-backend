@@ -1839,6 +1839,181 @@ body.theme-bw .admin-file-upload-btn {
   background: #2C1A10;
 }
 
+/* ── PRODUCT EDIT SCREEN: WHITE CARD LAYOUT ── */
+.edit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+@media (min-width: 960px) {
+  .edit-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.edit-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.edit-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(44, 26, 16, 0.08);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(44, 26, 16, 0.04);
+}
+.edit-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(44, 26, 16, 0.07);
+}
+.edit-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: rgba(217, 59, 10, 0.08);
+  color: var(--fire);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.edit-card-icon svg { width: 20px; height: 20px; }
+.edit-card-head h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #2C1A10;
+  line-height: 1.3;
+}
+.edit-card-head p {
+  font-size: 0.74rem;
+  color: #8E7564;
+  margin-top: 2px;
+  font-weight: 500;
+}
+.edit-lang-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .edit-lang-row {
+    grid-template-columns: 1fr;
+  }
+}
+.edit-lang-box {
+  background: rgba(44, 26, 16, 0.025);
+  border: 1px solid rgba(44, 26, 16, 0.07);
+  border-radius: 16px;
+  padding: 16px;
+  min-width: 0;
+}
+.edit-lang-box .admin-form-label { margin-top: 14px; }
+.edit-lang-box .admin-form-label:first-of-type { margin-top: 0; }
+.edit-lang-box .admin-input:last-child { margin-bottom: 0; }
+.edit-lang-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  border-radius: 8px;
+  margin-right: 8px;
+  letter-spacing: 0.5px;
+  vertical-align: 1px;
+}
+.edit-lang-chip.tr { background: rgba(217,59,10,0.12); color: #C2410C; }
+.edit-lang-chip.en { background: rgba(255,167,38,0.2); color: #92400E; }
+.edit-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--fire);
+  margin-bottom: 12px;
+}
+.edit-macro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 480px) and (max-width: 640px), (min-width: 960px) and (max-width: 1180px) {
+  .edit-macro-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 640px) and (max-width: 959px), (min-width: 1180px) {
+  .edit-macro-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.edit-macro-box {
+  background: rgba(44, 26, 16, 0.025);
+  border: 1px solid rgba(44, 26, 16, 0.07);
+  border-radius: 16px;
+  padding: 12px;
+}
+.edit-macro-box-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+.edit-macro-box-head span:first-child {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #4A3628;
+}
+.edit-macro-unit {
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--fire);
+  background: rgba(217,59,10,0.1);
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.edit-macro-box .custom-stepper { margin-bottom: 0; }
+.edit-no-additives-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(217, 59, 10, 0.05);
+  border: 1px solid rgba(217, 59, 10, 0.14);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.edit-no-additives-row label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2C1A10;
+  cursor: pointer;
+  user-select: none;
+}
+.edit-image-preview {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(44,26,16,0.08);
+  background: #F3EBE4;
+  aspect-ratio: 16/10;
+  margin-bottom: 14px;
+}
+.edit-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ── ADMIN SEARCH & SUGGESTIONS STYLING ── */
 .admin-search-row {
   display: flex;
@@ -2562,7 +2737,7 @@ body.theme-bw .rez-select-trigger:hover {
   }
 </style>
 </head>
-<body>
+<body class="theme-bw">
 
 <!-- TOP BAR -->
 <header class="topbar">
@@ -3202,215 +3377,241 @@ body.theme-bw .rez-select-trigger:hover {
 
 <!-- ADMIN ADD/EDIT FORM PANEL -->
 <div id="adminFormPanel" class="admin-form-panel">
-  <div class="admin-panel-header" style="margin-bottom: 20px;">
-    <h2 class="admin-panel-title" id="adminFormTitle" data-i18n="admin_lbl_edit_product">Ürün Düzenle</h2>
+  <div class="admin-panel-header" style="margin-bottom: 20px; background:#fff; border-radius:18px; padding:14px 18px; border-bottom:1px solid rgba(44,26,16,0.08); box-shadow:0 1px 3px rgba(44,26,16,0.04);">
+    <h2 class="admin-panel-title" id="adminFormTitle" data-i18n="admin_lbl_edit_product" style="color:#2C1A10; font-size:1.25rem;">Ürün Düzenle</h2>
     <div class="admin-panel-actions">
-      <button class="admin-btn" data-i18n="admin_btn_save" onclick="saveAdminProduct()">Kaydet</button>
       <button class="admin-btn secondary" style="margin-top:0;" data-i18n="admin_btn_product_cancel" onclick="closeAdminForm()">İptal</button>
+      <button class="admin-btn" data-i18n="admin_btn_save" onclick="saveAdminProduct()">Kaydet</button>
     </div>
   </div>
-  
+
   <input type="hidden" id="formProductId" />
-  
-  <div class="admin-form-row" style="grid-template-columns: 1fr 1fr; gap:16px;">
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_prod_name_tr">Ürün Adı (Türkçe)</label>
-      <input type="text" id="formProductName" class="admin-input" data-i18n-placeholder="form_product_name_placeholder_tr" placeholder="Örn: Zurna Tavuk" />
-    </div>
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_prod_name_en">Ürün Adı (İngilizce - English)</label>
-      <input type="text" id="formProductNameEn" class="admin-input" data-i18n-placeholder="form_product_name_placeholder_en" placeholder="Örn: Zurna Chicken" />
-    </div>
-  </div>
-  
-  <div class="admin-form-row" style="grid-template-columns: 1fr 1fr; gap:16px;">
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_prod_price">Fiyat (TL)</label>
-      <div class="custom-stepper">
-        <button type="button" onclick="stepDown('formProductPrice', 5)">-</button>
-        <input type="number" id="formProductPrice" data-i18n-placeholder="ph_price" placeholder="Örn: 180" />
-        <button type="button" onclick="stepUp('formProductPrice', 5)">+</button>
-      </div>
-    </div>
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_select_category">Kategori</label>
-      <div class="custom-select-container" id="formProductCategoryContainer" style="width: 100%;">
-        <div class="custom-select-trigger" onclick="toggleFormProductCategoryDropdown(event)" style="height: 48px; background:#3D1A0A; border-color:rgba(255,248,240,0.1);">
-          <span id="formProductCategorySelectedText" data-i18n="admin_lbl_select_category">Kategori Seçin</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto; transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>
+
+  <div class="edit-grid">
+    <!-- ── SOL SÜTUN: Ana içerik ── -->
+    <div class="edit-col">
+
+      <!-- Kart: Temel Ürün Bilgileri -->
+      <div class="edit-card">
+        <div class="edit-card-head">
+          <div class="edit-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          </div>
+          <div>
+            <h3 data-i18n="admin_lbl_basic_info_title">Temel Ürün Bilgileri</h3>
+            <p data-i18n="admin_lbl_basic_info_sub">Menüde görünecek çok dilli isim ve açıklamaları yönetin</p>
+          </div>
         </div>
-        <div class="custom-select-options" id="formProductCategoryOptions">
-          <!-- Dynamic Form Options -->
+        <div class="edit-lang-row">
+          <div class="edit-lang-box">
+            <label class="admin-form-label"><span class="edit-lang-chip tr">TR</span><span data-i18n="admin_lbl_prod_name_tr">Ürün Adı (Türkçe)</span></label>
+            <input type="text" id="formProductName" class="admin-input" data-i18n-placeholder="form_product_name_placeholder_tr" placeholder="Örn: Zurna Tavuk" />
+            <label class="admin-form-label" data-i18n="admin_lbl_prod_desc_tr">Açıklama (Türkçe)</label>
+            <textarea id="formProductDesc" class="admin-input" rows="3" data-i18n-placeholder="ph_prod_desc_tr" placeholder="Ürün açıklaması..." style="resize:vertical;"></textarea>
+          </div>
+          <div class="edit-lang-box">
+            <label class="admin-form-label"><span class="edit-lang-chip en">EN</span><span data-i18n="admin_lbl_prod_name_en">Ürün Adı (İngilizce - English)</span></label>
+            <input type="text" id="formProductNameEn" class="admin-input" data-i18n-placeholder="form_product_name_placeholder_en" placeholder="Örn: Zurna Chicken" />
+            <label class="admin-form-label" data-i18n="admin_lbl_prod_desc_en">Açıklama (İngilizce - English)</label>
+            <textarea id="formProductDescEn" class="admin-input" rows="3" data-i18n-placeholder="ph_prod_desc_en" placeholder="Product description..." style="resize:vertical;"></textarea>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  
-  <div class="admin-form-row" style="grid-template-columns: 1fr; gap:16px;">
-    <div class="image-upload-wrapper">
-      <div style="flex: 1;">
-        <label class="admin-form-label" data-i18n="admin_lbl_prod_image">Görsel URL veya Dosya Yükle</label>
-        <input type="text" id="formProductImage" class="admin-input" data-i18n-placeholder="ph_prod_image" placeholder="Fotoğraf linki veya dosya..." style="margin-bottom:0;" />
+
+      <!-- Kart: Besin Değerleri & Makrolar -->
+      <div class="edit-card">
+        <div class="edit-card-head">
+          <div class="edit-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <h3 data-i18n="admin_lbl_nutrition_section">Besin Değerleri &amp; Makrolar</h3>
+            <p data-i18n="admin_lbl_nutrition_sub">Müşterilere sunulacak porsiyon boyutu ve porsiyon başına besin değerleri</p>
+          </div>
+        </div>
+
+        <div class="edit-lang-row" style="margin-bottom:18px;">
+          <div>
+            <label class="admin-form-label" data-i18n="admin_lbl_portion_tr">Porsiyon Ölçüsü (Türkçe)</label>
+            <input type="text" id="formProductPortion" class="admin-input" style="margin-bottom:0;" data-i18n-placeholder="ph_portion_tr" placeholder="Örn: 1 Porsiyon - 350 g" />
+          </div>
+          <div>
+            <label class="admin-form-label" data-i18n="admin_lbl_portion_en">Porsiyon Ölçüsü (İngilizce - English)</label>
+            <input type="text" id="formProductPortionEn" class="admin-input" style="margin-bottom:0;" data-i18n-placeholder="ph_portion_en" placeholder="Örn: 1 Portion - 350 g" />
+          </div>
+        </div>
+
+        <div class="edit-macro-grid">
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="energy">Enerji (kcal)</span><span class="edit-macro-unit">Kcal</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductEnergy', 10)">−</button>
+              <input type="number" id="formProductEnergy" data-i18n-placeholder="ph_energy" placeholder="Örn: 650" />
+              <button type="button" onclick="stepUp('formProductEnergy', 10)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="protein">Protein (g)</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductProtein', 0.5)">−</button>
+              <input type="number" step="0.1" id="formProductProtein" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductProtein', 0.5)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="carbs">Karbonhidrat (g)</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductCarb', 0.5)">−</button>
+              <input type="number" step="0.1" id="formProductCarb" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductCarb', 0.5)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="fat">Yağ (g)</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductFat', 0.5)">−</button>
+              <input type="number" step="0.1" id="formProductFat" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductFat', 0.5)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="saturated_fat">— Doymuş Yağ</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductSfat', 0.5)">−</button>
+              <input type="number" step="0.1" id="formProductSfat" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductSfat', 0.5)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="sugars">— Şekerler</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductSugar', 0.5)">−</button>
+              <input type="number" step="0.1" id="formProductSugar" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductSugar', 0.5)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="salt">Tuz (g)</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductSalt', 0.1)">−</button>
+              <input type="number" step="0.1" id="formProductSalt" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductSalt', 0.1)">+</button>
+            </div>
+          </div>
+          <div class="edit-macro-box">
+            <div class="edit-macro-box-head"><span data-i18n="fiber">Lif (g)</span><span class="edit-macro-unit">Gram</span></div>
+            <div class="custom-stepper">
+              <button type="button" onclick="stepDown('formProductFiber', 0.5)">−</button>
+              <input type="number" step="0.1" id="formProductFiber" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
+              <button type="button" onclick="stepUp('formProductFiber', 0.5)">+</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div style="display: flex; align-items: flex-end;">
-        <label class="admin-file-upload-btn">
+
+      <!-- Kart: Diğer Bilgiler -->
+      <div class="edit-card">
+        <div class="edit-card-head">
+          <div class="edit-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <div>
+            <h3 data-i18n="admin_lbl_other_info">Diğer Bilgiler</h3>
+            <p data-i18n="admin_lbl_other_info_sub">İçerik listesi, alerjen bilgileri ve özel etiketler</p>
+          </div>
+        </div>
+
+        <div class="edit-lang-row" style="margin-bottom:18px;">
+          <div class="edit-lang-box">
+            <label class="admin-form-label"><span class="edit-lang-chip tr">TR</span><span data-i18n="admin_lbl_ingredients_tr">İçindekiler (Türkçe)</span></label>
+            <textarea id="formProductIngredients" class="admin-input" rows="3" style="margin-bottom:0; resize:vertical;" data-i18n-placeholder="ph_ingredients_tr" placeholder="Tavuk eti, lavaş, sos, marul..."></textarea>
+          </div>
+          <div class="edit-lang-box">
+            <label class="admin-form-label"><span class="edit-lang-chip en">EN</span><span data-i18n="admin_lbl_ingredients_en">İçindekiler (İngilizce - English)</span></label>
+            <textarea id="formProductIngredientsEn" class="admin-input" rows="3" style="margin-bottom:0; resize:vertical;" data-i18n-placeholder="ph_ingredients_en" placeholder="Chicken meat, wrap, sauce, lettuce..."></textarea>
+          </div>
+        </div>
+
+        <div class="edit-no-additives-row">
+          <input type="checkbox" id="formProductNoAdditives" style="width:20px; height:20px; cursor:pointer; accent-color:var(--fire); flex-shrink:0;" />
+          <label for="formProductNoAdditives"><span data-i18n="admin_lbl_no_additives_checkbox">Katkı Maddesi İçermez işareti gösterilsin</span></label>
+        </div>
+
+        <div>
+          <label class="admin-form-label" data-i18n="admin_lbl_allergens">Alerjenler (Seçmek için üzerlerine tıklayın)</label>
+          <div class="allergen-selector-container">
+            <div class="allergen-badge-btn" data-allergen="gluten" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_gluten">Gluten</span>
+            </div>
+            <div class="allergen-badge-btn" data-allergen="sut" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_sut">Süt / Laktoz</span>
+            </div>
+            <div class="allergen-badge-btn" data-allergen="soya" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_soya">Soya</span>
+            </div>
+            <div class="allergen-badge-btn" data-allergen="yumurta" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_yumurta">Yumurta</span>
+            </div>
+            <div class="allergen-badge-btn" data-allergen="hardal" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_hardal">Hardal</span>
+            </div>
+            <div class="allergen-badge-btn" data-allergen="kereviz" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_kereviz">Kereviz</span>
+            </div>
+            <div class="allergen-badge-btn" data-allergen="susam" onclick="toggleAllergenBadge(this)">
+              <span class="badge-status-dot"></span> <span data-i18n="alg_susam">Susam</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SAĞ SÜTUN: Fiyat, kategori, görsel ── -->
+    <div class="edit-col">
+
+      <!-- Kart: Fiyat & Kategori -->
+      <div class="edit-card">
+        <h3 class="edit-section-title" data-i18n="admin_lbl_price_category_title">Fiyat &amp; Kategori</h3>
+        <div style="margin-bottom:16px;">
+          <label class="admin-form-label" data-i18n="admin_lbl_prod_price">Fiyat (TL)</label>
+          <div class="custom-stepper">
+            <button type="button" onclick="stepDown('formProductPrice', 5)">−</button>
+            <input type="number" id="formProductPrice" data-i18n-placeholder="ph_price" placeholder="Örn: 180" />
+            <button type="button" onclick="stepUp('formProductPrice', 5)">+</button>
+          </div>
+        </div>
+        <div>
+          <label class="admin-form-label" data-i18n="admin_lbl_select_category">Kategori</label>
+          <div class="custom-select-container" id="formProductCategoryContainer" style="width: 100%;">
+            <div class="custom-select-trigger" onclick="toggleFormProductCategoryDropdown(event)" style="height: 48px;">
+              <span id="formProductCategorySelectedText" data-i18n="admin_lbl_select_category">Kategori Seçin</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto; transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="custom-select-options" id="formProductCategoryOptions">
+              <!-- Dynamic Form Options -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kart: Ürün Görseli -->
+      <div class="edit-card">
+        <h3 class="edit-section-title" data-i18n="admin_lbl_image_title">Ürün Görseli</h3>
+        <div class="edit-image-preview">
+          <img id="formProductImagePreview" alt="Ürün Önizleme" onerror="this.onerror=null; if (typeof PRODUCT_IMG_FALLBACK !== 'undefined') this.src = PRODUCT_IMG_FALLBACK;" />
+        </div>
+        <div style="margin-bottom: 12px;">
+          <label class="admin-form-label" data-i18n="admin_lbl_prod_image">Görsel URL veya Dosya Yükle</label>
+          <input type="text" id="formProductImage" class="admin-input" oninput="updateAdminImagePreview()" data-i18n-placeholder="ph_prod_image" placeholder="Fotoğraf linki veya dosya..." style="margin-bottom:0;" />
+        </div>
+        <label class="admin-file-upload-btn" style="width:100%; justify-content:center;">
           <input type="file" id="formProductFile" accept="image/*" onchange="handleAdminImageUpload(this)" style="display:none;" />
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-3px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <span data-i18n="admin_btn_select_file">Dosya Seç</span>
         </label>
       </div>
-    </div>
-  </div>
 
-  <div class="admin-form-row" style="grid-template-columns: 1fr 1fr; gap:16px;">
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_prod_desc_tr">Açıklama (Türkçe)</label>
-      <textarea id="formProductDesc" class="admin-input" rows="2" data-i18n-placeholder="ph_prod_desc_tr" placeholder="Ürün açıklaması..." style="resize:vertical;"></textarea>
-    </div>
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_prod_desc_en">Açıklama (İngilizce - English)</label>
-      <textarea id="formProductDescEn" class="admin-input" rows="2" data-i18n-placeholder="ph_prod_desc_en" placeholder="Product description..." style="resize:vertical;"></textarea>
-    </div>
-  </div>
-  
-  <div style="border-top: 1px solid rgba(255,248,240,0.06); padding-top: 16px; margin-top: 10px; margin-bottom: 20px;">
-    <h3 style="font-family:'Syne',sans-serif; font-size:1rem; color:var(--ember); margin-bottom:12px;" data-i18n="admin_lbl_nutrition_section">Besin Değerleri & Makrolar</h3>
-    <div class="admin-form-row" style="grid-template-columns: 1fr 1fr; gap:16px;">
-      <div>
-        <label class="admin-form-label" data-i18n="admin_lbl_portion_tr">Porsiyon Ölçüsü (Türkçe)</label>
-        <input type="text" id="formProductPortion" class="admin-input" data-i18n-placeholder="ph_portion_tr" placeholder="Örn: 1 Porsiyon - 350 g" />
-      </div>
-      <div>
-        <label class="admin-form-label" data-i18n="admin_lbl_portion_en">Porsiyon Ölçüsü (İngilizce - English)</label>
-        <input type="text" id="formProductPortionEn" class="admin-input" data-i18n-placeholder="ph_portion_en" placeholder="Örn: 1 Portion - 350 g" />
-      </div>
-    </div>
-    <div class="admin-form-row" style="grid-template-columns: 1fr 1fr; gap:16px;">
-      <div>
-        <label class="admin-form-label" data-i18n="energy">Enerji (kcal)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductEnergy', 10)">-</button>
-          <input type="number" id="formProductEnergy" data-i18n-placeholder="ph_energy" placeholder="Örn: 650" />
-          <button type="button" onclick="stepUp('formProductEnergy', 10)">+</button>
-        </div>
-      </div>
-      <div>
-        <!-- Spacer -->
-      </div>
-    </div>
-    <div class="admin-form-row">
-      <div>
-        <label class="admin-form-label" data-i18n="protein">Protein (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductProtein', 0.5)">-</button>
-          <input type="number" step="0.1" id="formProductProtein" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductProtein', 0.5)">+</button>
-        </div>
-      </div>
-      <div>
-        <label class="admin-form-label" data-i18n="carbs">Karbonhidrat (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductCarb', 0.5)">-</button>
-          <input type="number" step="0.1" id="formProductCarb" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductCarb', 0.5)">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="admin-form-row">
-      <div>
-        <label class="admin-form-label" data-i18n="fat">Yağ (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductFat', 0.5)">-</button>
-          <input type="number" step="0.1" id="formProductFat" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductFat', 0.5)">+</button>
-        </div>
-      </div>
-      <div>
-        <label class="admin-form-label" data-i18n="saturated_fat">Doymuş Yağ (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductSfat', 0.5)">-</button>
-          <input type="number" step="0.1" id="formProductSfat" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductSfat', 0.5)">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="admin-form-row">
-      <div>
-        <label class="admin-form-label" data-i18n="sugars">Şekerler (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductSugar', 0.5)">-</button>
-          <input type="number" step="0.1" id="formProductSugar" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductSugar', 0.5)">+</button>
-        </div>
-      </div>
-      <div>
-        <label class="admin-form-label" data-i18n="salt">Tuz (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductSalt', 0.1)">-</button>
-          <input type="number" step="0.1" id="formProductSalt" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductSalt', 0.1)">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="admin-form-row">
-      <div>
-        <label class="admin-form-label" data-i18n="fiber">Lif (g)</label>
-        <div class="custom-stepper">
-          <button type="button" onclick="stepDown('formProductFiber', 0.5)">-</button>
-          <input type="number" step="0.1" id="formProductFiber" data-i18n-placeholder="ph_gram" placeholder="Gram..." />
-          <button type="button" onclick="stepUp('formProductFiber', 0.5)">+</button>
-        </div>
-      </div>
-      <div>
-        <!-- Spacer -->
-      </div>
-    </div>
-  </div>
-  
-  <div style="border-top: 1px solid rgba(255,248,240,0.06); padding-top: 16px; margin-bottom: 20px;">
-    <h3 style="font-family:'Syne',sans-serif; font-size:1rem; color:var(--ember); margin-bottom:12px;" data-i18n="admin_lbl_other_info">Diğer Bilgiler</h3>
-    
-    <div class="admin-form-row" style="grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:10px;">
-      <div>
-        <label class="admin-form-label" data-i18n="admin_lbl_ingredients_tr">İçindekiler (Türkçe)</label>
-        <textarea id="formProductIngredients" class="admin-input" rows="2" data-i18n-placeholder="ph_ingredients_tr" placeholder="Tavuk eti, lavaş, sos, marul..." style="resize:vertical;"></textarea>
-      </div>
-      <div>
-        <label class="admin-form-label" data-i18n="admin_lbl_ingredients_en">İçindekiler (İngilizce - English)</label>
-        <textarea id="formProductIngredientsEn" class="admin-input" rows="2" data-i18n-placeholder="ph_ingredients_en" placeholder="Chicken meat, wrap, sauce, lettuce..." style="resize:vertical;"></textarea>
-      </div>
-    </div>
-    
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom: 16px;">
-      <input type="checkbox" id="formProductNoAdditives" style="width:20px; height:20px; cursor:pointer;" />
-      <label for="formProductNoAdditives" style="font-size:0.85rem; font-weight:600; color:var(--cream); cursor:pointer; user-select:none;"><span data-i18n="admin_lbl_no_additives_checkbox">Katkı Maddesi İçermez işareti gösterilsin</span></label>
-    </div>
-    
-    <div>
-      <label class="admin-form-label" data-i18n="admin_lbl_allergens">Alerjenler (Seçmek için üzerlerine tıklayın)</label>
-      <div class="allergen-selector-container">
-        <div class="allergen-badge-btn" data-allergen="gluten" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_gluten">Gluten</span>
-        </div>
-        <div class="allergen-badge-btn" data-allergen="sut" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_sut">Süt / Laktoz</span>
-        </div>
-        <div class="allergen-badge-btn" data-allergen="soya" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_soya">Soya</span>
-        </div>
-        <div class="allergen-badge-btn" data-allergen="yumurta" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_yumurta">Yumurta</span>
-        </div>
-        <div class="allergen-badge-btn" data-allergen="hardal" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_hardal">Hardal</span>
-        </div>
-        <div class="allergen-badge-btn" data-allergen="kereviz" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_kereviz">Kereviz</span>
-        </div>
-        <div class="allergen-badge-btn" data-allergen="susam" onclick="toggleAllergenBadge(this)">
-          <span class="badge-status-dot"></span> <span data-i18n="alg_susam">Susam</span>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -3670,12 +3871,18 @@ const i18nData = {
     ph_prod_desc_tr: "Ürün açıklaması...",
     admin_lbl_prod_desc_en: "Açıklama (İngilizce - English)",
     ph_prod_desc_en: "Product description...",
+    admin_lbl_basic_info_title: "Temel Ürün Bilgileri",
+    admin_lbl_basic_info_sub: "Menüde görünecek çok dilli isim ve açıklamaları yönetin",
     admin_lbl_nutrition_section: "Besin Değerleri & Makrolar",
+    admin_lbl_nutrition_sub: "Müşterilere sunulacak porsiyon boyutu ve porsiyon başına besin değerleri",
     admin_lbl_portion_tr: "Porsiyon Ölçüsü (Türkçe)",
     ph_portion_tr: "Örn: 1 Porsiyon - 350 g",
     admin_lbl_portion_en: "Porsiyon Ölçüsü (İngilizce - English)",
     ph_portion_en: "Örn: 1 Portion - 350 g",
     admin_lbl_other_info: "Diğer Bilgiler",
+    admin_lbl_other_info_sub: "İçerik listesi, alerjen bilgileri ve özel etiketler",
+    admin_lbl_price_category_title: "Fiyat & Kategori",
+    admin_lbl_image_title: "Ürün Görseli",
     admin_lbl_ingredients_tr: "İçindekiler (Türkçe)",
     ph_ingredients_tr: "Tavuk eti, lavaş, sos, marul...",
     admin_lbl_ingredients_en: "İçindekiler (İngilizce - English)",
@@ -3861,12 +4068,18 @@ const i18nData = {
     ph_prod_desc_tr: "Product description...",
     admin_lbl_prod_desc_en: "Description (English)",
     ph_prod_desc_en: "Product description...",
+    admin_lbl_basic_info_title: "Basic Product Info",
+    admin_lbl_basic_info_sub: "Manage the multilingual name and descriptions shown on the menu",
     admin_lbl_nutrition_section: "Nutrition Facts & Macros",
+    admin_lbl_nutrition_sub: "Serving size and per-portion nutrition values shown to customers",
     admin_lbl_portion_tr: "Serving Size (Turkish)",
     ph_portion_tr: "e.g., 1 Serving - 350 g",
     admin_lbl_portion_en: "Serving Size (English)",
     ph_portion_en: "e.g., 1 Portion - 350 g",
     admin_lbl_other_info: "Other Info",
+    admin_lbl_other_info_sub: "Ingredient list, allergen info and special tags",
+    admin_lbl_price_category_title: "Price & Category",
+    admin_lbl_image_title: "Product Image",
     admin_lbl_ingredients_tr: "Ingredients (Turkish)",
     ph_ingredients_tr: "Chicken meat, wrap, sauce, lettuce...",
     admin_lbl_ingredients_en: "Ingredients (English)",
@@ -5167,13 +5380,9 @@ function initializeApp() {
   // Apply saved or default language
   applyLanguage(window.currentLanguage);
 
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  } else {
-    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    applyTheme(systemPrefersLight ? 'light' : 'dark');
-  }
+  // Yönetim paneli her zaman açık/beyaz temada gösterilir — müşteri sitesindeki
+  // koyu/açık tema anahtarından (localStorage 'theme') bağımsız olarak sabitlenir.
+  applyTheme('light');
   updateAdminRezBadge();
 
   // Initialize custom reservation date dropdowns
@@ -5200,10 +5409,8 @@ function initializeApp() {
       renderAdminRezList();
       updateAdminRezBadge();
     }
-    if (e.key === 'theme') {
-      const newTheme = e.newValue || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-      applyTheme(newTheme);
-    }
+    // Not: 'theme' anahtarı kasıtlı olarak dinlenmiyor — yönetim paneli
+    // müşteri sitesindeki tema anahtarından bağımsız olarak hep açık/beyaz kalır.
     if (e.key === 'lang') {
       applyLanguage(e.newValue || 'tr');
     }
@@ -5959,12 +6166,23 @@ function toggleAllergenBadge(el) {
 function handleAdminImageUpload(input) {
   const file = input.files[0];
   if (!file) return;
-  
+
   const reader = new FileReader();
   reader.onload = function(e) {
     document.getElementById('formProductImage').value = e.target.result;
+    updateAdminImagePreview();
   };
   reader.readAsDataURL(file);
+}
+
+// Keeps the "Ürün Görseli" preview thumbnail in the edit form in sync
+// with the image URL/base64 field, whether it changed via typing or upload.
+function updateAdminImagePreview() {
+  const preview = document.getElementById('formProductImagePreview');
+  const urlField = document.getElementById('formProductImage');
+  if (!preview || !urlField) return;
+  const val = urlField.value.trim();
+  preview.src = val || PRODUCT_IMG_FALLBACK;
 }
 
 function openAdminForm(id = null) {
@@ -6040,8 +6258,9 @@ function openAdminForm(id = null) {
   } else {
     title.textContent = window.currentLanguage === 'tr' ? 'Yeni Ürün Ekle' : 'Add New Product';
   }
-  
+
   updateFormCategoryOptions();
+  updateAdminImagePreview();
   panel.classList.add('open');
 }
 
