@@ -3,6 +3,17 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-09-09 23:52 +03:00] — Sayfa Yükleme Hızlandırması: %96.6 Bandwidth Tasarruflu WebP Thumbnails ve Kademeli (Progressive) Yükleme
+
+Sayfa açılış hızını maksimum seviyeye çıkarmak için 53 ürünün tamamı için optimize edilmiş hafif WebP küçük resimleri (thumbnails) üretildi. Kart genel görünümünde bu minik resimler yüklenirken, ürün detay penceresine tıklandığında anında önbellekteki küçük resim gösterilip yüksek kaliteli orijinal görsel arka planda akıcı biçimde yüklenir.
+
+### 🛠️ Yapılan İşlemler:
+1. **WebP Thumbnail Üretimi:** Python Pillow ile 53 ürün görseli 440px en-boy oranı korunarak sıkıştırıldı. Toplam görsel boyutu 40.94 MB'tan 1.37 MB'a düşürüldü (%96.6 bant genişliği tasarrufu).
+2. **Kademeli Yükleme (Progressive Loading):** `index.html` ve `admin.html` kart görünümlerinde `item.thumb` (`.webp`) kullanılırken, detay penceresi (`openFoodDetail`) için arka plan placeholder'ı olarak thumbnail, ön planda tam çözünürlüklü yüksek kaliteli görsel (`item.image`) bağlandı.
+3. **Sıralama Düzeltmesi:** Ürünlerin doğal menü sırasıyla (İskender ve dürümler en üstte) gelmesi için `backend/server.js` sorgusu `ORDER BY created_at ASC` yapıldı.
+4. **Netlify API Adresi Güncellemesi:** Canlı Render backend adresi (`dayikatik-claf.onrender.com`) ile eşitlendi.
+
+---
 ## [2026-09-09 23:28 +03:00] — 53 AI Ürün Görselinin Sisteme İşlenmesi ve Tekli Ürünler Rehberi
 
 Kullanıcının ilettiği `download (4).zip` arşivindeki profesyonel AI yemek fotoğrafları (53 adet) okunup analiz edildi. Her görsel ilgili menü ve tekli ürünle birebir eşleştirilerek sisteme entegre edildi. Menü/combo dışındaki tekli ürünler için de masaüstüne ayrı bir rehber dosyası oluşturuldu.

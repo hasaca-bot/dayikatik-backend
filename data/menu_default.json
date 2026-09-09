@@ -40,7 +40,8 @@
     "icindekiler": "Marine dana eti, tırnak pide (buğday unu, maya, tuz), manda & süzme yoğurt, geleneksel domates sosu, kızgın tereyağı, közlenmiş biber ve domates.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated beef, pita bread (wheat flour, yeast, salt), strained yogurt, traditional tomato sauce, sizzling butter, roasted green pepper and tomato.",
-    "portion_en": "350g (130g Beef Doner, Pita, Yogurt)"
+    "portion_en": "350g (130g Beef Doner, Pita, Yogurt)",
+    "thumb": "/images/products/thumbs/et-iskender.webp"
   },
   {
     "id": "et-beyti",
@@ -83,7 +84,8 @@
     "icindekiler": "Marine dana eti, ince açılmış lavaş, taze kaşar peyniri, ev yapımı domates sosu, eritilmiş tereyağı, süzme yoğurt, sumaklı maydanoz.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated beef, thin lavash bread, kashar cheese, homemade tomato sauce, melted butter, strained yogurt, sumac parsley.",
-    "portion_en": "320g (120g Beef, Cheese, Lavash)"
+    "portion_en": "320g (120g Beef, Cheese, Lavash)",
+    "thumb": "/images/products/thumbs/et-beyti.webp"
   },
   {
     "id": "beyti-tavuk",
@@ -126,7 +128,8 @@
     "icindekiler": "Marine tavuk budu eti, ince lavaş, taze kaşar peyniri, tereyağlı domates sosu, süzme yoğurt, köz biber.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated chicken thigh doner, thin lavash, kashar cheese, butter tomato sauce, strained yogurt, grilled pepper.",
-    "portion_en": "300g (130g Chicken Doner, Cheese, Lavash)"
+    "portion_en": "300g (130g Chicken Doner, Cheese, Lavash)",
+    "thumb": "/images/products/thumbs/beyti-tavuk.webp"
   },
   {
     "id": "katik-et-durum",
@@ -168,7 +171,8 @@
     "icindekiler": "Marine yaprak dana eti, çift kat ince lavaş, Katık özel sosu, çıtır kibrit patates, kornişon turşu, taze domates.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated shaved beef, toasted double lavash, Katik secret spiced sauce, matchstick fries, gherkin pickles, fresh tomato.",
-    "portion_en": "260g (100g Beef, Sauce, Fries)"
+    "portion_en": "260g (100g Beef, Sauce, Fries)",
+    "thumb": "/images/products/thumbs/katik-et-durum.webp"
   },
   {
     "id": "katik-et-ekmek-arasi",
@@ -210,7 +214,8 @@
     "icindekiler": "Marine dana eti, çıtır tırnaklı somun ekmek, Katık özel domatesli sos, kornişon turşu, marul, ince dilim domates.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated beef, artisan Turkish crusty bread loaf, Katik secret sauce, pickled cucumbers, crisp lettuce, sliced tomato.",
-    "portion_en": "300g (110g Beef, Turkish Bread)"
+    "portion_en": "300g (110g Beef, Turkish Bread)",
+    "thumb": "/images/products/thumbs/katik-et-ekmek-arasi.webp"
   },
   {
     "id": "zurna-katik-et-durum",
@@ -252,7 +257,8 @@
     "icindekiler": "Marine dana eti, 70 cm özel açım lavaş, bol Katık sos, çıtır patates, kornişon turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated beef, 70cm hand-rolled thin lavash, extra Katik garlic-tomato sauce, crispy french fries, sliced pickles.",
-    "portion_en": "380g (140g Beef, 70cm Lavash)"
+    "portion_en": "380g (140g Beef, 70cm Lavash)",
+    "thumb": "/images/products/thumbs/zurna-katik-et-durum.webp"
   },
   {
     "id": "katik-et-menu-1",
@@ -294,7 +300,8 @@
     "icindekiler": "Katık Et Dürüm bileşenleri, baharatlı patates kızartması, kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Katik beef wrap components, seasoned crispy french fries, canned beverage.",
-    "portion_en": "1 Wrap (260g) + Fries (120g) + Drink (330ml)"
+    "portion_en": "1 Wrap (260g) + Fries (120g) + Drink (330ml)",
+    "thumb": "/images/products/thumbs/katik-et-menu-1.webp"
   },
   {
     "id": "katik-et-menu-2",
@@ -336,7 +343,8 @@
     "icindekiler": "Katık Et Ekmek Arası bileşenleri, baharatlı patates kızartması, kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Beef doner sandwich ingredients, golden fries, soft drink.",
-    "portion_en": "1 Sandwich (300g) + Fries (120g) + Drink"
+    "portion_en": "1 Sandwich (300g) + Fries (120g) + Drink",
+    "thumb": "/images/products/thumbs/katik-et-menu-2.webp"
   },
   {
     "id": "combo-et-menu-1",
@@ -378,7 +386,8 @@
     "icindekiler": "2 adet Katık Et Dürüm, bol çıtır patates, 1L meşrubat.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "2 Katik beef wraps, large seasoned fries, 1L soda.",
-    "portion_en": "2 Wraps (520g) + Large Fries (200g) + 1L Drink"
+    "portion_en": "2 Wraps (520g) + Large Fries (200g) + 1L Drink",
+    "thumb": "/images/products/thumbs/combo-et-menu-1.webp"
   },
   {
     "id": "combo-et-menu-2",
@@ -420,7 +429,8 @@
     "icindekiler": "Zurna Et Dürüm, Katık Tavuk Dürüm, çıtır patates, 2 kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Zurna beef wrap, chicken wrap, fries, 2 canned drinks.",
-    "portion_en": "1 Zurna Beef + 1 Chicken Wrap + Fries + 2 Drinks"
+    "portion_en": "1 Zurna Beef + 1 Chicken Wrap + Fries + 2 Drinks",
+    "thumb": "/images/products/thumbs/combo-et-menu-2.webp"
   },
   {
     "id": "zurna-et-menu-1",
@@ -463,7 +473,8 @@
     "icindekiler": "Zurna Et Dürüm bileşenleri, patates kızartması, geleneksel köpüklü ayran.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Zurna beef wrap, french fries, traditional Turkish frothy ayran yogurt drink.",
-    "portion_en": "1 Zurna Beef (380g) + Fries (120g) + Ayran (300ml)"
+    "portion_en": "1 Zurna Beef (380g) + Fries (120g) + Ayran (300ml)",
+    "thumb": "/images/products/thumbs/zurna-et-menu-1.webp"
   },
   {
     "id": "zurna-et-menu-2",
@@ -506,7 +517,8 @@
     "icindekiler": "Zurna Et Dürüm, patates kızartması, kutu içecek, Eker tatlı.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Zurna beef wrap, french fries, canned soda, Turkish dessert pudding.",
-    "portion_en": "1 Zurna Beef (380g) + Fries + Drink + Dessert (150g)"
+    "portion_en": "1 Zurna Beef (380g) + Fries + Drink + Dessert (150g)",
+    "thumb": "/images/products/thumbs/zurna-et-menu-2.webp"
   },
   {
     "id": "katik-tavuk",
@@ -548,7 +560,8 @@
     "icindekiler": "Özel marine tavuk but ve göğüs eti, çift kat ince lavaş, Katık sarımsaklı domates sosu, kibrit patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated chicken doner, toasted thin lavash, Katik garlic-tomato sauce, crispy fries, pickles.",
-    "portion_en": "250g (100g Chicken Doner, Sauce, Lavash)"
+    "portion_en": "250g (100g Chicken Doner, Sauce, Lavash)",
+    "thumb": "/images/products/thumbs/katik-tavuk.webp"
   },
   {
     "id": "ekmek-arasi-tavuk",
@@ -590,7 +603,8 @@
     "icindekiler": "Marine tavuk döner, çıtır somun ekmek, Katık sosu, marul, domates, kornişon turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, crusty Turkish bread, Katik sauce, crisp lettuce, tomato slices, pickles.",
-    "portion_en": "280g (110g Chicken Doner, Bread)"
+    "portion_en": "280g (110g Chicken Doner, Bread)",
+    "thumb": "/images/products/thumbs/ekmek-arasi-tavuk.webp"
   },
   {
     "id": "katik-kasarli-tavuk",
@@ -633,7 +647,8 @@
     "icindekiler": "Marine tavuk eti, taze kaşar peyniri, ince lavaş, Katık sos, patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated chicken doner, melted kashar cheese, thin lavash, Katik sauce, fries, pickles.",
-    "portion_en": "270g (100g Chicken, 40g Kashar Cheese)"
+    "portion_en": "270g (100g Chicken, 40g Kashar Cheese)",
+    "thumb": "/images/products/thumbs/katik-kasarli-tavuk.webp"
   },
   {
     "id": "katik-cedarli-tavuk",
@@ -676,7 +691,8 @@
     "icindekiler": "Marine tavuk eti, eritilmiş çedar peyniri sosu, ince lavaş, Katık sos, çıtır patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, melted yellow cheddar cheese sauce, lavash, Katik sauce, fries, pickles.",
-    "portion_en": "270g (100g Chicken, 40g Cheddar)"
+    "portion_en": "270g (100g Chicken, 40g Cheddar)",
+    "thumb": "/images/products/thumbs/katik-cedarli-tavuk.webp"
   },
   {
     "id": "katik-kasarli-mantarli",
@@ -719,7 +735,8 @@
     "icindekiler": "Tavuk döner eti, tereyağında sotelenmiş kültür mantarı, kaşar peyniri, Katık sos, ince lavaş, patates.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, butter-sauteed mushrooms, kashar cheese, Katik sauce, lavash wrap, fries.",
-    "portion_en": "290g (100g Chicken, Mushroom, Cheese)"
+    "portion_en": "290g (100g Chicken, Mushroom, Cheese)",
+    "thumb": "/images/products/thumbs/katik-kasarli-mantarli.webp"
   },
   {
     "id": "zurna-tavuk",
@@ -761,7 +778,8 @@
     "icindekiler": "Marine tavuk döner, 70 cm ince lavaş, Katık özel sos, çıtır patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Marinated chicken doner, 70cm thin lavash, signature Katik sauce, crispy french fries, pickles.",
-    "portion_en": "360g (140g Chicken, 70cm Lavash)"
+    "portion_en": "360g (140g Chicken, 70cm Lavash)",
+    "thumb": "/images/products/thumbs/zurna-tavuk.webp"
   },
   {
     "id": "zurna-katik-kasarli",
@@ -804,7 +822,8 @@
     "icindekiler": "Tavuk döner, bol taze kaşar peyniri, 70 cm lavaş, Katık sos, patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, generous melted kashar cheese, 70cm lavash, Katik sauce, fries, pickles.",
-    "portion_en": "400g (140g Chicken, 50g Cheese)"
+    "portion_en": "400g (140g Chicken, 50g Cheese)",
+    "thumb": "/images/products/thumbs/zurna-katik-kasarli.webp"
   },
   {
     "id": "zurna-katik-cedarli",
@@ -847,7 +866,8 @@
     "icindekiler": "Tavuk döner, akışkan çedar sosu, 70 cm lavaş, Katık sos, patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, warm cheddar cheese sauce, 70cm lavash, Katik sauce, fries, pickles.",
-    "portion_en": "400g (140g Chicken, 50g Cheddar)"
+    "portion_en": "400g (140g Chicken, 50g Cheddar)",
+    "thumb": "/images/products/thumbs/zurna-katik-cedarli.webp"
   },
   {
     "id": "zurna-barbeku-soslu",
@@ -889,7 +909,8 @@
     "icindekiler": "Tavuk döner, tütsülenmiş barbekü sosu, Katık sos, 70 cm lavaş, patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, smoky BBQ sauce, Katik sauce, 70cm lavash, french fries, pickles.",
-    "portion_en": "380g (140g Chicken, BBQ Sauce)"
+    "portion_en": "380g (140g Chicken, BBQ Sauce)",
+    "thumb": "/images/products/thumbs/zurna-barbeku-soslu.webp"
   },
   {
     "id": "zurna-katik-mantarli",
@@ -931,7 +952,8 @@
     "icindekiler": "Tavuk döner, sote kültür mantarı, 70 cm ince lavaş, Katık sos, çıtır patates, turşu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken doner, sauteed button mushrooms, 70cm lavash, Katik sauce, fries, pickles.",
-    "portion_en": "390g (140g Chicken, Fresh Mushrooms)"
+    "portion_en": "390g (140g Chicken, Fresh Mushrooms)",
+    "thumb": "/images/products/thumbs/zurna-katik-mantarli.webp"
   },
   {
     "id": "katik-tavuk-menu-1",
@@ -973,7 +995,8 @@
     "icindekiler": "Katık Tavuk Dürüm bileşenleri, patates kızartması, kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Katik chicken wrap, french fries, soft drink can.",
-    "portion_en": "1 Wrap (250g) + Fries (120g) + Drink (330ml)"
+    "portion_en": "1 Wrap (250g) + Fries (120g) + Drink (330ml)",
+    "thumb": "/images/products/thumbs/katik-tavuk-menu-1.webp"
   },
   {
     "id": "katik-tavuk-menu-2",
@@ -1015,7 +1038,8 @@
     "icindekiler": "Ekmek Arası Tavuk bileşenleri, patates kızartması, kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken sandwich, french fries, canned soda.",
-    "portion_en": "1 Sandwich (280g) + Fries (120g) + Drink"
+    "portion_en": "1 Sandwich (280g) + Fries (120g) + Drink",
+    "thumb": "/images/products/thumbs/katik-tavuk-menu-2.webp"
   },
   {
     "id": "combo-tavuk-menu-1",
@@ -1057,7 +1081,8 @@
     "icindekiler": "2 Katık Tavuk Dürüm, büyük boy patates, 1L meşrubat.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "2 chicken wraps, large fries, 1L soda.",
-    "portion_en": "2 Wraps (500g) + Large Fries (200g) + 1L Drink"
+    "portion_en": "2 Wraps (500g) + Large Fries (200g) + 1L Drink",
+    "thumb": "/images/products/thumbs/combo-tavuk-menu-1.webp"
   },
   {
     "id": "combo-tavuk-menu-2",
@@ -1100,7 +1125,8 @@
     "icindekiler": "Zurna Tavuk, Katık Kaşarlı Tavuk, patates, 2 kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Zurna chicken wrap, cheesy chicken wrap, fries, 2 canned drinks.",
-    "portion_en": "1 Zurna Chicken + 1 Cheese Wrap + Fries + 2 Drinks"
+    "portion_en": "1 Zurna Chicken + 1 Cheese Wrap + Fries + 2 Drinks",
+    "thumb": "/images/products/thumbs/combo-tavuk-menu-2.webp"
   },
   {
     "id": "zurna-tavuk-menu-1",
@@ -1142,7 +1168,8 @@
     "icindekiler": "Zurna Tavuk Dürüm, patates kızartması, kutu içecek.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Zurna chicken wrap, french fries, soft drink.",
-    "portion_en": "1 Zurna Chicken (360g) + Fries (120g) + Drink"
+    "portion_en": "1 Zurna Chicken (360g) + Fries (120g) + Drink",
+    "thumb": "/images/products/thumbs/zurna-tavuk-menu-1.webp"
   },
   {
     "id": "zurna-tavuk-menu-2",
@@ -1185,7 +1212,8 @@
     "icindekiler": "Zurna Tavuk Dürüm, patates, kutu içecek, Eker tatlı.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Zurna chicken wrap, french fries, soda, Turkish pudding.",
-    "portion_en": "1 Zurna Chicken + Fries + Drink + Dessert"
+    "portion_en": "1 Zurna Chicken + Fries + Drink + Dessert",
+    "thumb": "/images/products/thumbs/zurna-tavuk-menu-2.webp"
   },
   {
     "id": "tavuk-tantuni-lavas",
@@ -1227,7 +1255,8 @@
     "icindekiler": "İnce kıyım tavuk göğsü eti, pamuk yağı, toz tatlı biber, sumaklı ince kıyılmış soğan, maydanoz, domates, açık sac lavaşı.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Finely diced chicken breast, cottonseed oil, sweet paprika, sumac sliced onions, parsley, tomatoes, ultra-thin open-sac lavash.",
-    "portion_en": "220g (100g Minced Chicken, Lavash)"
+    "portion_en": "220g (100g Minced Chicken, Lavash)",
+    "thumb": "/images/products/thumbs/tavuk-tantuni-lavas.webp"
   },
   {
     "id": "ekmek-arasi-tavuk-tantuni",
@@ -1269,7 +1298,8 @@
     "icindekiler": "Tavuk tantuni eti, çıtır tırnaklı somun ekmek, pamuk yağı, sumaklı soğan, maydanoz, domates, baharatlar.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken tantuni, crusty bread roll, cottonseed oil, sumac onions, parsley, tomatoes, spices.",
-    "portion_en": "250g (110g Chicken Tantuni, Bread)"
+    "portion_en": "250g (110g Chicken Tantuni, Bread)",
+    "thumb": "/images/products/thumbs/ekmek-arasi-tavuk-tantuni.webp"
   },
   {
     "id": "yogurtlu-tavuk-tantuni",
@@ -1312,7 +1342,8 @@
     "icindekiler": "Tavuk tantuni, lavaş, sarımsaklı süzme yoğurt, dağlanmış tereyağı, pul biberli sos, közlenmiş biber ve domates.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Chicken tantuni, lavash wrap, garlic strained yogurt, sizzling butter, red pepper flakes, grilled peppers and tomato.",
-    "portion_en": "320g (Tantuni Rolls, Yogurt, Butter)"
+    "portion_en": "320g (Tantuni Rolls, Yogurt, Butter)",
+    "thumb": "/images/products/thumbs/yogurtlu-tavuk-tantuni.webp"
   },
   {
     "id": "et-tantuni-lavas",
@@ -1354,7 +1385,8 @@
     "icindekiler": "Zırhta çekilmiş dana but eti, pamuk yağı, toz kırmızı biber, sumaklı maydanozlu piyaz soğan, domates, incecik sac lavaşı.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Finely minced lean beef, cottonseed oil, sweet paprika, sumac parsley onion salad, diced tomatoes, ultra-thin lavash.",
-    "portion_en": "220g (100g Minced Beef, Lavash)"
+    "portion_en": "220g (100g Minced Beef, Lavash)",
+    "thumb": "/images/products/thumbs/et-tantuni-lavas.webp"
   },
   {
     "id": "ekmek-arasi-et-tantuni",
@@ -1396,7 +1428,8 @@
     "icindekiler": "Dana et tantuni, taze somun ekmek, pamuk yağı, sumaklı maydanozlu soğan, domates, baharatlar.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Beef tantuni, artisan Turkish bread, cottonseed oil, sumac onion salad, tomatoes, spices.",
-    "portion_en": "260g (110g Beef Tantuni, Bread)"
+    "portion_en": "260g (110g Beef Tantuni, Bread)",
+    "thumb": "/images/products/thumbs/ekmek-arasi-et-tantuni.webp"
   },
   {
     "id": "yogurtlu-et-tantuni",
@@ -1439,7 +1472,8 @@
     "icindekiler": "Dana et tantuni, lavaş, sarımsaklı süzme yoğurt, eritilmiş köy tereyağı, pul biber, köz yeşil biber ve domates.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Beef tantuni, lavash wrap, garlic yogurt, browned farmhouse butter, red pepper flakes, grilled tomato and pepper.",
-    "portion_en": "330g (Beef Tantuni Rolls, Yogurt, Butter)"
+    "portion_en": "330g (Beef Tantuni Rolls, Yogurt, Butter)",
+    "thumb": "/images/products/thumbs/yogurtlu-et-tantuni.webp"
   },
   {
     "id": "pepsi-kutu",
@@ -1479,7 +1513,8 @@
     "icindekiler": "Su, şeker, karbondioksit, renklendirici (karamel E150d), asitlik düzenleyici (fosforik asit), kafein, doğal aroma vericiler.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Carbonated water, sugar, caramel color, phosphoric acid, caffeine, natural flavorings.",
-    "portion_en": "330 ml"
+    "portion_en": "330 ml",
+    "thumb": "/images/products/thumbs/pepsi-kutu.webp"
   },
   {
     "id": "pepsi-sise",
@@ -1519,7 +1554,8 @@
     "icindekiler": "Su, şeker, karbondioksit, karamel, fosforik asit, kafein, aroma vericiler.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Carbonated water, sugar, caramel, phosphoric acid, caffeine, natural flavorings.",
-    "portion_en": "250 ml"
+    "portion_en": "250 ml",
+    "thumb": "/images/products/thumbs/pepsi-sise.webp"
   },
   {
     "id": "yedigun-kutu",
@@ -1559,7 +1595,8 @@
     "icindekiler": "Su, şeker, portakal suyu konsantresi, karbondioksit, asitlik düzenleyici (sitrik asit), doğal portakal aroması.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Carbonated water, sugar, orange juice concentrate, citric acid, natural orange flavor.",
-    "portion_en": "330 ml"
+    "portion_en": "330 ml",
+    "thumb": "/images/products/thumbs/yedigun-kutu.webp"
   },
   {
     "id": "yedigun-sise",
@@ -1599,7 +1636,8 @@
     "icindekiler": "Su, şeker, portakal suyu konsantresi, karbondioksit, sitrik asit, portakal aroması.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Carbonated water, sugar, orange concentrate, citric acid, natural flavor.",
-    "portion_en": "250 ml"
+    "portion_en": "250 ml",
+    "thumb": "/images/products/thumbs/yedigun-sise.webp"
   },
   {
     "id": "baglar-gazoz",
@@ -1639,7 +1677,8 @@
     "icindekiler": "Doğal kaynak suyu, pancar şekeri, karbondioksit, asitlik düzenleyici (sitrik asit), geleneksel gazoz aroması.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Natural spring water, pure beet sugar, carbon dioxide, citric acid, traditional soda flavor.",
-    "portion_en": "250 ml"
+    "portion_en": "250 ml",
+    "thumb": "/images/products/thumbs/baglar-gazoz.webp"
   },
   {
     "id": "seven-up",
@@ -1679,7 +1718,8 @@
     "icindekiler": "Su, şeker, karbondioksit, asitlik düzenleyiciler (sitrik asit, malik asit), doğal limon ve misket limonu aromaları.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Carbonated water, sugar, citric acid, malic acid, natural lemon and lime flavorings.",
-    "portion_en": "330 ml"
+    "portion_en": "330 ml",
+    "thumb": "/images/products/thumbs/seven-up.webp"
   },
   {
     "id": "eksi-ayran",
@@ -1721,7 +1761,8 @@
     "icindekiler": "Doğal ekşi köy yoğurdu, su, kaynak tuzu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Natural fermented village yogurt, spring water, salt.",
-    "portion_en": "300 ml"
+    "portion_en": "300 ml",
+    "thumb": "/images/products/thumbs/eksi-ayran.webp"
   },
   {
     "id": "lipton-cesitleri",
@@ -1761,7 +1802,8 @@
     "icindekiler": "Su, şeker, çay ekstraktı, asitlik düzenleyici (sitrik asit), şeftali suyu konsantresi, doğal aroma.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Water, sugar, black tea extract, citric acid, peach juice concentrate, natural flavor.",
-    "portion_en": "330 ml"
+    "portion_en": "330 ml",
+    "thumb": "/images/products/thumbs/lipton-cesitleri.webp"
   },
   {
     "id": "tropicana-meyve-suyu",
@@ -1801,7 +1843,8 @@
     "icindekiler": "Elma, şeftali, kayısı püreleri, su, şeker, limon suyu konsantresi.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Apple, peach, apricot purees, water, sugar, lemon juice concentrate.",
-    "portion_en": "330 ml"
+    "portion_en": "330 ml",
+    "thumb": "/images/products/thumbs/tropicana-meyve-suyu.webp"
   },
   {
     "id": "salgam",
@@ -1841,7 +1884,8 @@
     "icindekiler": "Su, mor havuç, şalgam turpu, bulgur mayası, kaya tuzu, acı süs biberi suyu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Water, black carrots, turnip, fermented bulgur yeast, rock salt, hot chili extract.",
-    "portion_en": "330 ml"
+    "portion_en": "330 ml",
+    "thumb": "/images/products/thumbs/salgam.webp"
   },
   {
     "id": "meyveli-soda",
@@ -1881,7 +1925,8 @@
     "icindekiler": "Doğal maden suyu, şeker, karbondioksit, elma/limon suyu, doğal aroma.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Natural mineral water, sugar, carbon dioxide, fruit juice, natural flavor.",
-    "portion_en": "200 ml"
+    "portion_en": "200 ml",
+    "thumb": "/images/products/thumbs/meyveli-soda.webp"
   },
   {
     "id": "ayran",
@@ -1923,7 +1968,8 @@
     "icindekiler": "Pastörize inek sütü yoğurdu, su, tuz.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Pasteurized yogurt, water, salt.",
-    "portion_en": "200 ml"
+    "portion_en": "200 ml",
+    "thumb": "/images/products/thumbs/ayran.webp"
   },
   {
     "id": "soda",
@@ -1963,7 +2009,8 @@
     "icindekiler": "%100 Doğal mineralli maden suyu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "100% Pure natural mineral water.",
-    "portion_en": "200 ml"
+    "portion_en": "200 ml",
+    "thumb": "/images/products/thumbs/soda.webp"
   },
   {
     "id": "su",
@@ -2003,7 +2050,8 @@
     "icindekiler": "Doğal kaynak suyu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Natural spring water.",
-    "portion_en": "500 ml"
+    "portion_en": "500 ml",
+    "thumb": "/images/products/thumbs/su.webp"
   },
   {
     "id": "eker-tatli",
@@ -2046,7 +2094,8 @@
     "icindekiler": "Pastörize süt, şeker, kakao, pirinç unu, bitter çikolata, vanilya.",
     "katki_maddesi_icermez": false,
     "ingredients_en": "Pasteurized milk, sugar, cocoa, rice flour, dark chocolate, vanilla.",
-    "portion_en": "150g"
+    "portion_en": "150g",
+    "thumb": "/images/products/thumbs/eker-tatli.webp"
   },
   {
     "id": "patates-cips",
@@ -2086,7 +2135,8 @@
     "icindekiler": "Patates, bitkisel kızartma yağı, özel tuz ve baharat harmanı.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Potatoes, vegetable frying oil, special salt and seasoning mix.",
-    "portion_en": "120g"
+    "portion_en": "120g",
+    "thumb": "/images/products/thumbs/patates-cips.webp"
   },
   {
     "id": "kasarli-ekstra-sos",
@@ -2128,7 +2178,8 @@
     "icindekiler": "%100 Taze kaşar peyniri (pastörize inek sütü, peynir mayası, tuz).",
     "katki_maddesi_icermez": true,
     "ingredients_en": "100% Traditional Turkish kashar cheese.",
-    "portion_en": "50g"
+    "portion_en": "50g",
+    "thumb": "/images/products/thumbs/kasarli-ekstra-sos.webp"
   },
   {
     "id": "cedarli-ekstra-sos",
@@ -2170,7 +2221,8 @@
     "icindekiler": "Çedar peyniri, süt kreması, tereyağı, peynir altı suyu tozu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Cheddar cheese, dairy cream, butter, whey.",
-    "portion_en": "50g"
+    "portion_en": "50g",
+    "thumb": "/images/products/thumbs/cedarli-ekstra-sos.webp"
   },
   {
     "id": "barbeku-ekstra-sos",
@@ -2210,6 +2262,7 @@
     "icindekiler": "Domates püresi, esmer şeker, sirke, pekmez, tütsü aroması, karabiber, sarımsak tozu.",
     "katki_maddesi_icermez": true,
     "ingredients_en": "Tomato puree, brown sugar, vinegar, molasses, natural smoke flavor, pepper, garlic powder.",
-    "portion_en": "40g"
+    "portion_en": "40g",
+    "thumb": "/images/products/thumbs/barbeku-ekstra-sos.webp"
   }
 ]

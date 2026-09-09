@@ -3262,7 +3262,7 @@ window.isStandaloneAdmin = false;
 window.API_BASE = (() => {
   const h = window.location.hostname;
   if (h.endsWith('.netlify.app') || h.endsWith('.netlify.com')) {
-    return 'https://dayikatik-18f2.onrender.com';
+    return 'https://dayikatik-claf.onrender.com';
   }
   return '';
 })();
@@ -4475,7 +4475,7 @@ function renderMenuCards(category) {
     return `
       <div class="food-card" onclick="openFoodDetail('${item.id}')">
         <div class="food-card-img">
-          <img src="${item.image}" alt="${itemName}" loading="lazy" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
+          <img src="${item.thumb || item.image}" alt="${itemName}" loading="lazy" onerror="this.onerror=null;this.src='${item.image}';">
         </div>
         <div class="food-card-info">
           <h4 class="food-card-title">${itemName}</h4>
@@ -4603,8 +4603,8 @@ function openFoodDetail(id, updateHash = true) {
   }
 
   const content = `
-    <div class="detail-img-container">
-      <img src="${item.image}" alt="${itemName}" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
+    <div class="detail-img-container" style="background-image: url('${item.thumb || item.image}'); background-size: cover; background-position: center;">
+      <img src="${item.image}" alt="${itemName}" loading="eager" onerror="this.onerror=null;this.src='${item.thumb || PRODUCT_IMG_FALLBACK}';">
     </div>
 
     <div class="detail-title-row">
@@ -4987,7 +4987,7 @@ function addToCart(productId, quantity = 1) {
       product_id: item.id,
       name: item.name,
       price: item.price,
-      image: item.image,
+      image: item.thumb || item.image,
       quantity: qty
     });
   }

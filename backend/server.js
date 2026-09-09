@@ -116,6 +116,14 @@ function mapProductRow(row) {
     console.error(`[SERVER] Error parsing allergens for product ${row.id}:`, e);
   }
 
+  const image = row.image || '';
+  let thumb = image;
+  if (image.startsWith('/images/products/')) {
+    const filename = image.replace('/images/products/', '');
+    const baseId = filename.replace(/\.(jpeg|jpg|png|webp)$/i, '');
+    thumb = `/images/products/thumbs/${baseId}.webp`;
+  }
+
   return {
     id: row.id,
     name: row.name_tr,
@@ -124,7 +132,8 @@ function mapProductRow(row) {
     price: row.price,
     description: row.description_tr,
     description_en: row.description_en,
-    image: row.image,
+    image: image,
+    thumb: thumb,
     besin_degerleri: {
       porsiyon: row.portion_tr,
       enerji: row.calories,
@@ -156,7 +165,7 @@ function mapProductRow(row) {
 // GET /api/products
 app.get('/api/products', async (req, res) => {
   try {
-    const rows = await db.all('SELECT * FROM products ORDER BY created_at DESC');
+    const rows = await db.all('SELECT * FROM products ORDER BY created_at ASC');
     const products = rows.map(mapProductRow);
     res.json(products);
   } catch (err) {
