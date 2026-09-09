@@ -3,6 +3,19 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-09-09 23:10 +03:00] — Tipografi Güncellemesi: Sitedeki Tüm Fontların Google Sans (Medium) Yapılması
+
+Kullanıcının isteği doğrultusunda, ürün detay alt bilgi bloğundaki el yazısı (`Dancing Script`) korunarak sitedeki tüm genel metin fontları **Google Sans / Plus Jakarta Sans (Medium - 500)** tipografisine geçirildi.
+
+### 🛠️ Yapılan Düzeltmeler:
+1. **Google Sans & Latin-Ext Entegrasyonu:** Fontsource CDN üzerinden Türkçe karakterleri (`ğ, ş, ı, ö, ç, ü, İ`) eksiksiz destekleyen `google-sans` latin ve latin-ext font dosyaları ile Google Fonts üzerinden yedek `Plus Jakarta Sans` eklendi.
+2. **Genel Font Ailesi:** `index.html`, `admin.html` ve `style.css` içerisinde daha önce dağınık olan `'DM Sans'`, `'Syne'` ve `'Bebas Neue'` fontları tek bir dinamik değişkene (`--font-sans: 'Google Sans', 'Plus Jakarta Sans', sans-serif;`) bağlandı ve `font-weight: 500` (Medium) olarak ayarlandı.
+3. **Ürün Detay Alt Yazısı Korundu:** Kullanıcının özel talebi üzerine `.detail-menu-footer` ve altındaki marka/slogan yazıları ("Dayı Katık, Tantuni & Döner, Lezzet bizim işimiz!") `Dancing Script` cursive fontunda bırakıldı.
+
+### ✅ Test & Doğrulama:
+- Sayfalar `http://localhost:2323/` ve `http://localhost:2323/admin` üzerinde test edildi, Türkçe karakterler ve `Google Sans` yüklemesi doğrulandı.
+
+---
 ## [2026-09-09 22:58 +03:00] — Ürün Detay Paneli Alt Bilgi (Footer) Metin Rengi ve Ortalama Onarımı
 
 Kullanıcının ilettiği ekran görüntülerine istinaden ürün içerik/detay penceresinin (`foodDetailPanel`) alt kısmında yer alan marka ve slogan bloğu onarıldı.
