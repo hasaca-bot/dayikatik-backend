@@ -66,6 +66,8 @@ app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     const isAllowed = allowedOrigins.includes(origin) ||
+                      origin.startsWith('http://localhost:') ||
+                      origin.startsWith('http://127.0.0.1:') ||
                       origin.endsWith('.netlify.app') ||
                       origin.endsWith('.netlify.com') ||
                       origin.endsWith('.onrender.com');
@@ -1268,7 +1270,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(rootDir, 'index.html'));
 });
 
-app.get('/admin.html', (req, res) => {
+app.get(['/admin', '/admin.html'], (req, res) => {
   res.sendFile(path.join(rootDir, 'admin.html'));
 });
 

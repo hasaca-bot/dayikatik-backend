@@ -3,6 +3,20 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-09-09 22:58 +03:00] — Ürün Detay Paneli Alt Bilgi (Footer) Metin Rengi ve Ortalama Onarımı
+
+Kullanıcının ilettiği ekran görüntülerine istinaden ürün içerik/detay penceresinin (`foodDetailPanel`) alt kısmında yer alan marka ve slogan bloğu onarıldı.
+
+### 🛠️ Yapılan Düzeltmeler:
+1. **Görünmeyen "Tantuni & Döner" Metni:** `.detail-menu-footer-sub` sınıfında metin rengi sabit `rgba(255,248,240,0.8)` (açık krem/beyaz) olarak kalmıştı. Açık temada (`body.theme-bw`) açık renkli arka plan üzerinde metin tamamen görünmez oluyordu. `color: var(--muted)` dinamik CSS değişkenine bağlandı; açık temada espresso/taupe tonunda, koyu temada yumuşak açık tonda yüksek kontrastlı ve kusursuz okunabilir hale getirildi.
+2. **Ortalama ve CSS Kırılma Onarımı:** `.menu-info-row svg` kuralının hemen ardından gelen fazladan kapatma parantezi (`}`) kaldırıldı. Bu yazım hatası nedeniyle tarayıcı `.detail-menu-footer` kuralını yok sayıyor ve metinler sola yaslı kalıyordu. Hata giderildi ve `display: flex; flex-direction: column; align-items: center; text-align: center;` ile pencere tam ortalandı.
+3. **Admin & Genel Stil Eşitlemesi:** Düzeltmeler `index.html`, `admin.html` ve `style.css` dosyalarının tamamına yansıtıldı.
+4. **Sunucu Yönlendirmesi:** `backend/server.js` içine `/admin` kısayol rotası eklendi.
+
+### ✅ Test & Doğrulama:
+- `http://localhost:2323/` ve `http://localhost:2323/admin` üzerinde test edildi, açık ve koyu temalarda test edilerek doğrulandı.
+
+---
 ## [2026-07-19 11:35 +03:00] — Bildirim Sistemi Tamamlandı: Görsel Yükleme, Logo/Badge İkonu, Render Bağlantısı
 
 Önceki oturumun devamı — kullanıcı gerçek telefonunda test etmeye devam etti, 5 yeni konu bulundu ve hepsi çözüldü.

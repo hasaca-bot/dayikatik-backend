@@ -1310,10 +1310,13 @@ footer p{font-size:0.75rem;color:var(--muted);}
 .menu-info-row svg {
   flex-shrink: 0;
 }
-}
 .detail-menu-footer {
   margin-top: 32px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding-top: 24px;
   border-top: 1px solid rgba(255,248,240,0.1);
   font-family: 'Dancing Script', cursive;
@@ -1323,15 +1326,20 @@ footer p{font-size:0.75rem;color:var(--muted);}
   font-weight: 700;
   color: var(--cream);
   line-height: 1.2;
+  text-align: center;
 }
 .detail-menu-footer-sub {
   font-size: 1.4rem;
-  color: rgba(255,248,240,0.8);
+  font-weight: 600;
+  color: var(--muted);
   margin-bottom: 8px;
+  text-align: center;
 }
 .detail-menu-footer-tagline {
   font-size: 1.6rem;
+  font-weight: 700;
   color: var(--ember);
+  text-align: center;
 }
 
 /* ── ADMIN PANEL & LOGIN MODALS ── */
