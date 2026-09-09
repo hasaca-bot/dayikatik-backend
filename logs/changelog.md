@@ -3,6 +3,40 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+## [2026-09-09 23:28 +03:00] — 53 AI Ürün Görselinin Sisteme İşlenmesi ve Tekli Ürünler Rehberi
+
+Kullanıcının ilettiği `download (4).zip` arşivindeki profesyonel AI yemek fotoğrafları (53 adet) okunup analiz edildi. Her görsel ilgili menü ve tekli ürünle birebir eşleştirilerek sisteme entegre edildi. Menü/combo dışındaki tekli ürünler için de masaüstüne ayrı bir rehber dosyası oluşturuldu.
+
+### 🛠️ Yapılan İşlemler:
+1. **Görsellerin Çıkarılması ve İsimlendirilmesi:** Arşivdeki 53 JPEG görseli `images/products/<id>.jpeg` olarak projeye kopyalandı.
+2. **Veritabanı & Veri Eşitlemesi:** `data/menu.json`, `data/menu_default.json` ve `backend/dayikatik.db` SQLite veritabanındaki tüm ürünlerin `image` alanları yeni yerel görsel yollarına (`/images/products/<id>.jpeg`) güncellendi.
+3. **Masaüstü Tekli Ürünler Rehberi:** `C:\Users\hasan_y4hfwna\Desktop\dayikatik_tekli_urunler_rehberi.md` dosyası oluşturuldu. 41 adet menü/combo harici tekli ürün (dürüm, porsiyon, tantuni, içecek, tatlı ve soslar) bu rehbere ayrıntılı prompt ve içerikleriyle eklendi.
+4. **Canlı Doğrulama:** `http://localhost:2323/api/products` ve `http://localhost:2323/images/products/<id>.jpeg` endpoint'leri üzerinden HTTP 200 `image/jpeg` doğrulaması yapıldı.
+
+---
+## [2026-09-09 23:20 +03:00] — 53 Menü Ürünü Gerçekçi Besin/Gramaj Verileri ve Masaüstü AI Görsel Promptları Rehberi
+
+Menüdeki 53 ürünün tamamı için gerçekçi gastronomi verileri (içindekiler, porsiyon gramajı, enerji, protein, karbonhidrat, yağ, doymuş yağ, şeker, lif, tuz, alerjenler, katkı maddesi bilgisi ve İngilizce çeviriler) admin panelinden girilmiş gibi sisteme işlendi. Ayrıca Midjourney / Flux / SD için profesyonel yemek fotoğrafçılığı promptlarını içeren detaylı rehber masaüstüne `.md` dosyası olarak kaydedildi.
+
+### 🛠️ Yapılan İşlemler:
+1. **Veri ve Veritabanı Güncellemesi:** `data/menu.json`, `data/menu_default.json` ve yerel SQLite (`backend/dayikatik.db`) veritabanındaki 53 ürünün tüm besin, makro ve gramaj değerleri gerçekçi gastronomi standartlarında güncellendi.
+2. **AI Görsel Promptları Dosyası:** `C:\Users\hasan_y4hfwna\Desktop\dayikatik_urun_gorsel_promptlari.md` konumunda 53 ürünün tamamı için kamera açısı, lens, ışık ve kompozisyon detaylarını içeren Midjourney v6.1 / Flux uyumlu İngilizce promptlar ve Türkçe açıklamalar üretildi.
+3. **Canlı API Doğrulaması:** `http://localhost:2323/api/products` üzerinden tüm ürünlerin zenginleştirilmiş besin ve makro değerleri test edildi.
+
+---
+## [2026-09-09 23:13 +03:00] — Ürün Detay Paneli Sepet İkonu Çerçevesi ve Yuvarlak Buton Onarımı
+
+Kullanıcının geri bildirimi doğrultusunda, ürün detay penceresinin sağ üst köşesinde yer alan sepet butonunun (`.detail-header-cart`) varsayılan HTML butonundan kaynaklanan siyah ince kare kenarlığı kaldırıldı ve buton yuvarlak hale getirildi.
+
+### 🛠️ Yapılan Düzeltmeler:
+1. **Kare Siyah Çizgi Kaldırıldı:** `.detail-header-cart` sınıfına `border: none; background: transparent; outline: none;` eklendi.
+2. **Yuvarlak Tasarım:** Sol taraftaki geri dön butonuyla birebir uyumlu olacak şekilde `border-radius: 50%`, `cursor: pointer;` ve tema uyumlu yuvarlak hover efekti (`background: rgba(..., 0.08)`) tanımlandı.
+3. **Eşitleme:** `index.html`, `admin.html` ve `style.css` dosyalarında kural güncellendi.
+
+### ✅ Test & Doğrulama:
+- `http://localhost:2323/` üzerinde test edildi, sepet butonunun kare çizgisinin gittiği ve yuvarlak olarak çalıştığı doğrulandı.
+
+---
 ## [2026-09-09 23:10 +03:00] — Tipografi Güncellemesi: Sitedeki Tüm Fontların Google Sans (Medium) Yapılması
 
 Kullanıcının isteği doğrultusunda, ürün detay alt bilgi bloğundaki el yazısı (`Dancing Script`) korunarak sitedeki tüm genel metin fontları **Google Sans / Plus Jakarta Sans (Medium - 500)** tipografisine geçirildi.

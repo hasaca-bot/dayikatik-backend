@@ -953,12 +953,24 @@ footer p{font-size:0.75rem;color:var(--muted);}
 
 .detail-header-cart {
   position: relative;
+  background: transparent;
+  border: none;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--cream);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s;
+}
+.detail-header-cart:hover {
+  background: rgba(255,248,240,0.08);
+}
+body.theme-bw .detail-header-cart:hover {
+  background: rgba(44, 26, 16, 0.08);
 }
 .cart-badge {
   position: absolute;
