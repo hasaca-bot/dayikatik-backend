@@ -3,6 +3,16 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+[2026-09-10T17:05:00Z]
+Phase 02 (Part A)
+
+Action: Modified
+File: index.html
+Lines: 190-199, 2508-2516, 2748-2759, 3404-3412, 3590-3598, 5028-5036
+Target: Hero CTA & Bottom Navigation Dock
+Summary: Replaced the Getir Yemek button in the bottom dock with a cart button opening the cart drawer with dynamic count badge and English translation, and promoted the See Menu button to the hero primary wide CTA.
+
+---
 ## [2026-09-09 23:52 +03:00] — Sayfa Yükleme Hızlandırması: %96.6 Bandwidth Tasarruflu WebP Thumbnails ve Kademeli (Progressive) Yükleme
 
 Sayfa açılış hızını maksimum seviyeye çıkarmak için 53 ürünün tamamı için optimize edilmiş hafif WebP küçük resimleri (thumbnails) üretildi. Kart genel görünümünde bu minik resimler yüklenirken, ürün detay penceresine tıklandığında anında önbellekteki küçük resim gösterilip yüksek kaliteli orijinal görsel arka planda akıcı biçimde yüklenir.
