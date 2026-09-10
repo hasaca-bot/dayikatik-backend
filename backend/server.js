@@ -102,6 +102,53 @@ function params(...args) {
   return args;
 }
 
+// Allergen standard dictionary and normalization
+const ALLERGEN_DICTIONARY = {
+  gluten: { id: 'gluten', name: 'Gluten içerir', name_en: 'Contains gluten', short_name: 'Gluten', short_name_en: 'Gluten' },
+  sut: { id: 'sut', name: 'Süt ve süt ürünleri içerir', name_en: 'Contains milk & dairy products', short_name: 'Süt', short_name_en: 'Dairy' },
+  soya: { id: 'soya', name: 'Soya içerebilir', name_en: 'May contain soy', short_name: 'Soya', short_name_en: 'Soy' },
+  yumurta: { id: 'yumurta', name: 'Yumurta içerebilir', name_en: 'May contain egg', short_name: 'Yumurta', short_name_en: 'Egg' },
+  hardal: { id: 'hardal', name: 'Hardal içerebilir', name_en: 'May contain mustard', short_name: 'Hardal', short_name_en: 'Mustard' },
+  kereviz: { id: 'kereviz', name: 'Kereviz içerebilir', name_en: 'May contain celery', short_name: 'Kereviz', short_name_en: 'Celery' },
+  susam: { id: 'susam', name: 'Susam içerebilir', name_en: 'May contain sesame', short_name: 'Susam', short_name_en: 'Sesame' }
+};
+
+function normalizeAllergens(allergens) {
+  if (!Array.isArray(allergens)) return [];
+  return allergens
+    .filter(a => a && (typeof a === 'string' ? a.trim().length > 0 : (a.id || a.name)))
+    .map(a => {
+      let id = '';
+      let rawName = '';
+      if (typeof a === 'string') {
+        id = a.toLowerCase().trim();
+      } else if (a && typeof a === 'object') {
+        id = (a.id || '').toLowerCase().trim();
+        rawName = a.name || '';
+      }
+
+      if (!id && rawName) {
+        const lower = rawName.toLowerCase();
+        if (lower.includes('gluten')) id = 'gluten';
+        else if (lower.includes('süt') || lower.includes('dairy') || lower.includes('milk')) id = 'sut';
+        else if (lower.includes('soya') || lower.includes('soy')) id = 'soya';
+        else if (lower.includes('yumurta') || lower.includes('egg')) id = 'yumurta';
+        else if (lower.includes('hardal') || lower.includes('mustard')) id = 'hardal';
+        else if (lower.includes('kereviz') || lower.includes('celery')) id = 'kereviz';
+        else if (lower.includes('susam') || lower.includes('sesame')) id = 'susam';
+      }
+
+      const def = ALLERGEN_DICTIONARY[id];
+      return {
+        id: id || 'diger',
+        name: (def && def.name) || rawName || id,
+        name_en: (def && def.name_en) || rawName || id,
+        short_name: (def && def.short_name) || rawName || id,
+        short_name_en: (def && def.short_name_en) || rawName || id
+      };
+    });
+}
+
 // Helper: Map DB Product Row to JSON format expected by UI
 function mapProductRow(row) {
   const totalMacros = (row.protein || 0) + (row.carbs || 0) + (row.fat || 0);
@@ -115,6 +162,7 @@ function mapProductRow(row) {
   } catch (e) {
     console.error(`[SERVER] Error parsing allergens for product ${row.id}:`, e);
   }
+  const normalizedAllergens = normalizeAllergens(allergens);
 
   const image = row.image || '';
   let thumb = image;
@@ -150,7 +198,8 @@ function mapProductRow(row) {
       karbonhidrat: { deger: row.carbs, yuzde: carbsPct },
       yag: { deger: row.fat, yuzde: fatPct }
     },
-    alerjenler: allergens,
+    alerjenler: normalizedAllergens,
+    allergens: normalizedAllergens,
     icindekiler: row.ingredients_tr,
     ingredients_en: row.ingredients_en,
     portion_en: row.portion_en,
@@ -210,8 +259,8 @@ app.post('/api/products', async (req, res) => {
     const id = body.id || `prod-${Date.now()}`;
     const category = body.category || 'diger';
     const price = parseFloat(body.price || 0);
-    const image = body.image || '';
-    const allergens = JSON.stringify(body.allergens || body.alerjenler || []);
+    const rawAllergens = body.allergens || body.alerjenler || [];
+    const allergens = JSON.stringify(normalizeAllergens(Array.isArray(rawAllergens) ? rawAllergens : []));
     const katki_maddesi_icermez = (body.katki_maddesi_icermez || body.katki_maddesi_icermez === 1) ? 1 : 0;
 
     const paramValues = [id, name_tr, name_en, description_tr, description_en, category, price, image,
@@ -271,8 +320,8 @@ app.put('/api/products/:id', async (req, res) => {
     const salt = parseFloat(body.salt || (body.besin_degerleri && body.besin_degerleri.tuz) || 0);
     const category = body.category || 'diger';
     const price = parseFloat(body.price || 0);
-    const image = body.image || '';
-    const allergens = JSON.stringify(body.allergens || body.alerjenler || []);
+    const rawAllergens = body.allergens || body.alerjenler || [];
+    const allergens = JSON.stringify(normalizeAllergens(Array.isArray(rawAllergens) ? rawAllergens : []));
     const katki_maddesi_icermez = (body.katki_maddesi_icermez || body.katki_maddesi_icermez === 1) ? 1 : 0;
 
     const paramValues = [name_tr, name_en, description_tr, description_en, category, price, image,

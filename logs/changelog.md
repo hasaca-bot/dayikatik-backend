@@ -735,3 +735,37 @@ ightarrow$ February vb.) `monthTranslations` haritası aracılığıyla dile gö
   - İçindekiler (Türkçe / İngilizce)
 - **Dinamik Veri Entegrasyonu:** Admin panelinde girilen İngilizce veriler, `itemTranslations` sözlüğüne dinamik olarak eklenir ve `localStorage` üzerinde `itemTranslationsData` anahtarıyla tarayıcıda kalıcı olarak saklanır.
 - **Kusursuz Geriye Dönük Uyumluluk (Fallback):** Veri tabanında İngilizce karşılığı olmayan veya boş bırakılan alanlar için otomatik olarak Türkçe değerler varsayılan olarak kullanılır. Böylelikle sistemde herhangi bir veri kaybı veya kırılma yaşanması engellenmiştir.
+
+---
+
+[2026-09-10T11:56:00Z]
+Phase 02
+
+Action: Modified
+File: backend/server.js
+Lines: 102-145, 250-255, 310-315
+Target: mapProductRow, POST /api/products, PUT /api/products/:id
+Summary: Added allergen dictionary and robust normalization to ensure uniform allergen objects across all endpoints.
+
+---
+
+[2026-09-10T11:57:00Z]
+Phase 03
+
+Action: Fixed
+File: index.html
+Lines: 4460-4515, 4570-4595, 4735-4755, 5900-5915
+Target: getAllergenIcon, parseAllergenItem, openFoodDetail, openAdminForm
+Summary: Resolved allergen undefined labels, completed SVG icons, and fixed admin checkbox active state for string and object allergens.
+
+---
+
+[2026-09-10T11:58:00Z]
+Phase 03
+
+Action: Fixed
+File: admin.html
+Lines: 4725-4780, 4835-4860, 5000-5020, 6055-6070
+Target: getAllergenIcon, parseAllergenItem, openFoodDetail, openAdminForm
+Summary: Synchronized allergen normalization and admin form active button state with index.html.
+
