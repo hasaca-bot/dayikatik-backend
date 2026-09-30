@@ -10,7 +10,8 @@ const fs = require('node:fs');
 const PORT = 12097;
 const BASE = `http://localhost:${PORT}`;
 const TEST_DB = path.join(require('node:os').tmpdir(), `dayikatik-test-${Date.now()}.db`);
-const ADMIN_HEADERS = { 'Authorization': 'Bearer dayikatik123' };
+const ADMIN_PASSWORD = 'integration-only-password-2026';
+let ADMIN_HEADERS;
 
 let serverProcess;
 let productId;
@@ -29,10 +30,15 @@ async function waitForServer(timeoutMs = 15000) {
 
 before(async () => {
   serverProcess = spawn(process.execPath, [path.join(__dirname, '..', 'server.js')], {
-    env: { ...process.env, PORT: String(PORT), SQLITE_DB_PATH: TEST_DB },
+    env: { ...process.env, PORT: String(PORT), SQLITE_DB_PATH: TEST_DB, DATABASE_URL: '', ADMIN_PASSWORD },
     stdio: 'pipe'
   });
   await waitForServer();
+  const login = await fetch(`${BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: ADMIN_PASSWORD })
+  });
+  assert.equal(login.status, 200);
+  ADMIN_HEADERS = { Authorization: `Bearer ${(await login.json()).token}` };
   const products = await (await fetch(`${BASE}/api/products`)).json();
   assert.ok(products.length > 0, 'seed data should provide at least one product');
   productId = products[0].id;

@@ -3275,6 +3275,9 @@ window.API_BASE = (() => {
   return '';
 })();
 
+</script>
+<script src="/assets/admin-auth.js"></script>
+<script>
 // Fetch interceptor: automatically prepends API_BASE to /api/ requests
 (function() {
   const _fetch = window.fetch;
@@ -4416,8 +4419,8 @@ async function loadMenuDatabase() {
 
     // Load reservations count/data
     try {
-      const res = await fetch('/api/reservations');
-      if (res.ok) {
+      const res = window.adminSession.active() ? await fetch('/api/reservations') : null;
+      if (res && res.ok) {
         window.reservationsData = await res.json();
       }
     } catch (e) {
@@ -5318,9 +5321,6 @@ function initializeApp() {
   // Initialize custom reservation date dropdowns
   updateRezDateOptions();
 
-  // Periodically check and sync reservations from Telegram every 10 seconds
-  syncReservationsWithTelegram();
-  setInterval(syncReservationsWithTelegram, 10000);
 
   // Dynamic instant synchronization for reservations and language changes across tabs/windows
   window.addEventListener('storage', (e) => {
@@ -5427,12 +5427,11 @@ window.addEventListener('scroll', () => {
 })();
 
 // ── REZERVASYON ──
-const BOT_TOKEN = '8784630979:AAFJk_fg4EwNVjnAErSaEIoD18PqWufMPKg';
-const CHAT_ID   = '-5100786193';
 
 window.reservationsData = [];
 
 async function loadReservations() {
+  if (!window.adminSession.active()) return;
   try {
     const res = await fetch('/api/reservations');
     if (!res.ok) throw new Error('Failed to fetch reservations');
@@ -5479,18 +5478,6 @@ async function sendRezervasyon() {
     ? ['','Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
     : ['','January','February','March','April','May','June','July','August','September','October','November','December'];
   const tarihOku = parseInt(gun) + ' ' + ayIsim[parseInt(ay)] + ' ' + yil;
-  const isTr = window.currentLanguage === 'tr';
-  const labelRez = isTr ? '🍽️ YENİ REZERVASYON' : '🍽️ NEW RESERVATION';
-  const labelAd = isTr ? '👤 Ad Soyad' : '👤 Full Name';
-  const labelTel = isTr ? '📞 Telefon' : '📞 Phone';
-  const labelTarih = isTr ? '📅 Tarih' : '📅 Date';
-  const labelSaat = isTr ? '🕐 Saat' : '🕐 Time';
-  const labelKisi = isTr ? '👥 Kişi' : '👥 Guests';
-  const labelNot = isTr ? '📝 Not' : '📝 Note';
-  const labelSitesi = isTr ? '— Dayı Katık Web Sitesi' : '— Dayi Katik Web Site';
-  
-  const metin = `${labelRez}\n\n${labelAd}: ${ad}\n${labelTel}: ${tel}\n${labelTarih}: ${tarihOku}\n${labelSaat}: ${saat}\n${labelKisi}: ${seciliPax}${not_ ? `\n${labelNot}: ` + not_ : ''}\n\n${labelSitesi}`;
-
   const newRez = {
     id: 'rez-' + Date.now(),
     name: ad,
@@ -5511,18 +5498,8 @@ async function sendRezervasyon() {
     });
     if (!postRes.ok) throw new Error('API save failed');
     await loadReservations();
-  } catch (e) {
-    console.error("Error saving reservation to SQLite API:", e);
-  }
+    if (postRes.ok) {
 
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({chat_id: CHAT_ID, text: metin, parse_mode:'HTML'})
-    });
-    const data = await res.json();
-    if(data.ok){
 
       msg.style.display='block';
       msg.style.background='rgba(76,175,80,0.15)';
@@ -5571,10 +5548,6 @@ async function sendRezervasyon() {
   btn.disabled=false; btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + (window.currentLanguage === 'tr' ? 'Rezervasyon Yap' : 'Book Table');
 }
 
-async function syncReservationsWithTelegram() {
-  console.log("[DB DEBUG] syncReservationsWithTelegram bypassed. Using SQLite veritabanı.");
-}
-
 // ── ADMIN LOGIN & MANAGEMENT SYSTEM ──
 
 function openAdminLogin(e) {
@@ -5590,19 +5563,23 @@ function closeAdminLogin() {
   unlockBodyScroll();
 }
 
-function submitAdminLogin() {
-  const pwd = document.getElementById('adminPassword').value;
+async function submitAdminLogin() {
+  const input = document.getElementById('adminPassword');
   const err = document.getElementById('adminLoginError');
-  if (pwd === 'dayikatik123') {
-    closeAdminLogin();
-    openAdminPanel();
-  } else {
-    err.textContent = window.currentLanguage === 'tr' ? 'Hatalı şifre! Lütfen tekrar deneyin.' : 'Incorrect password! Please try again.';
+  try {
+    await window.adminSession.login(input.value);
+    input.value = '';
+    err.style.display = 'none';
+    document.getElementById('adminLoginBackdrop').classList.remove('open');
+    await openAdminPanel();
+  } catch (error) {
+    err.textContent = error.message;
     err.style.display = 'block';
   }
 }
 
 async function openAdminPanel() {
+  if (!window.adminSession.active()) { openAdminLogin(); return; }
   window.selectedAdminCategoryFilter = 'tumu';
   updateFormCategoryOptions();
   document.getElementById('adminSearchInput').value = '';
@@ -5684,27 +5661,27 @@ function renderAdminRezList() {
   }
   
   container.innerHTML = rezList.map(item => `
-    <div class="admin-rez-item ${item.read ? 'read' : 'unread'}" id="rez-card-${item.id}">
+    <div class="admin-rez-item ${item.read ? 'read' : 'unread'}" id="rez-card-${encodeURIComponent(item.id).replace(/'/g, "%27")}">
       <div class="rez-details">
         <div class="rez-top-row">
-          <span class="rez-name">${item.name}</span>
-          <span class="rez-pax">${item.pax} ${window.currentLanguage === 'tr' ? 'Kişi' : 'People'}</span>
+          <span class="rez-name">${escapeHtml(item.name)}</span>
+          <span class="rez-pax">${escapeHtml(item.pax)} ${window.currentLanguage === 'tr' ? 'Kişi' : 'People'}</span>
         </div>
         <div class="rez-meta-row">
-          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>${item.phone}</span>
-          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${item.date} @ ${item.time}</span>
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>${escapeHtml(item.phone)}</span>
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${escapeHtml(item.date)} @ ${escapeHtml(item.time)}</span>
         </div>
-        ${item.note ? `<div class="rez-note"><strong>Not:</strong> ${item.note}</div>` : ''}
+        ${item.note ? `<div class="rez-note"><strong>Not:</strong> ${escapeHtml(item.note)}</div>` : ''}
       </div>
       <div class="rez-actions">
         ${!item.read ? `
-          <button class="rez-action-btn" onclick="markRezAsRead('${item.id}')" title="${window.currentLanguage === 'tr' ? 'Okundu Olarak İşaretle' : 'Mark as Read'}">
+          <button class="rez-action-btn" onclick="markRezAsRead('${encodeURIComponent(item.id).replace(/'/g, "%27")}')" title="${window.currentLanguage === 'tr' ? 'Okundu Olarak İşaretle' : 'Mark as Read'}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           </button>
         ` : `
           <span class="read-badge">${window.currentLanguage === 'tr' ? 'Okundu' : 'Read'}</span>
         `}
-        <button class="rez-action-btn delete" onclick="deleteReservation('${item.id}')" title="${window.currentLanguage === 'tr' ? 'Sil' : 'Delete'}">
+        <button class="rez-action-btn delete" onclick="deleteReservation('${encodeURIComponent(item.id).replace(/'/g, "%27")}')" title="${window.currentLanguage === 'tr' ? 'Sil' : 'Delete'}">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #FF5252;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
         </button>
       </div>
@@ -5796,7 +5773,8 @@ async function deleteReservation(id) {
   }
 }
 
-function closeAdminPanel() {
+async function closeAdminPanel() {
+  try { await window.adminSession.logout(); } catch (error) { console.error(error); }
   document.getElementById('adminPanelOverlay').classList.remove('open');
   unlockBodyScroll();
   // Reload homepage cards to show updates immediately
@@ -6263,12 +6241,12 @@ async function loadPushDashboardData() {
     const tbody = document.getElementById('pushHistoryTableBody');
     if (!subEl && !totalEl && !tbody) return;
 
-    const subRes = await fetch('/api/subscriptions', { headers: { 'Authorization': 'Bearer dayikatik123' } });
+    const subRes = await fetch('/api/subscriptions', { headers: { } });
     if (subRes.ok) {
       const subs = await subRes.json();
       if (subEl) subEl.textContent = Array.isArray(subs) ? subs.length : 0;
     }
-    const notifRes = await fetch('/api/notifications', { headers: { 'Authorization': 'Bearer dayikatik123' } });
+    const notifRes = await fetch('/api/notifications', { headers: { } });
     if (notifRes.ok) {
       const notifs = await notifRes.json();
       if (totalEl) totalEl.textContent = Array.isArray(notifs) ? notifs.length : 0;
@@ -6339,7 +6317,7 @@ async function submitPushNotification() {
   try {
     const res = await fetch('/api/notifications/send', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     if (res.ok) {
@@ -6362,7 +6340,7 @@ async function sendTestPush() {
   try {
     const res = await fetch('/api/notifications/send', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer dayikatik123' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     if (res.ok) showCustomAlert('Test bildirimi gönderildi.');
@@ -6375,7 +6353,7 @@ async function deletePush(id) {
   try {
     const res = await fetch(`/api/notifications/${id}`, {
       method: 'DELETE',
-      headers: { 'Authorization': 'Bearer dayikatik123' }
+      headers: { }
     });
     if (res.ok) loadPushDashboardData();
   } catch (e) { console.error(e); }
@@ -6513,10 +6491,14 @@ async function subscribeUserToPush() {
     if (!publicKey) throw new Error('VAPID public key is empty');
     
     const registration = await navigator.serviceWorker.ready;
-    const subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicKey)
-    });
+    const applicationServerKey = urlBase64ToUint8Array(publicKey);
+    let subscription = await registration.pushManager.getSubscription();
+    const oldKey = subscription?.options?.applicationServerKey;
+    if (subscription && (!oldKey || String(new Uint8Array(oldKey)) !== String(applicationServerKey))) {
+      await subscription.unsubscribe();
+      subscription = null;
+    }
+    if (!subscription) subscription = await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey });
     
     const { browser, platform } = getBrowserInfo();
     const payload = {
@@ -6545,34 +6527,8 @@ async function subscribeUserToPush() {
 }
 
 async function syncPushSubscriptionSilently() {
-  try {
-    const registration = await navigator.serviceWorker.ready;
-    const subscription = await registration.pushManager.getSubscription();
-    if (!subscription) {
-      // Permission is already granted but no local subscription exists yet
-      // (e.g. an earlier subscribe attempt failed silently) — try to create one now.
-      await subscribeUserToPush();
-      return;
-    }
-
-    const { browser, platform } = getBrowserInfo();
-    const payload = {
-      token: subscription,
-      user_id: localStorage.getItem('user_id') || 'guest',
-      device: navigator.userAgent.substring(0, 100),
-      browser: browser,
-      platform: platform,
-      language: window.currentLanguage
-    };
-    
-    await fetch('/api/subscriptions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } catch (err) {
-    console.warn('[PUSH SYNC] Silent token sync failed:', err);
-  }
+  // Also migrate subscriptions whose public key belongs to the retired key pair.
+  if (Notification.permission === 'granted') await subscribeUserToPush();
 }
 
 window.addEventListener('load', () => {

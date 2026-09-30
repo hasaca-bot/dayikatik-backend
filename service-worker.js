@@ -1,8 +1,9 @@
-const CACHE_NAME = 'dayikatik-v2';
+const CACHE_NAME = 'dayikatik-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/style.css',
+  '/assets/admin-auth.js',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',

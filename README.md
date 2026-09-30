@@ -1,5 +1,7 @@
 # 🌐 Dayı Katık Web Sitesi
 
+> **30 Eylül 2026 güvenlik güncellemesi:** Yönetici girişi artık sunucuda `ADMIN_PASSWORD` ile doğrulanır. Eski gömülü parola kaldırılmıştır. Yayın öncesinde [yönetici girişi, yeni VAPID anahtarları ve proxy yapılandırması](SECURITY_SETUP.md) adımlarını uygulayın. Netlify yalnızca `public-site/` çıktısını yayınlar.
+
 ## 🤖 AI İÇİN: ÖNCE BUNU OKU!
 
 > **Bu projeyi ilk kez mi görüyorsun? Aşağıdaki adımları takip et.**

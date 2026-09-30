@@ -7,87 +7,18 @@
 const path = require('path');
 const fs = require('fs');
 
-// ── DATABASE DRIVER SELECTION ──
+const { createPgDriver, createSqliteDriver } = require('./database-drivers');
 const DATABASE_URL = process.env.DATABASE_URL;
 let dbDriver;
-
 if (DATABASE_URL) {
-  // ── POSTGRESQL MODE (Cloud / Production) ──
   const { Pool } = require('pg');
-  const pool = new Pool({
-    connectionString: DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
-  });
-
-  dbDriver = {
-    type: 'pg',
-    
-    query(sql, params = []) {
-      return pool.query(sql, params);
-    },
-    
-    async all(sql, params = []) {
-      const result = await pool.query(sql, params);
-      return result.rows;
-    },
-    
-    async get(sql, params = []) {
-      const result = await pool.query(sql, params);
-      return result.rows[0] || null;
-    },
-    
-    async run(sql, params = []) {
-      const result = await pool.query(sql, params);
-      return { changes: result.rowCount };
-    },
-    
-    async exec(sql) {
-      await pool.query(sql);
-    }
-  };
-
+  dbDriver = createPgDriver(new Pool({ connectionString: DATABASE_URL, ssl: { rejectUnauthorized: false } }));
   console.log('[DB] Using PostgreSQL (cloud mode)');
 } else {
-  // ── SQLITE MODE (Local Development) ──
   const { DatabaseSync } = require('node:sqlite');
   const dbPath = process.env.SQLITE_DB_PATH || path.join(__dirname, 'dayikatik.db');
-  const sqliteDb = new DatabaseSync(dbPath);
-
-  dbDriver = {
-    type: 'sqlite',
-    
-    async all(sql, params = []) {
-      const pgSql = sqliteToPgRevert(sql);
-      const stmt = sqliteDb.prepare(pgSql);
-      return stmt.all(...params);
-    },
-    
-    async get(sql, params = []) {
-      const pgSql = sqliteToPgRevert(sql);
-      const stmt = sqliteDb.prepare(pgSql);
-      return stmt.get(...params) || null;
-    },
-    
-    async run(sql, params = []) {
-      const pgSql = sqliteToPgRevert(sql);
-      const stmt = sqliteDb.prepare(pgSql);
-      const result = stmt.run(...params);
-      return { changes: result.changes };
-    },
-    
-    async exec(sql) {
-      // Convert PG syntax back to SQLite where needed
-      const pgSql = sqliteToPgRevert(sql);
-      sqliteDb.exec(pgSql);
-    }
-  };
-
-  // Convert PostgreSQL $1,$2 params back to ? for SQLite
-  function sqliteToPgRevert(sql) {
-    return sql.replace(/\$(\d+)/g, '?');
-  }
-
-  console.log(`[DB] Using SQLite (local mode) at: ${dbPath}`);
+  dbDriver = createSqliteDriver(new DatabaseSync(dbPath));
+  console.log('[DB] Using SQLite (local mode)');
 }
 
 // ── MIGRATIONS ──
@@ -506,97 +437,41 @@ async function runSeeds() {
         console.log(`[DB] Seeded ${menuData.length} products successfully.`);
       } catch (err) {
         console.error('[DB ERROR] Failed to seed products:', err);
+        throw err;
       }
     } else {
       console.warn('[DB] No menu.json or menu_default.json found for seeding products.');
     }
   } else {
     console.log(`[DB] Skipping products seed. Existing count: ${productCount}`);
-    // Non-destructive incremental sync: Ensure newly added catalog products (e.g. tavuklu-pilav)
-    // are safely inserted and synchronized in cloud & local DB without altering existing tables.
-    try {
-      let menuPath = path.join(__dirname, '..', 'data', 'menu.json');
-      if (fs.existsSync(menuPath)) {
-        const menuData = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
-        for (const item of menuData) {
-          const checkSql = dbDriver.type === 'pg' 
-            ? 'SELECT id, price FROM products WHERE id = $1' 
-            : 'SELECT id, price FROM products WHERE id = ?';
-          const existing = await dbDriver.get(checkSql, [item.id]);
-          
-          if (!existing) {
-            console.log(`[DB] Non-destructive sync: Adding missing product ${item.id}`);
-            const translation = defaultItemTranslations[item.id] || {};
-            const nameTr = item.name || '';
-            const nameEn = item.name_en || translation.name || nameTr;
-            const descTr = item.description || '';
-            const descEn = item.description_en || translation.description || descTr;
-            const portionTr = (item.besin_degerleri && item.besin_degerleri.porsiyon) || '1 Porsiyon';
-            const portionEn = item.portion_en || translation.portion || portionTr;
-            const ingTr = item.icindekiler || '';
-            const ingEn = item.ingredients_en || translation.ingredients || ingTr;
-            const cal = (item.besin_degerleri && item.besin_degerleri.enerji) !== undefined ? item.besin_degerleri.enerji : null;
-            const prot = (item.besin_degerleri && item.besin_degerleri.protein) !== undefined ? item.besin_degerleri.protein : null;
-            const carb = (item.besin_degerleri && item.besin_degerleri.karbonhidrat) !== undefined ? item.besin_degerleri.karbonhidrat : null;
-            const fat = (item.besin_degerleri && item.besin_degerleri.yag) !== undefined ? item.besin_degerleri.yag : null;
-            const sfat = (item.besin_degerleri && item.besin_degerleri.doymus_yag) || 0;
-            const sugar = (item.besin_degerleri && item.besin_degerleri.sekerler) || 0;
-            const fiber = (item.besin_degerleri && item.besin_degerleri.lif) || 0;
-            const salt = (item.besin_degerleri && item.besin_degerleri.tuz) || 0;
-            const allergensStr = JSON.stringify(item.alerjenler || []);
-            const noAdditives = item.katki_maddesi_icermez ? 1 : 0;
-
-            if (dbDriver.type === 'pg') {
-              await dbDriver.run(`
-                INSERT INTO products (
-                  id, name_tr, name_en, description_tr, description_en, category, price, image,
-                  portion_tr, portion_en, ingredients_tr, ingredients_en, calories, protein, carbs, fat,
-                  saturated_fat, sugars, fiber, salt, allergens, katki_maddesi_icermez
-                ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
-                ON CONFLICT (id) DO NOTHING
-              `, [item.id, nameTr, nameEn, descTr, descEn, item.category, item.price, item.image,
-                  portionTr, portionEn, ingTr, ingEn, cal, prot, carb, fat, sfat, sugar, fiber, salt,
-                  allergensStr, noAdditives]);
-            } else {
-              await dbDriver.run(`
-                INSERT OR IGNORE INTO products (
-                  id, name_tr, name_en, description_tr, description_en, category, price, image,
-                  portion_tr, portion_en, ingredients_tr, ingredients_en, calories, protein, carbs, fat,
-                  saturated_fat, sugars, fiber, salt, allergens, katki_maddesi_icermez
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-              `, [item.id, nameTr, nameEn, descTr, descEn, item.category, item.price, item.image,
-                  portionTr, portionEn, ingTr, ingEn, cal, prot, carb, fat, sfat, sugar, fiber, salt,
-                  allergensStr, noAdditives]);
-            }
-          } else if (item.id === 'tavuklu-pilav' && existing.price !== 250) {
-            const updateSql = dbDriver.type === 'pg'
-              ? 'UPDATE products SET price = 250 WHERE id = $1'
-              : 'UPDATE products SET price = 250 WHERE id = ?';
-            await dbDriver.run(updateSql, ['tavuklu-pilav']);
-            console.log('[DB] Non-destructive sync: Updated tavuklu-pilav price to 250 TL');
-          }
-        }
-      }
-    } catch (err) {
-      console.error('[DB ERROR] Incremental sync error:', err);
-    }
   }
 }
 
 // ── RESET DATABASE ──
 async function resetDatabase() {
   console.log('[DB] Resetting database to default...');
-  await dbDriver.exec('DELETE FROM products');
-  await dbDriver.exec('DELETE FROM categories');
-  await dbDriver.exec('DELETE FROM translations');
-  await runSeeds();
+  await dbDriver.transaction(async () => {
+    await dbDriver.exec('DELETE FROM products');
+    await dbDriver.exec('DELETE FROM categories');
+    await dbDriver.exec('DELETE FROM translations');
+    await runSeeds();
+  });
   console.log('[DB] Database successfully reset and seeded.');
 }
 
 // ── INIT (async) ──
 async function initDatabase() {
   await runMigrations();
-  await runSeeds();
+  await dbDriver.exec('CREATE TABLE IF NOT EXISTS app_migrations (id TEXT PRIMARY KEY)');
+  await dbDriver.transaction(async () => {
+    // Serialize first-time seeding across PostgreSQL application instances.
+    if (dbDriver.type === 'pg') await dbDriver.query('SELECT pg_advisory_xact_lock(2026093001)');
+    const marker = await dbDriver.get("SELECT id FROM app_migrations WHERE id = 'initial-catalog-v1'");
+    if (!marker) {
+      await runSeeds();
+      await dbDriver.run("INSERT INTO app_migrations (id) VALUES ('initial-catalog-v1')");
+    }
+  });
 }
 
 module.exports = { db: dbDriver, initDatabase, resetDatabase };

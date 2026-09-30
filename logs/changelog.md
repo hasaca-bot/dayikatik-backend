@@ -889,3 +889,23 @@ Lines: 4725-4780, 4835-4860, 5000-5020, 6055-6070
 Target: getAllergenIcon, parseAllergenItem, openFoodDetail, openAdminForm
 Summary: Synchronized allergen normalization and admin form active button state with index.html.
 
+
+
+## [2026-09-30 +03:00] — Backend incelemesindeki sekiz bulgunun giderilmesi
+
+- `backend/security.js`, `backend/server.js`, `assets/admin-auth.js`, `admin.html`, `index.html`: sabit yönetici anahtarı kaldırıldı; ortam parolasıyla giriş, süreli ve çıkışta iptal edilen oturum, yönetim API yetki kontrolü eklendi. Tarayıcı çağrıları yeni oturuma bağlandı. Müşteri metinleri yönetim ekranlarına HTML olarak enjekte edilmez.
+- `backend/server.js`: ürün ekleme/güncellemede tanımsız image giderildi ve görsel/fiyat doğrulaması eklendi; CORS PATCH ve tam origin izinleri düzenlendi; endpoint bazlı rate limit ve yapılandırılabilir güvenilir proxy desteği eklendi.
+- `backend/database-drivers.js`, `backend/db.js`, `backend/server.js`: PostgreSQL tek bağlantılı / SQLite sıralı transaction desteği, atomik sipariş/kalem kaydı ve silme, eşzamanlı idempotency koruması, bir defalık seed işareti ve atomik katalog sıfırlama eklendi. Açılışta fiyat ezme ve ürün geri getirme kaldırıldı.
+- `backend/public-files.js`, `backend/scripts/build-public.cjs`, `netlify.toml`: Express ve Netlify yayını ortak public izin listesiyle sınırlandı. `data/vapid.json` kaldırıldı; yeni anahtarların özel ortamdan veya yerel `.private` dizininden yüklenmesi sağlandı. `.gitignore`, `render.yaml`, `backend/.env.example` güncellendi.
+- `index.html`, `admin.html`, `backend/server.js`: istemciye gömülü Telegram bilgileri kaldırıldı; opsiyonel bildirim sunucu ortam değişkenlerine taşındı. Rezervasyon sonucu veritabanı kaydına bağlandı. VAPID değişiminde tarayıcı aboneliğini yenileme eklendi; `service-worker.js` cache sürümü artırıldı.
+- `README.md`, `SECURITY_SETUP.md`: yeni giriş, dağıtım/anahtar değişimi, proxy ayarı ve test sınırları belgelendi.
+- Testler: `backend/test/orders.test.js` gerçek girişle çalışacak şekilde güncellendi; `regressions.test.js` ve `security-and-drivers.test.js` eklendi. `npm test`: 29/29 başarılı. Statik site build'i başarılı. Canlı PostgreSQL, gerçek tarayıcı ve canlı bildirim servisi entegrasyonu çalıştırılmadı.
+
+
+## [2026-09-30 +03:00] — Kullanılmayan Telegram entegrasyonu kaldırıldı
+
+- Kullanıcı isteğiyle `backend/server.js` içindeki Telegram gönderimi ve ortam değişkenleri kaldırıldı. Rezervasyonlar yalnızca veritabanına kaydedilir.
+- `index.html`, `admin.html` ve `backup_before_push_notifications` altındaki iki HTML dosyasından bot anahtarı/sohbet kimliği, Telegram çağrıları, kullanılmayan zamanlayıcı ve mesaj hazırlama kodu çıkarıldı.
+- Eski anahtarı içeren ve yalnızca Telegram için kullanılan `scratch/test_kv.py` kaldırıldı.
+- `backend/.env.example`, test ortamları, README ve SECURITY_SETUP içindeki Telegram yapılandırma gereksinimleri temizlendi. Git geçmişi yeniden yazılmadı.
+- Doğrulama: 29/29 test başarılı. Aktif ve yedek dört HTML dosyasının JavaScript sözdizimi doğrulandı; statik yayın paketi yeniden oluşturuldu ve Telegram kodu/anahtar tanımı içermediği kontrol edildi. git diff --check başarılı.

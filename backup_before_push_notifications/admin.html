@@ -5148,9 +5148,6 @@ function initializeApp() {
   // Initialize custom reservation date dropdowns
   updateRezDateOptions();
   
-  // Periodically check and sync reservations from Telegram every 10 seconds
-  syncReservationsWithTelegram();
-  setInterval(syncReservationsWithTelegram, 10000);
   
   // OS color scheme listener disabled to prevent unexpected site color changes
   /* window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
@@ -5268,8 +5265,6 @@ window.addEventListener('scroll', () => {
 })();
 
 // ── REZERVASYON ──
-const BOT_TOKEN = '8784630979:AAFJk_fg4EwNVjnAErSaEIoD18PqWufMPKg';
-const CHAT_ID   = '-5100786193';
 
 window.reservationsData = [];
 
@@ -5320,18 +5315,6 @@ async function sendRezervasyon() {
     ? ['','Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
     : ['','January','February','March','April','May','June','July','August','September','October','November','December'];
   const tarihOku = parseInt(gun) + ' ' + ayIsim[parseInt(ay)] + ' ' + yil;
-  const isTr = window.currentLanguage === 'tr';
-  const labelRez = isTr ? '🍽️ YENİ REZERVASYON' : '🍽️ NEW RESERVATION';
-  const labelAd = isTr ? '👤 Ad Soyad' : '👤 Full Name';
-  const labelTel = isTr ? '📞 Telefon' : '📞 Phone';
-  const labelTarih = isTr ? '📅 Tarih' : '📅 Date';
-  const labelSaat = isTr ? '🕐 Saat' : '🕐 Time';
-  const labelKisi = isTr ? '👥 Kişi' : '👥 Guests';
-  const labelNot = isTr ? '📝 Not' : '📝 Note';
-  const labelSitesi = isTr ? '— Dayı Katık Web Sitesi' : '— Dayi Katik Web Site';
-  
-  const metin = `${labelRez}\n\n${labelAd}: ${ad}\n${labelTel}: ${tel}\n${labelTarih}: ${tarihOku}\n${labelSaat}: ${saat}\n${labelKisi}: ${seciliPax}${not_ ? `\n${labelNot}: ` + not_ : ''}\n\n${labelSitesi}`;
-
   const newRez = {
     id: 'rez-' + Date.now(),
     name: ad,
@@ -5352,18 +5335,8 @@ async function sendRezervasyon() {
     });
     if (!postRes.ok) throw new Error('API save failed');
     await loadReservations();
-  } catch (e) {
-    console.error("Error saving reservation to SQLite API:", e);
-  }
+    if (postRes.ok) {
 
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({chat_id: CHAT_ID, text: metin, parse_mode:'HTML'})
-    });
-    const data = await res.json();
-    if(data.ok){
 
       msg.style.display='block';
       msg.style.background='rgba(76,175,80,0.15)';
@@ -5410,10 +5383,6 @@ async function sendRezervasyon() {
     msg.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> ' + (window.currentLanguage === 'tr' ? 'Bağlantı hatası. Lütfen telefonla arayın: 0370 712 4747' : 'Connection error. Please call: 0370 712 4747');
   }
   btn.disabled=false; btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + (window.currentLanguage === 'tr' ? 'Rezervasyon Yap' : 'Book Table');
-}
-
-async function syncReservationsWithTelegram() {
-  console.log("[DB DEBUG] syncReservationsWithTelegram bypassed. Using SQLite veritabanı.");
 }
 
 // ── ADMIN LOGIN & MANAGEMENT SYSTEM ──

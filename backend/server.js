@@ -4,51 +4,40 @@ const path = require('path');
 const fs = require('fs');
 const { db, initDatabase, resetDatabase } = require('./db');
 const webpush = require('web-push');
+const { randomUUID, randomBytes } = require('node:crypto');
+const { rateLimiter, createAdminAuth } = require('./security');
 
-// Generate or load VAPID keys
-const vapidPath = path.join(__dirname, '..', 'data', 'vapid.json');
-let vapidKeys;
-if (fs.existsSync(vapidPath)) {
-  try {
-    vapidKeys = JSON.parse(fs.readFileSync(vapidPath, 'utf8'));
-  } catch (e) {
-    console.error('[SERVER] Failed to parse vapid.json, generating new keys:', e);
-  }
+// Never load the compromised, formerly public data/vapid.json key pair.
+let VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
+let VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
+if (!VAPID_PUBLIC_KEY && !VAPID_PRIVATE_KEY && !process.env.DATABASE_URL && process.env.NODE_ENV !== 'production') {
+  const privateDir = path.join(__dirname, '.private');
+  const vapidPath = path.join(privateDir, 'vapid.json');
+  fs.mkdirSync(privateDir, { recursive: true });
+  const keys = fs.existsSync(vapidPath)
+    ? JSON.parse(fs.readFileSync(vapidPath, 'utf8')) : webpush.generateVAPIDKeys();
+  fs.writeFileSync(vapidPath, JSON.stringify(keys), { mode: 0o600 });
+  VAPID_PUBLIC_KEY = keys.publicKey;
+  VAPID_PRIVATE_KEY = keys.privateKey;
 }
-
-if (!vapidKeys) {
-  vapidKeys = webpush.generateVAPIDKeys();
-  try {
-    const dataDir = path.join(__dirname, '..', 'data');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
-    fs.writeFileSync(vapidPath, JSON.stringify(vapidKeys, null, 2), 'utf8');
-    console.log('[SERVER] Generated new VAPID keys and saved to data/vapid.json');
-  } catch (err) {
-    console.error('[SERVER] Failed to save VAPID keys:', err);
-  }
-}
-
-const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || (vapidKeys && vapidKeys.publicKey);
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || (vapidKeys && vapidKeys.privateKey);
-
+if (!!VAPID_PUBLIC_KEY !== !!VAPID_PRIVATE_KEY) throw new Error('Both VAPID keys must be configured together');
 if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
-  webpush.setVapidDetails(
-    'mailto:support@dayikatik.com',
-    VAPID_PUBLIC_KEY,
-    VAPID_PRIVATE_KEY
-  );
+  webpush.setVapidDetails('mailto:support@dayikatik.com', VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 } else {
-  console.error('[SERVER] VAPID keys are missing! Web Push functionality will fail.');
+  console.warn('[SERVER] Push disabled until new VAPID keys are configured.');
 }
 
 const app = express();
 const PORT = process.env.PORT || 12000;
+// Trust only explicitly configured proxy addresses/subnets, never arbitrary forwarded headers.
+app.set('trust proxy', process.env.TRUST_PROXY ? process.env.TRUST_PROXY.split(',').map(s => s.trim()).filter(Boolean) : false);
+const auth = createAdminAuth(process.env.ADMIN_PASSWORD);
+const adminAuth = auth.requireAdmin;
 
 // Enable CORS with robust origin support for Netlify subdomains, previews, and local development
 const allowedOrigins = [
   'https://dayikatik.onrender.com',
+  'https://dayikatik-claf.onrender.com',
   'https://dayikatik.netlify.app',
   'https://hasacadesign.netlify.app',
   'https://dayikatikornek.netlify.app',
@@ -59,25 +48,24 @@ const allowedOrigins = [
   'http://localhost:12000',
   'http://127.0.0.1:12000',
   'http://localhost:5500',
-  'http://127.0.0.1:5500'
+  'http://127.0.0.1:5500',
+  ...(process.env.CORS_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean)
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     const isAllowed = allowedOrigins.includes(origin) ||
-                      origin.startsWith('http://localhost:') ||
-                      origin.startsWith('http://127.0.0.1:') ||
-                      origin.endsWith('.netlify.app') ||
-                      origin.endsWith('.netlify.com') ||
-                      origin.endsWith('.onrender.com');
+      /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
     if (isAllowed) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      const error = new Error('Not allowed by CORS');
+      error.status = 403;
+      callback(error);
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
@@ -90,6 +78,22 @@ app.use((req, res, next) => {
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   next();
+});
+
+app.post('/api/auth/login', rateLimiter(5), auth.login);
+app.post('/api/auth/logout', auth.logout);
+app.get('/api/auth/session', adminAuth, (req, res) => res.json({ authenticated: true }));
+
+// Public routes are explicitly enumerated; all other API routes require a session.
+const publicRoutes = new Set([
+  'GET /products', 'GET /categories', 'GET /translations', 'GET /notifications/vapid-public-key',
+  'POST /orders', 'POST /reservations', 'POST /subscriptions', 'POST /notifications/click'
+]);
+app.use('/api', (req, res, next) => {
+  const method = req.method === 'HEAD' ? 'GET' : req.method;
+  const route = req.path.toLowerCase().replace(/\/+$/, '') || '/';
+  if (publicRoutes.has(`${method} ${route}`)) return next();
+  return adminAuth(req, res, next);
 });
 
 // Helper to build parameterized queries for both PG ($1) and SQLite (?)
@@ -258,7 +262,14 @@ app.post('/api/products', async (req, res) => {
 
     const id = body.id || `prod-${Date.now()}`;
     const category = body.category || 'diger';
-    const price = parseFloat(body.price || 0);
+    const price = Number(body.price);
+    const image = body.image == null ? '' : body.image;
+    if (typeof image !== 'string' || (image && !image.startsWith('/images/') && !image.startsWith('/uploads/') && !validateImageFile(image))) {
+      return res.status(400).json({ error: 'Geçersiz ürün görseli.' });
+    }
+    if (!name_tr || typeof name_tr !== 'string' || !Number.isFinite(price) || price < 0 || body.price == null || body.price === '') {
+      return res.status(400).json({ error: 'Geçerli ürün adı ve fiyatı gerekli.' });
+    }
     const rawAllergens = body.allergens || body.alerjenler || [];
     const allergens = JSON.stringify(normalizeAllergens(Array.isArray(rawAllergens) ? rawAllergens : []));
     const katki_maddesi_icermez = (body.katki_maddesi_icermez || body.katki_maddesi_icermez === 1) ? 1 : 0;
@@ -319,7 +330,14 @@ app.put('/api/products/:id', async (req, res) => {
     const fiber = parseFloat(body.fiber || (body.besin_degerleri && body.besin_degerleri.lif) || 0);
     const salt = parseFloat(body.salt || (body.besin_degerleri && body.besin_degerleri.tuz) || 0);
     const category = body.category || 'diger';
-    const price = parseFloat(body.price || 0);
+    const price = Number(body.price);
+    const image = body.image == null ? '' : body.image;
+    if (typeof image !== 'string' || (image && !image.startsWith('/images/') && !image.startsWith('/uploads/') && !validateImageFile(image))) {
+      return res.status(400).json({ error: 'Geçersiz ürün görseli.' });
+    }
+    if (!name_tr || typeof name_tr !== 'string' || !Number.isFinite(price) || price < 0 || body.price == null || body.price === '') {
+      return res.status(400).json({ error: 'Geçerli ürün adı ve fiyatı gerekli.' });
+    }
     const rawAllergens = body.allergens || body.alerjenler || [];
     const allergens = JSON.stringify(normalizeAllergens(Array.isArray(rawAllergens) ? rawAllergens : []));
     const katki_maddesi_icermez = (body.katki_maddesi_icermez || body.katki_maddesi_icermez === 1) ? 1 : 0;
@@ -517,18 +535,18 @@ app.get('/api/reservations', async (req, res) => {
 });
 
 // POST /api/reservations
-app.post('/api/reservations', async (req, res) => {
+app.post('/api/reservations', rateLimiter(15), async (req, res) => {
   try {
     const body = req.body;
-    const id = body.id || `rez-${Date.now()}`;
+    const id = `rez-${randomUUID()}`;
     const customer_name = body.name || '';
     const phone = body.phone || '';
     const date = body.date || '';
     const time = body.time || '';
     const people = parseInt(body.pax || 1);
     const note = body.note || '';
-    const status = (body.read === true || body.status === 'confirmed') ? 'confirmed' : 'pending';
-    const timestamp = body.timestamp || Date.now();
+    const status = 'pending';
+    const timestamp = Date.now();
 
     if (isPg) {
       await db.run(`
@@ -649,32 +667,9 @@ app.post('/api/translations', async (req, res) => {
 // ==========================================
 // SECURITY & HELPER MIDDLEWARES
 // ==========================================
-const ipCounts = {};
-setInterval(() => {
-  for (const ip in ipCounts) delete ipCounts[ip];
-}, 60000);
-
-function rateLimiter(limit = 60) {
-  return (req, res, next) => {
-    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    ipCounts[ip] = (ipCounts[ip] || 0) + 1;
-    if (ipCounts[ip] > limit) {
-      return res.status(429).json({ error: 'Too many requests. Please try again later.' });
-    }
-    next();
-  };
-}
-
-function adminAuth(req, res, next) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || authHeader !== 'Bearer dayikatik123') {
-    return res.status(401).json({ error: 'Unauthorized: Admin authentication required.' });
-  }
-  next();
-}
-
 function validateImageFile(imageStr) {
   if (!imageStr) return true;
+  if (typeof imageStr !== 'string') return false;
   if (imageStr.startsWith('http://') || imageStr.startsWith('https://')) {
     return true;
   }
@@ -792,7 +787,8 @@ setInterval(async () => {
 
 // GET /api/notifications/vapid-public-key
 app.get('/api/notifications/vapid-public-key', (req, res) => {
-  res.json({ publicKey: VAPID_PUBLIC_KEY || '' });
+  if (!VAPID_PUBLIC_KEY) return res.status(503).json({ error: 'Push is not configured' });
+  res.json({ publicKey: VAPID_PUBLIC_KEY });
 });
 
 // POST /api/subscriptions (Register / Update client token)
@@ -902,6 +898,7 @@ app.delete('/api/notifications/:id', adminAuth, async (req, res) => {
 // POST /api/notifications/send (Admin Only - Send Immediately)
 app.post('/api/notifications/send', adminAuth, rateLimiter(10), async (req, res) => {
   try {
+    if (!VAPID_PUBLIC_KEY) return res.status(503).json({ error: 'Push is not configured' });
     const { title, body, image, icon, url, target, priority, ttl, tag, collapse_key, created_by } = req.body;
     
     if (!title || !body) {
@@ -942,6 +939,7 @@ app.post('/api/notifications/send', adminAuth, rateLimiter(10), async (req, res)
 // POST /api/notifications/schedule (Admin Only - Schedule for later)
 app.post('/api/notifications/schedule', adminAuth, rateLimiter(15), async (req, res) => {
   try {
+    if (!VAPID_PUBLIC_KEY) return res.status(503).json({ error: 'Push is not configured' });
     const { title, body, image, icon, url, target, priority, ttl, tag, collapse_key, created_by, scheduled_at } = req.body;
     
     if (!title || !body || !scheduled_at) {
@@ -974,6 +972,7 @@ app.post('/api/notifications/schedule', adminAuth, rateLimiter(15), async (req, 
 // POST /api/notifications/test (Admin Only - Send to single subscriber for testing)
 app.post('/api/notifications/test', adminAuth, rateLimiter(20), async (req, res) => {
   try {
+    if (!VAPID_PUBLIC_KEY) return res.status(503).json({ error: 'Push is not configured' });
     const { token, title, body, image, url } = req.body;
     if (!token || !title || !body) {
       return res.status(400).json({ error: 'Token, title, and body are required' });
@@ -1063,9 +1062,7 @@ const PAYMENT_METHODS = ['cash', 'card'];
 const MAX_ITEM_QUANTITY = 50;
 
 function generateOrderNumber() {
-  const tail = String(Date.now()).slice(-6);
-  const rand = String(Math.floor(Math.random() * 90) + 10);
-  return `DK-${tail}${rand}`;
+  return `DK-${randomBytes(8).toString('hex').toUpperCase()}`;
 }
 
 function mapOrderRow(row, items) {
@@ -1105,6 +1102,9 @@ async function getOrderItems(orderId) {
 app.post('/api/orders', rateLimiter(30), async (req, res) => {
   try {
     const body = req.body || {};
+    if (['customer_name', 'customer_phone', 'customer_address', 'idempotency_key'].some(key => body[key] != null && typeof body[key] !== 'string')) {
+      return res.status(400).json({ error: 'Geçersiz sipariş alanı.' });
+    }
     const customer_name = (body.customer_name || '').trim();
     const customer_phone = (body.customer_phone || '').trim();
     const customer_address = (body.customer_address || '').trim();
@@ -1129,78 +1129,86 @@ app.post('/api/orders', rateLimiter(30), async (req, res) => {
       return res.status(400).json({ error: 'Sepet boş olamaz.' });
     }
     for (const it of requestedItems) {
-      const qty = Number(it.quantity);
-      if (!it.product_id || !Number.isInteger(qty) || qty <= 0 || qty > MAX_ITEM_QUANTITY) {
+      const qty = Number(it?.quantity);
+      if (!it || typeof it.product_id !== 'string' || !it.product_id || !Number.isInteger(qty) || qty <= 0 || qty > MAX_ITEM_QUANTITY) {
         return res.status(400).json({ error: 'Geçersiz ürün miktarı.' });
       }
     }
 
-    // Idempotency: if this exact checkout attempt already produced an order, return it instead of duplicating
-    if (idempotency_key) {
-      const existing = await db.get(
-        isPg ? 'SELECT * FROM orders WHERE idempotency_key = $1' : 'SELECT * FROM orders WHERE idempotency_key = ?',
-        [idempotency_key]
-      );
-      if (existing) {
-        const items = await getOrderItems(existing.id);
-        return res.status(200).json(mapOrderRow(existing, items));
+    const result = await db.transaction(async () => {
+      // Idempotency: if this exact checkout attempt already produced an order, return it instead of duplicating
+      if (idempotency_key) {
+        const existing = await db.get(
+          isPg ? 'SELECT * FROM orders WHERE idempotency_key = $1' : 'SELECT * FROM orders WHERE idempotency_key = ?',
+          [idempotency_key]
+        );
+        if (existing) {
+          const items = await getOrderItems(existing.id);
+          return { status: 200, body: mapOrderRow(existing, items) };
+        }
       }
-    }
 
-    // Re-validate every product against the database — never trust client-sent prices/names
-    const lineItems = [];
-    let subtotal = 0;
-    for (const it of requestedItems) {
-      const productRow = await db.get(
-        isPg ? 'SELECT * FROM products WHERE id = $1' : 'SELECT * FROM products WHERE id = ?',
-        [it.product_id]
-      );
-      if (!productRow) {
-        return res.status(400).json({ error: `Ürün bulunamadı: ${it.product_id}` });
+      // Re-validate every product against the database — never trust client-sent prices/names
+      const lineItems = [];
+      let subtotal = 0;
+      for (const it of requestedItems) {
+        const productRow = await db.get(
+          isPg ? 'SELECT * FROM products WHERE id = $1' : 'SELECT * FROM products WHERE id = ?',
+          [it.product_id]
+        );
+        if (!productRow) {
+          return { status: 400, body: { error: `Ürün bulunamadı: ${it.product_id}` } };
+        }
+        const quantity = Number(it.quantity);
+        const unitPrice = productRow.price;
+        const lineTotal = Math.round(unitPrice * quantity * 100) / 100;
+        subtotal += lineTotal;
+        lineItems.push({
+          product_id: productRow.id,
+          product_name_snapshot: productRow.name_tr,
+          unit_price: unitPrice,
+          quantity,
+          line_total: lineTotal
+        });
       }
-      const quantity = Number(it.quantity);
-      const unitPrice = productRow.price;
-      const lineTotal = Math.round(unitPrice * quantity * 100) / 100;
-      subtotal += lineTotal;
-      lineItems.push({
-        product_id: productRow.id,
-        product_name_snapshot: productRow.name_tr,
-        unit_price: unitPrice,
-        quantity,
-        line_total: lineTotal
-      });
-    }
-    subtotal = Math.round(subtotal * 100) / 100;
-    const delivery_fee = 0;
-    const total = Math.round((subtotal + delivery_fee) * 100) / 100;
+      subtotal = Math.round(subtotal * 100) / 100;
+      const delivery_fee = 0;
+      const total = Math.round((subtotal + delivery_fee) * 100) / 100;
 
-    const orderId = `order-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-    const orderNumber = generateOrderNumber();
+      const orderId = `order-${randomUUID()}`;
+      const orderNumber = generateOrderNumber();
 
-    const insertOrderSql = isPg
-      ? `INSERT INTO orders (id, order_number, customer_name, customer_phone, customer_address, payment_method, subtotal, delivery_fee, total, status, is_read, idempotency_key)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'new',0,$10)`
-      : `INSERT INTO orders (id, order_number, customer_name, customer_phone, customer_address, payment_method, subtotal, delivery_fee, total, status, is_read, idempotency_key)
-         VALUES (?,?,?,?,?,?,?,?,?,'new',0,?)`;
-    await db.run(insertOrderSql, [
-      orderId, orderNumber, customer_name, customer_phone, customer_address,
-      payment_method, subtotal, delivery_fee, total, idempotency_key || null
-    ]);
+      const insertOrderSql = isPg
+        ? `INSERT INTO orders (id, order_number, customer_name, customer_phone, customer_address, payment_method, subtotal, delivery_fee, total, status, is_read, idempotency_key)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'new',0,$10) ON CONFLICT (idempotency_key) DO NOTHING`
+        : `INSERT INTO orders (id, order_number, customer_name, customer_phone, customer_address, payment_method, subtotal, delivery_fee, total, status, is_read, idempotency_key)
+           VALUES (?,?,?,?,?,?,?,?,?,'new',0,?) ON CONFLICT (idempotency_key) DO NOTHING`;
+      const inserted = await db.run(insertOrderSql, [
+        orderId, orderNumber, customer_name, customer_phone, customer_address,
+        payment_method, subtotal, delivery_fee, total, idempotency_key || null
+      ]);
 
-    for (const li of lineItems) {
-      const itemId = `oi-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
-      const insertItemSql = isPg
-        ? `INSERT INTO order_items (id, order_id, product_id, product_name_snapshot, unit_price, quantity, line_total) VALUES ($1,$2,$3,$4,$5,$6,$7)`
-        : `INSERT INTO order_items (id, order_id, product_id, product_name_snapshot, unit_price, quantity, line_total) VALUES (?,?,?,?,?,?,?)`;
-      await db.run(insertItemSql, [itemId, orderId, li.product_id, li.product_name_snapshot, li.unit_price, li.quantity, li.line_total]);
-    }
+      if (inserted.changes === 0) {
+        const existing = await db.get(`SELECT * FROM orders WHERE idempotency_key = ${p(1)}`, [idempotency_key]);
+        return { status: 200, body: mapOrderRow(existing, await getOrderItems(existing.id)) };
+      }
 
-    const createdOrder = await db.get(
-      isPg ? 'SELECT * FROM orders WHERE id = $1' : 'SELECT * FROM orders WHERE id = ?',
-      [orderId]
-    );
-    const items = await getOrderItems(orderId);
-    res.status(201).json(mapOrderRow(createdOrder, items));
+      for (const li of lineItems) {
+        const itemId = `oi-${randomUUID()}`;
+        const insertItemSql = isPg
+          ? `INSERT INTO order_items (id, order_id, product_id, product_name_snapshot, unit_price, quantity, line_total) VALUES ($1,$2,$3,$4,$5,$6,$7)`
+          : `INSERT INTO order_items (id, order_id, product_id, product_name_snapshot, unit_price, quantity, line_total) VALUES (?,?,?,?,?,?,?)`;
+        await db.run(insertItemSql, [itemId, orderId, li.product_id, li.product_name_snapshot, li.unit_price, li.quantity, li.line_total]);
+      }
+
+      const createdOrder = await db.get(
+        isPg ? 'SELECT * FROM orders WHERE id = $1' : 'SELECT * FROM orders WHERE id = ?',
+        [orderId]
+      );
+      const items = await getOrderItems(orderId);
+      return { status: 201, body: mapOrderRow(createdOrder, items) };
+    });
+    res.status(result.status).json(result.body);
   } catch (err) {
     console.error('[API ERROR] POST /api/orders:', err);
     res.status(500).json({ error: 'Sipariş oluşturulamadı. Lütfen tekrar deneyin.' });
@@ -1289,14 +1297,10 @@ app.patch('/api/orders/:id', adminAuth, async (req, res) => {
 app.delete('/api/orders/:id', adminAuth, async (req, res) => {
   try {
     const id = req.params.id;
-    await db.run(
-      isPg ? 'DELETE FROM order_items WHERE order_id = $1' : 'DELETE FROM order_items WHERE order_id = ?',
-      [id]
-    );
-    const result = await db.run(
-      isPg ? 'DELETE FROM orders WHERE id = $1' : 'DELETE FROM orders WHERE id = ?',
-      [id]
-    );
+    const result = await db.transaction(async () => {
+      await db.run(`DELETE FROM order_items WHERE order_id = ${p(1)}`, [id]);
+      return db.run(`DELETE FROM orders WHERE id = ${p(1)}`, [id]);
+    });
     if (result.changes === 0) return res.status(404).json({ error: 'Order not found' });
     res.json({ success: true, message: 'Order deleted successfully' });
   } catch (err) {
@@ -1332,11 +1336,14 @@ app.get(['/admin', '/admin.html'], (req, res) => {
   res.sendFile(path.join(rootDir, 'admin.html'));
 });
 
-app.use(express.static(rootDir));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(rootDir, 'index.html'));
-});
+const publicFiles = require('./public-files');
+for (const filename of publicFiles.files) {
+  app.get('/' + filename, (req, res) => res.sendFile(path.join(rootDir, filename)));
+}
+for (const directory of [...publicFiles.directories, 'uploads']) {
+  app.use('/' + directory, express.static(path.join(rootDir, directory), { dotfiles: 'deny', fallthrough: false }));
+}
+app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
 // ==========================================
 // GLOBAL ERROR HANDLER
@@ -1348,7 +1355,8 @@ app.get('*', (req, res) => {
 app.use((err, req, res, next) => {
   console.error('[UNHANDLED ERROR]', err);
   if (res.headersSent) return next(err);
-  res.status(500).json({ error: 'Sunucu hatası. Lütfen tekrar deneyin.' });
+  const status = err.status >= 400 && err.status < 500 ? err.status : 500;
+  res.status(status).json({ error: status === 404 ? 'Not found' : 'İstek işlenemedi. Lütfen tekrar deneyin.' });
 });
 
 

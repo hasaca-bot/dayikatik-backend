@@ -7,9 +7,20 @@ services:
     runtime: node
     region: frankfurt
     plan: free
-    buildCommand: cd backend && npm install
+    buildCommand: cd backend && npm ci
     startCommand: cd backend && npm start
     envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      # Private reverse-proxy addresses only; review if the hosting topology changes.
+      - key: TRUST_PROXY
+        value: loopback,linklocal,uniquelocal
       - key: NODE_VERSION
         value: "22.12.0"
       - key: DATABASE_URL
