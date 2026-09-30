@@ -4,9 +4,9 @@
 
 ## Mevcut Render servisini güncelleme
 
-1. Ortam değişkenlerine en az 16 karakterlik, bu uygulamaya özel rastgele `ADMIN_PASSWORD` ekleyin. Yönetici giriş ekranında bu parola kullanılır. Yeni Blueprint kurulumunda `render.yaml` bu değerin üretilmesini ister; mevcut serviste değer olduğunu ayrıca kontrol edin.
+1. Ortam değişkenlerine en az 6 karakterlik, bu uygulamaya özel `ADMIN_PASSWORD` ekleyin. Yönetici giriş ekranında bu parola kullanılır. Yeni Blueprint kurulumunda `render.yaml` bu değerin üretilmesini ister; mevcut serviste değer olduğunu ayrıca kontrol edin.
 2. **Yeni** bir VAPID anahtar çifti üretip `VAPID_PUBLIC_KEY` ve `VAPID_PRIVATE_KEY` olarak kaydedin. Eski `data/vapid.json` anahtarını yeniden kullanmayın. Dosya kaynak koddan ve yayın paketinden kaldırıldı; Git geçmişindeki eski anahtar artık gizli kabul edilemez.
-3. `NODE_ENV=production` kullanın. VAPID yapılandırılmadıysa müşteri menüsü/sipariş API'si çalışır, push yolları 503 döner. Yönetici parolası eksik veya 16 karakterden kısaysa giriş 503 döner; güvensiz varsayılan parola kullanılmaz.
+3. `NODE_ENV=production` kullanın. VAPID yapılandırılmadıysa müşteri menüsü/sipariş API'si çalışır, push yolları 503 döner. Yönetici parolası eksik veya 6 karakterden kısaysa giriş 503 döner; varsayılan parola kullanılmaz.
 4. `TRUST_PROXY` değerini gerçek ters proxy adresleri/CIDR'leriyle ayarlayın. Blueprint özel ağ proxy'leri için `loopback,linklocal,uniquelocal` kullanır. Farklı barındırmada bu listeyi doğrulayın; doğrudan internete açık Node sunucusunda boş bırakın. `true` veya gelişigüzel bir hop sayısı kullanmayın. Sağdan sola güvenilen proxy zinciri dışındaki ilk adres istemci IP'si olarak değerlendirilir: [Express proxy belgesi](https://expressjs.com/en/guide/behind-proxies.html).
 5. Frontend farklı bir origin kullanıyorsa tam origin'i `CORS_ORIGINS` listesine ekleyin. Tüm Netlify/Render müşterilerini kapsayan wildcard izinler kaldırıldı. Bilinen proje adresleri ve localhost korunur. `PATCH` izinlidir.
 6. Backend ve frontend değişikliklerini birlikte yayınlayın. Netlify `netlify.toml` üzerinden yalnızca `public-site/` çıktısını yayınlar; depo kökünü manuel olarak yüklemeyin.

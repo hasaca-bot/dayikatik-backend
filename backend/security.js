@@ -20,7 +20,7 @@ function rateLimiter(limit = 60, windowMs = 60000) {
 function createAdminAuth(password, { ttlMs = 8 * 60 * 60 * 1000, now = Date.now } = {}) {
   const sessions = new Map();
   const digest = value => createHash('sha256').update(value).digest();
-  const configured = typeof password === 'string' && password.length >= 16;
+  const configured = typeof password === 'string' && password.length >= 6;
   const expected = configured ? digest(password) : null;
   const tokenFrom = req => /^Bearer ([a-f0-9]{64})$/.exec(req.headers.authorization || '')?.[1];
   const purge = () => { for (const [key, expiry] of sessions) if (expiry <= now()) sessions.delete(key); };

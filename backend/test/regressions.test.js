@@ -11,7 +11,7 @@ const root = path.resolve(__dirname, '../..');
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'dayikatik-regression-'));
 const dbPath = path.join(temp, 'test.db');
 const base = 'http://127.0.0.1:12109';
-const password = 'regression-test-only-password';
+const password = '482619'; // Test-only password at the six-character minimum.
 const vapid = webpush.generateVAPIDKeys();
 let child, headers, sql;
 async function start(overrides = {}) {

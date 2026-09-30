@@ -909,3 +909,11 @@ Summary: Synchronized allergen normalization and admin form active button state 
 - Eski anahtarı içeren ve yalnızca Telegram için kullanılan `scratch/test_kv.py` kaldırıldı.
 - `backend/.env.example`, test ortamları, README ve SECURITY_SETUP içindeki Telegram yapılandırma gereksinimleri temizlendi. Git geçmişi yeniden yazılmadı.
 - Doğrulama: 29/29 test başarılı. Aktif ve yedek dört HTML dosyasının JavaScript sözdizimi doğrulandı; statik yayın paketi yeniden oluşturuldu ve Telegram kodu/anahtar tanımı içermediği kontrol edildi. git diff --check başarılı.
+
+
+## [2026-09-30 +03:00] — Yönetici parolası alt sınırı 6 karakter
+
+- Kullanıcı isteğiyle `backend/security.js` içindeki minimum `ADMIN_PASSWORD` uzunluğu 16'dan 6 karaktere indirildi.
+- `backend/.env.example` ve `SECURITY_SETUP.md` yeni sınırla güncellendi.
+- `backend/test/regressions.test.js` altı karakterlik test parolasıyla giriş ve yetkili API akışlarını doğrulayacak şekilde güncellendi.
+- Doğrulama: `npm test` 29/29 başarılı.
