@@ -175,6 +175,12 @@ const defaultItemTranslations = {
     name: 'Water',
     description: 'Drinking Water.',
     ingredients: 'Pure water.'
+  },
+  'tavuklu-pilav': {
+    name: 'Turkish Chicken Rice',
+    description: 'Authentic Turkish buttered baldo rice topped with tender seasoned grilled chicken slices.',
+    portion: '350g (130g Seasoned Chicken, 220g Buttered Rice)',
+    ingredients: 'Marinated chicken breast, baldo rice, natural butter, chicken broth, salt, black pepper.'
   }
 };
 

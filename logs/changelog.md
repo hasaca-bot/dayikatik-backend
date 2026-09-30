@@ -3,6 +3,22 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+[2026-09-30T17:32:00Z]
+Phase 04 — Tavuklu Pilav Price Update & Cloud Sync Hardening
+
+Action: Modified
+File: data/menu.json
+Lines: ~850
+Target: tavuklu-pilav Product Entry
+Summary: Updated Tavuklu Pilav price from 180 TL to 250 TL.
+
+Action: Modified
+File: backend/db.js
+Lines: 515-580
+Target: runSeeds Incremental Sync
+Summary: Added non-destructive incremental sync to ensure newly introduced products and price updates propagate to cloud PostgreSQL safely without data loss.
+
+---
 [2026-09-30T17:18:00Z]
 Phase 03 — Yemeksepeti Visual Audit & Kebab/Beyti Image Restoration
 

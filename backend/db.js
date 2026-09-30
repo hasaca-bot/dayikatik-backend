@@ -512,6 +512,74 @@ async function runSeeds() {
     }
   } else {
     console.log(`[DB] Skipping products seed. Existing count: ${productCount}`);
+    // Non-destructive incremental sync: Ensure newly added catalog products (e.g. tavuklu-pilav)
+    // are safely inserted and synchronized in cloud & local DB without altering existing tables.
+    try {
+      let menuPath = path.join(__dirname, '..', 'data', 'menu.json');
+      if (fs.existsSync(menuPath)) {
+        const menuData = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
+        for (const item of menuData) {
+          const checkSql = dbDriver.type === 'pg' 
+            ? 'SELECT id, price FROM products WHERE id = $1' 
+            : 'SELECT id, price FROM products WHERE id = ?';
+          const existing = await dbDriver.get(checkSql, [item.id]);
+          
+          if (!existing) {
+            console.log(`[DB] Non-destructive sync: Adding missing product ${item.id}`);
+            const translation = defaultItemTranslations[item.id] || {};
+            const nameTr = item.name || '';
+            const nameEn = item.name_en || translation.name || nameTr;
+            const descTr = item.description || '';
+            const descEn = item.description_en || translation.description || descTr;
+            const portionTr = (item.besin_degerleri && item.besin_degerleri.porsiyon) || '1 Porsiyon';
+            const portionEn = item.portion_en || translation.portion || portionTr;
+            const ingTr = item.icindekiler || '';
+            const ingEn = item.ingredients_en || translation.ingredients || ingTr;
+            const cal = (item.besin_degerleri && item.besin_degerleri.enerji) !== undefined ? item.besin_degerleri.enerji : null;
+            const prot = (item.besin_degerleri && item.besin_degerleri.protein) !== undefined ? item.besin_degerleri.protein : null;
+            const carb = (item.besin_degerleri && item.besin_degerleri.karbonhidrat) !== undefined ? item.besin_degerleri.karbonhidrat : null;
+            const fat = (item.besin_degerleri && item.besin_degerleri.yag) !== undefined ? item.besin_degerleri.yag : null;
+            const sfat = (item.besin_degerleri && item.besin_degerleri.doymus_yag) || 0;
+            const sugar = (item.besin_degerleri && item.besin_degerleri.sekerler) || 0;
+            const fiber = (item.besin_degerleri && item.besin_degerleri.lif) || 0;
+            const salt = (item.besin_degerleri && item.besin_degerleri.tuz) || 0;
+            const allergensStr = JSON.stringify(item.alerjenler || []);
+            const noAdditives = item.katki_maddesi_icermez ? 1 : 0;
+
+            if (dbDriver.type === 'pg') {
+              await dbDriver.run(`
+                INSERT INTO products (
+                  id, name_tr, name_en, description_tr, description_en, category, price, image,
+                  portion_tr, portion_en, ingredients_tr, ingredients_en, calories, protein, carbs, fat,
+                  saturated_fat, sugars, fiber, salt, allergens, katki_maddesi_icermez
+                ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
+                ON CONFLICT (id) DO NOTHING
+              `, [item.id, nameTr, nameEn, descTr, descEn, item.category, item.price, item.image,
+                  portionTr, portionEn, ingTr, ingEn, cal, prot, carb, fat, sfat, sugar, fiber, salt,
+                  allergensStr, noAdditives]);
+            } else {
+              await dbDriver.run(`
+                INSERT OR IGNORE INTO products (
+                  id, name_tr, name_en, description_tr, description_en, category, price, image,
+                  portion_tr, portion_en, ingredients_tr, ingredients_en, calories, protein, carbs, fat,
+                  saturated_fat, sugars, fiber, salt, allergens, katki_maddesi_icermez
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              `, [item.id, nameTr, nameEn, descTr, descEn, item.category, item.price, item.image,
+                  portionTr, portionEn, ingTr, ingEn, cal, prot, carb, fat, sfat, sugar, fiber, salt,
+                  allergensStr, noAdditives]);
+            }
+          } else if (item.id === 'tavuklu-pilav' && existing.price !== 250) {
+            const updateSql = dbDriver.type === 'pg'
+              ? 'UPDATE products SET price = 250 WHERE id = $1'
+              : 'UPDATE products SET price = 250 WHERE id = ?';
+            await dbDriver.run(updateSql, ['tavuklu-pilav']);
+            console.log('[DB] Non-destructive sync: Updated tavuklu-pilav price to 250 TL');
+          }
+        }
+      }
+    } catch (err) {
+      console.error('[DB ERROR] Incremental sync error:', err);
+    }
   }
 }
 
