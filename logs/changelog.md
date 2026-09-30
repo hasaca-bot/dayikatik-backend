@@ -3,6 +3,44 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+[2026-09-30T17:18:00Z]
+Phase 03 — Yemeksepeti Visual Audit & Kebab/Beyti Image Restoration
+
+Action: Fixed
+File: images/products/ (et-beyti, et-iskender, ekmek-arasi-tavuk, katik-et-ekmek-arasi)
+Lines: Binary
+Target: Et Beyti & Et İskender Visuals
+Summary: Restored authentic chef-quality visuals for Et Beyti and Et İskender, correcting erroneous chicken wrap assignments.
+
+Action: Modified
+File: images/products/ (24 product items)
+Lines: Binary
+Target: Verified 1:1 Yemeksepeti Mapping
+Summary: Aligned all scraped Yemeksepeti assets with exact product items and regenerated 480x480 square WebP and JPG thumbnails.
+
+Action: Verified
+File: data/menu.json
+Lines: 1-1200
+Target: Full 54-Product Catalog
+Summary: Verified all 54 products with 100% valid master and thumbnail image assets on localhost:34.
+
+---
+[2026-09-30T16:44:00Z]
+Phase 02 — Product Catalog Update (Tavuklu Pilav)
+
+Action: Added
+File: data/menu.json
+Lines: ~850
+Target: tavuklu-pilav Product Entry
+Summary: Added Tavuklu Pilav with complete nutrition facts, macros, allergen info, and portion specifications.
+
+Action: Added
+File: images/products/tavuklu-pilav.jpeg
+Lines: Binary
+Target: tavuklu-pilav Product Visuals
+Summary: Processed and added 1024x1024 high-resolution square image and generated matching 480x480 WebP and JPG thumbnails.
+
+---
 [2026-09-30T16:32:00Z]
 Phase 01 — Modal Aspect Ratio & Image Assets Update
 

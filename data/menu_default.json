@@ -1216,6 +1216,49 @@
     "thumb": "/images/products/thumbs/zurna-tavuk-menu-2.webp"
   },
   {
+    "id": "tavuklu-pilav",
+    "name": "Tavuklu Pilav",
+    "name_en": "Turkish Chicken Rice",
+    "category": "tavuk",
+    "price": 180,
+    "description": "Geleneksel tane tane tereyağlı baldo pirinç pilavı üzerinde leziz marine ızgara tavuk dilimleri.",
+    "description_en": "Authentic Turkish buttered baldo rice topped with tender seasoned grilled chicken slices.",
+    "image": "/images/products/tavuklu-pilav.jpeg",
+    "besin_degerleri": {
+      "porsiyon": "350g (130g Marine Tavuk, 220g Tereyağlı Pilav)",
+      "enerji": 590,
+      "yag": 18,
+      "doymus_yag": 6.2,
+      "karbonhidrat": 68,
+      "sekerler": 0.8,
+      "lif": 2.1,
+      "protein": 38,
+      "tuz": 1.8
+    },
+    "makrolar": {
+      "protein": {
+        "deger": 38,
+        "yuzde": 26
+      },
+      "karbonhidrat": {
+        "deger": 68,
+        "yuzde": 47
+      },
+      "yag": {
+        "deger": 18,
+        "yuzde": 27
+      }
+    },
+    "alerjenler": [
+      "sut"
+    ],
+    "icindekiler": "Marine tavuk göğsü eti, baldo pirinç, doğal tereyağı, tavuk suyu, tuz, karabiber.",
+    "katki_maddesi_icermez": true,
+    "ingredients_en": "Marinated chicken breast, baldo rice, natural butter, chicken broth, salt, black pepper.",
+    "portion_en": "350g (130g Seasoned Chicken, 220g Buttered Rice)",
+    "thumb": "/images/products/thumbs/tavuklu-pilav.webp"
+  },
+  {
     "id": "tavuk-tantuni-lavas",
     "name": "Tavuk Tantuni Lavaş",
     "name_en": "Chicken Tantuni Wrap",
