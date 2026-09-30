@@ -49,8 +49,19 @@ Oturumlar sekiz saat geçerlidir; tarayıcıda yalnızca bellekte tutulur. Sayfa
 
 ## Doğrulama
 
-`cd backend; npm test`: 29 test başarılı. Kapsam: mevcut sipariş akışları, yetkisiz yönetim erişimi, giriş/çıkış/oturum süresi, ürün yazımları, statik dosya izolasyonu, CORS, hata anında rollback, eşzamanlı tekrar istekleri, yeniden başlatma, proxy/endpoint rate limit ayrımı ve tarayıcı API token iletimi.
+`cd backend; npm test`: 39 test başarılı. Kapsam: mevcut sipariş akışları, yetkisiz yönetim erişimi, giriş/çıkış/oturum süresi, ürün yazımları, statik dosya izolasyonu, CORS, hata anında rollback, eşzamanlı tekrar istekleri, yeniden başlatma, proxy/endpoint rate limit ayrımı ve tarayıcı API token iletimi.
 
 SQLite entegrasyon testleri gerçek yerel Express sunucusu ve geçici veritabanıyla çalışır. PostgreSQL bağlantı kullanımı/rollback birim testi vardır; gerçek PostgreSQL servisiyle entegrasyon testi bu ortamda çalıştırılmadı. Tarayıcı kodu sözdizimi ve oturum yardımcısı VM testleriyle kontrol edildi; gerçek tarayıcıda görsel değerlendirme yapılmadı. Canlı sisteme test siparişi veya bildirim gönderilmedi.
 
 Statik yayın: `node backend/scripts/build-public.cjs`. Yalnızca izin listesindeki müşteri dosyaları kopyalanır; backend, yedekler, loglar, veritabanları ve anahtar dosyaları çıktıya dahil edilmez.
+
+
+## Boşta veritabanı maliyeti
+
+- Her 30 saniyede çalışan bildirim tablosu taraması kaldırıldı. Push yapılandırması varsa uygulama açılışında bekleyen işler bir kez okunur; sonrasında yalnızca kayıtlı işin zamanı geldiğinde sorgu yapılır. Bekleyen iş yoksa bu görev veritabanını tekrar uyandırmaz. Push yapılandırması yoksa başlangıç taraması da yapılmaz.
+- Yeni planlanan bildirim için bellekte tek seferlik zamanlayıcı kurulur; silinen işin zamanlayıcısı iptal edilir. Yeniden başlatmada veritabanında bekleyen işler geri yüklenir. Uzak tarihler Node zamanlayıcı sınırı nedeniyle bellekte parçalara ayrılır, bu sırada ek sorgu yapılmaz.
+- Vadesi gelen gerçek bir işte geçici veritabanı hatası olursa on dakika sonra yeniden denenir. Aynı iş birden fazla süreçte biliniyorsa atomik durum geçişi çift gönderimi önler. Bu çözüm mevcut tek uygulama süreci içindir; başka süreçten doğrudan veritabanına eklenen işler ancak yeniden başlatmada keşfedilir.
+- Yönetici sipariş yenilemesi yalnızca giriş yapılmış ve tarayıcı sekmesi görünürken çalışır; üst üste istek başlatmaz. Görünür yönetici ekranı açıkken sipariş kontrolü devam eder.
+- Neon'da scale-to-zero açık olmalıdır. Bu değişiklik gereksiz sorguları kaldırır; gerçek trafik, açık yönetici ekranı veya başka bağlı uygulamalar varsa compute kullanımı sürer. Mevcut ücretli planı ve daha önce birikmiş ücreti değiştirmez.
+- Zamanında otomatik bildirim için backend sürecinin çalışıyor olması gerekir. Render Free servisi uyurken zamanlayıcı çalışmaz; servis tekrar başladığında gecikmiş işler işlenir.
+- Testler: sahte saatle 31 gün boşta sıfır ek sorgu, planlanmış gönderim, iptal, yeniden başlatma, uzun zamanlayıcı, çift süreçte tek gönderim ve geçici hata sonrası gecikmeli yeniden deneme doğrulandı. Gerçek Neon ölçümleri veya faturalama ayarları bu işlemde değiştirilmedi.

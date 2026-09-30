@@ -13,7 +13,7 @@ const dbPath = path.join(temp, 'test.db');
 const base = 'http://127.0.0.1:12109';
 const password = '482619'; // Test-only password at the six-character minimum.
 const vapid = webpush.generateVAPIDKeys();
-let child, headers, sql;
+let child, headers, sql, serverOutput = '';
 async function start(overrides = {}) {
   child = spawn(process.execPath, [path.join(root, 'backend/server.js')], {
     env: { ...process.env, PORT: '12109', DATABASE_URL: '', SQLITE_DB_PATH: dbPath,
@@ -22,8 +22,9 @@ async function start(overrides = {}) {
       ...overrides }, stdio: ['ignore', 'pipe', 'pipe']
   });
   let output = '';
-  child.stdout.on('data', data => { output += data; });
-  child.stderr.on('data', data => { output += data; });
+  serverOutput = '';
+  child.stdout.on('data', data => { output += data; serverOutput += data; });
+  child.stderr.on('data', data => { output += data; serverOutput += data; });
   for (let i = 0; i < 100; i++) {
     if (child.exitCode !== null) throw new Error(output);
     try { if ((await fetch(base + '/api/products')).ok) return; } catch {}
@@ -132,6 +133,38 @@ test('PATCH preflight permits order updates from approved frontend and rejects a
   assert.equal(res.status, 204);
   assert.ok(res.headers.get('access-control-allow-methods').split(',').includes('PATCH'));
   assert.equal((await call('/api/orders/example', 'OPTIONS', undefined, { ...requestHeaders, Origin: 'https://untrusted-tenant.netlify.app' })).status, 403);
+});
+
+test('scheduled push validates dates, persists jobs, cancels timers, and restores due jobs on restart', async () => {
+  // Empty subscriptions ensure these delivery checks never contact an external push service.
+  assert.equal(sql.prepare('SELECT count(*) AS n FROM subscriptions').get().n, 0);
+  const payload = { title: 'Test schedule', body: 'Synthetic notification', scheduled_at: 'not-a-date' };
+  assert.equal((await call('/api/notifications/schedule', 'POST', payload, headers)).status, 400);
+  const future = await call('/api/notifications/schedule', 'POST', {
+    ...payload, scheduled_at: new Date(Date.now() + 3600000).toISOString()
+  }, headers);
+  assert.equal(future.status, 200);
+  assert.equal(sql.prepare('SELECT status FROM notifications WHERE id=?').get(future.data.id).status, 'pending');
+  assert.equal((await call('/api/notifications/' + future.data.id, 'DELETE', undefined, headers)).status, 200);
+  const due = await call('/api/notifications/schedule', 'POST', {
+    ...payload, scheduled_at: new Date(Date.now() - 1000).toISOString()
+  }, headers);
+  assert.equal(due.status, 200);
+  async function waitSent(id) {
+    for (let i = 0; i < 200; i++) {
+      const list = await call('/api/notifications', 'GET', undefined, headers);
+      assert.equal(list.status, 200);
+      if (list.data.find(notification => notification.id === id)?.status === 'sent') return;
+      await new Promise(resolve => setTimeout(resolve, 10));
+    }
+    assert.fail('Scheduled notification did not finish: ' + JSON.stringify(sql.prepare('SELECT status FROM notifications WHERE id=?').get(id)) + '\n' + serverOutput);
+  }
+  await waitSent(due.data.id);
+  sql.prepare("INSERT INTO notifications (id,title,body,status,scheduled_at) VALUES (?,? ,?,'pending',?)")
+    .run('restore-schedule', 'Test', 'Synthetic', new Date(Date.now() - 1000).toISOString());
+  await stop(); await start(); await login();
+  await waitSent('restore-schedule');
+  assert.equal(sql.prepare('SELECT count(*) AS n FROM notifications WHERE id=?').get(future.data.id).n, 0);
 });
 
 function order(items, key) {

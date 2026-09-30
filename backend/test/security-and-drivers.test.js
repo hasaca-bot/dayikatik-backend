@@ -100,3 +100,25 @@ test('browser session attaches token only to its API and clears it after logout'
   assert.equal(requests.at(-1).options.headers.get('Authorization'), null);
   assert.equal(window.escapeHtml('<img onerror="bad">'), '&lt;img onerror=&quot;bad&quot;&gt;');
 });
+
+test('admin order refresh skips hidden tabs, logged-out users, and overlapping requests', async () => {
+  const html = fs.readFileSync(path.join(__dirname, '../../admin.html'), 'utf8');
+  const code = html.slice(html.indexOf('let ordersLoading = false;'), html.indexOf('function updateOrdersBadge()'));
+  let active = true, calls = 0, release;
+  const pending = new Promise(resolve => { release = resolve; });
+  const document = { hidden: true };
+  const context = vm.createContext({ document, window: { adminSession: { active: () => active } },
+    ADMIN_AUTH_HEADER: {}, console,
+    async fetch() { calls++; await pending; return { ok: true, async json() { return []; } }; },
+    renderAdminOrdersList() {}, updateOrdersBadge() {}
+  });
+  vm.runInContext(code, context);
+  await context.loadOrders(); assert.equal(calls, 0);
+  document.hidden = false; active = false;
+  await context.loadOrders(); assert.equal(calls, 0);
+  active = true;
+  const first = context.loadOrders();
+  await context.loadOrders(); assert.equal(calls, 1);
+  release(); await first;
+  await context.loadOrders(); assert.equal(calls, 2);
+});

@@ -917,3 +917,13 @@ Summary: Synchronized allergen normalization and admin form active button state 
 - `backend/.env.example` ve `SECURITY_SETUP.md` yeni sınırla güncellendi.
 - `backend/test/regressions.test.js` altı karakterlik test parolasıyla giriş ve yetkili API akışlarını doğrulayacak şekilde güncellendi.
 - Doğrulama: `npm test` 29/29 başarılı.
+
+
+## [2026-09-30 +03:00] — Neon'u boşta açık tutan sorgular kaldırıldı
+
+- `backend/server.js`: 30 saniyelik bildirim tablosu taraması kaldırıldı. `backend/notification-scheduler.js` açılışta bekleyen işleri bir kez okuyup tek seferlik zamanlayıcı kurar; boş kuyrukta sorgu göndermez. Push kapalıysa hiç tarama yapmaz.
+- Bildirim planlama/silme yolları zamanlayıcıyla bağlandı; tarih doğrulama ve ISO normalizasyonu eklendi. Yeniden başlatmada işler geri yüklenir, atomik claim çift gönderimi önler; gerçek iş için geçici veritabanı hatası on dakika sonra yeniden denenir.
+- `admin.html`: gizli sekmede sipariş yenilemesi durduruldu, görünür olduğunda yenilenir, üst üste ağ isteği başlatılmaz.
+- `backend/test/notification-scheduler.test.js`, `regressions.test.js`, `security-and-drivers.test.js`: boşta sorgu sayısı, zamanlama, iptal, yeniden başlatma, uzun gecikme, çift süreç, hata sonrası yeniden deneme ve gizli sekme testleri eklendi.
+- `SECURITY_SETUP.md`: maliyet davranışı ve Render Free'de zamanlanmış bildirim sınırı belgelendi.
+- Doğrulama: son tam koşuda 39/39 test başarılı; testler yerel/geçici veritabanı ve sahte saat kullanır, dış push bildirimi gönderilmez. İlk entegrasyon koşusundaki zamanlama timeout'u sonrası test tanılaması eklendi ve durum takibi doğrudan veritabanı sorgusu yerine API'den yapılacak şekilde düzenlendi. Son hali yeniden çalıştırıldı: 39/39 test başarılı; statik site build ve git diff --check başarılı.

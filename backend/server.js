@@ -6,6 +6,7 @@ const { db, initDatabase, resetDatabase } = require('./db');
 const webpush = require('web-push');
 const { randomUUID, randomBytes } = require('node:crypto');
 const { rateLimiter, createAdminAuth } = require('./security');
+const { createNotificationScheduler } = require('./notification-scheduler');
 
 // Never load the compromised, formerly public data/vapid.json key pair.
 let VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
@@ -759,27 +760,10 @@ async function sendPushNotificationInternal(notif) {
   }
 }
 
-// Background scheduler loop (every 30 seconds)
-setInterval(async () => {
-  try {
-    const nowStr = new Date().toISOString();
-    const sql = isPg 
-      ? "SELECT * FROM notifications WHERE status = 'pending' AND scheduled_at <= $1" 
-      : "SELECT * FROM notifications WHERE status = 'pending' AND scheduled_at <= ?";
-    const pendingNotifications = await db.all(sql, [nowStr]);
-    
-    for (const notif of pendingNotifications) {
-      const updateSql = isPg
-        ? "UPDATE notifications SET status = 'sending' WHERE id = $1"
-        : "UPDATE notifications SET status = 'sending' WHERE id = ?";
-      await db.run(updateSql, [notif.id]);
-      
-      await sendPushNotificationInternal(notif);
-    }
-  } catch (err) {
-    console.error('[SCHEDULER ERROR] Failed to process scheduled notifications:', err);
-  }
-}, 30000);
+// Arm one-off timers for persisted jobs; no recurring database queries while idle.
+const notificationScheduler = createNotificationScheduler({
+  db, send: sendPushNotificationInternal, enabled: !!VAPID_PUBLIC_KEY
+});
 
 // ==========================================
 // WEB PUSH NOTIFICATION APIs
@@ -888,6 +872,7 @@ app.delete('/api/notifications/:id', adminAuth, async (req, res) => {
     if (result.changes === 0) {
       return res.status(404).json({ error: 'Notification not found' });
     }
+    notificationScheduler.cancel(id);
     res.json({ success: true, message: 'Notification deleted successfully' });
   } catch (err) {
     console.error('[API ERROR] DELETE /api/notifications/:id:', err);
@@ -950,7 +935,12 @@ app.post('/api/notifications/schedule', adminAuth, rateLimiter(15), async (req, 
       return res.status(400).json({ error: 'Invalid image format or size exceeds 5MB' });
     }
     
-    const id = `notif-${Date.now()}`;
+    const scheduledTime = typeof scheduled_at === 'string' ? Date.parse(scheduled_at) : NaN;
+    if (!Number.isFinite(scheduledTime)) {
+      return res.status(400).json({ error: 'Geçerli bir bildirim tarihi gerekli.' });
+    }
+    const scheduledAt = new Date(scheduledTime).toISOString();
+    const id = `notif-${randomUUID()}`;
     const nowStr = new Date().toISOString();
     
     const insertSql = isPg
@@ -958,10 +948,11 @@ app.post('/api/notifications/schedule', adminAuth, rateLimiter(15), async (req, 
       : 'INSERT INTO notifications (id, title, body, image, icon, url, target, created_at, scheduled_at, status, priority, ttl, tag, collapse_key, created_by, success_count, failed_count, click_count) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,0,0)';
     
     await db.run(insertSql, [
-      id, title, body, image || '', icon || '', url || '', target || 'all', nowStr, scheduled_at, 'pending',
+      id, title, body, image || '', icon || '', url || '', target || 'all', nowStr, scheduledAt, 'pending',
       priority || 'normal', parseInt(ttl || 24), tag || '', collapse_key || '', created_by || 'admin'
     ]);
     
+    notificationScheduler.schedule({ id, scheduled_at: scheduledAt });
     res.json({ success: true, message: 'Notification scheduled successfully', id });
   } catch (err) {
     console.error('[API ERROR] POST /api/notifications/schedule:', err);
@@ -1363,7 +1354,7 @@ app.use((err, req, res, next) => {
 // ==========================================
 // STARTUP: Init DB then start server
 // ==========================================
-initDatabase().then(() => {
+initDatabase().then(() => notificationScheduler.start()).then(() => {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`==================================================`);
     console.log(` Dayı Katık Web App Server is running!`);

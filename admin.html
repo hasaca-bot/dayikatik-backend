@@ -5484,9 +5484,10 @@ function initializeApp() {
   updateRezDateOptions();
 
 
-  // Load orders and keep the unread badge/list fresh
+  // Refresh only while the authenticated admin page is visible.
   loadOrders();
   setInterval(loadOrders, 10000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) loadOrders(); });
 
   // OS color scheme listener disabled to prevent unexpected site color changes
   /* window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
@@ -5961,8 +5962,10 @@ function statusLabel(status) {
   return window.currentLanguage === 'tr' ? l.tr : l.en;
 }
 
+let ordersLoading = false;
 async function loadOrders() {
-  if (!window.adminSession.active()) return;
+  if (!window.adminSession.active() || document.hidden || ordersLoading) return;
+  ordersLoading = true;
   try {
     const res = await fetch('/api/orders', { headers: ADMIN_AUTH_HEADER });
     if (!res.ok) throw new Error('Failed to fetch orders');
@@ -5971,6 +5974,8 @@ async function loadOrders() {
     updateOrdersBadge();
   } catch (e) {
     console.error("Error loading orders:", e);
+  } finally {
+    ordersLoading = false;
   }
 }
 
