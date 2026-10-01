@@ -2753,9 +2753,6 @@ body.theme-bw .rez-select-trigger:hover {
     overflow-y: auto !important;
     z-index: 1 !important;
   }
-  #adminLoginBackdrop {
-    display: none !important;
-  }
   @media(min-width: 992px) {
     .admin-panel.open,
     #adminPanelOverlay.open {
@@ -3120,7 +3117,7 @@ body.theme-bw .rez-select-trigger:hover {
 </div>
 
 <!-- ADMIN LOGIN MODAL -->
-<div id="adminLoginBackdrop" class="admin-modal-backdrop" onclick="closeAdminLogin()">
+<div id="adminLoginBackdrop" class="admin-modal-backdrop open" onclick="closeAdminLogin()">
   <div class="admin-modal-card" onclick="event.stopPropagation()">
     <h3 class="admin-modal-title" data-i18n="admin_login">Yönetici Girişi</h3>
     <label class="admin-form-label" data-i18n="admin_pwd_lbl">Şifre</label>
@@ -5728,9 +5725,12 @@ async function sendRezervasyon() {
 
 function openAdminLogin(e) {
   if(e) e.preventDefault();
+  // Slow catalog responses must not clear a password already being entered.
+  const backdrop = document.getElementById('adminLoginBackdrop');
+  if (backdrop.classList.contains('open')) return;
   document.getElementById('adminPassword').value = '';
   document.getElementById('adminLoginError').style.display = 'none';
-  document.getElementById('adminLoginBackdrop').classList.add('open');
+  backdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 

@@ -3,6 +3,15 @@
 Bu dosya, projede yapılan tüm değişiklikleri tarih damgalarıyla birlikte kaydeder.
 
 ---
+[2026-10-01]
+Admin girişinde boş ekran düzeltmesi
+
+Action: Fixed
+File: admin.html
+Summary: Sunucuda doğrulanan giriş akışından sonra kalan `#adminLoginBackdrop { display: none !important; }` kuralı kaldırıldı. Giriş formu ilk HTML yüklemesinde görünür; yavaş menü yanıtları kullanıcının yazdığı şifreyi sıfırlamaz.
+Validation: Canlı /admin sayfasında formun `open` sınıfına rağmen `display: none` olduğu doğrulandı. İzole SQLite sunucusunda gerçek tarayıcı ile giriş formu, test şifresiyle yönetim paneline giriş ve konsol kontrolü başarılı; 39/39 backend testi geçti. İlk sandbox test denemesi alt süreç başlatma izni nedeniyle çalışmadı, izinli tekrar başarılı oldu.
+
+---
 [2026-09-30T17:32:00Z]
 Phase 04 — Tavuklu Pilav Price Update & Cloud Sync Hardening
 
