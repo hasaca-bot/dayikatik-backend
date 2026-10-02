@@ -1,6 +1,4 @@
 const CACHE_NAME = 'dayikatik-v3';
-// Mirrors window.API_BASE in the pages: a Netlify static deployment has no /api of its own.
-const API_BASE = /\.netlify\.(app|com)$/.test(self.location.hostname) ? 'https://dayikatik-claf.onrender.com' : '';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -97,7 +95,7 @@ self.addEventListener('notificationclick', event => {
   const targetUrl = new URL(notif.data.url, self.location.origin).href;
 
   event.waitUntil(
-    fetch(API_BASE + '/api/notifications/click', {
+    fetch('/api/notifications/click', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: notif.data.id })
