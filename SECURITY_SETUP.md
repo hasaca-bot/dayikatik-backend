@@ -8,8 +8,8 @@
 2. **Yeni** bir VAPID anahtar çifti üretip `VAPID_PUBLIC_KEY` ve `VAPID_PRIVATE_KEY` olarak kaydedin. Eski `data/vapid.json` anahtarını yeniden kullanmayın. Dosya kaynak koddan ve yayın paketinden kaldırıldı; Git geçmişindeki eski anahtar artık gizli kabul edilemez.
 3. `NODE_ENV=production` kullanın. VAPID yapılandırılmadıysa müşteri menüsü/sipariş API'si çalışır, push yolları 503 döner. Yönetici parolası eksik veya 6 karakterden kısaysa giriş 503 döner; varsayılan parola kullanılmaz.
 4. `TRUST_PROXY` değerini gerçek ters proxy adresleri/CIDR'leriyle ayarlayın. Blueprint özel ağ proxy'leri için `loopback,linklocal,uniquelocal` kullanır. Farklı barındırmada bu listeyi doğrulayın; doğrudan internete açık Node sunucusunda boş bırakın. `true` veya gelişigüzel bir hop sayısı kullanmayın. Sağdan sola güvenilen proxy zinciri dışındaki ilk adres istemci IP'si olarak değerlendirilir: [Express proxy belgesi](https://expressjs.com/en/guide/behind-proxies.html).
-5. Frontend farklı bir origin kullanıyorsa tam origin'i `CORS_ORIGINS` listesine ekleyin. Tüm Netlify/Render müşterilerini kapsayan wildcard izinler kaldırıldı. Bilinen proje adresleri ve localhost korunur. `PATCH` izinlidir.
-6. Backend ve frontend değişikliklerini birlikte yayınlayın. Netlify `netlify.toml` üzerinden yalnızca `public-site/` çıktısını yayınlar; depo kökünü manuel olarak yüklemeyin.
+5. Frontend farklı bir origin kullanıyorsa tam origin'i `CORS_ORIGINS` listesine ekleyin. Wildcard izinler ve kullanılmayan Netlify adresleri kaldırıldı. Bilinen proje adresleri ve localhost korunur. `PATCH` izinlidir.
+6. Backend ve frontend aynı Render servisinden yayınlanır; Express yalnızca `backend/public-files.js` izin listesindeki dosyaları sunar.
 
 Parola üretme örneği (depo kökünden):
 
@@ -49,11 +49,11 @@ Oturumlar sekiz saat geçerlidir; tarayıcıda yalnızca bellekte tutulur. Sayfa
 
 ## Doğrulama
 
-`cd backend; npm test`: 39 test başarılı. Kapsam: mevcut sipariş akışları, yetkisiz yönetim erişimi, giriş/çıkış/oturum süresi, ürün yazımları, statik dosya izolasyonu, CORS, hata anında rollback, eşzamanlı tekrar istekleri, yeniden başlatma, proxy/endpoint rate limit ayrımı ve tarayıcı API token iletimi.
+`cd backend; npm test`: 42 test başarılı. Kapsam: mevcut sipariş akışları, yetkisiz yönetim erişimi, giriş/çıkış/oturum süresi, ürün yazımları, statik dosya izolasyonu, CORS, hata anında rollback, eşzamanlı tekrar istekleri, yeniden başlatma, proxy/endpoint rate limit ayrımı ve tarayıcı API token iletimi.
 
 SQLite entegrasyon testleri gerçek yerel Express sunucusu ve geçici veritabanıyla çalışır. PostgreSQL bağlantı kullanımı/rollback birim testi vardır; gerçek PostgreSQL servisiyle entegrasyon testi bu ortamda çalıştırılmadı. Tarayıcı kodu sözdizimi ve oturum yardımcısı VM testleriyle kontrol edildi; gerçek tarayıcıda görsel değerlendirme yapılmadı. Canlı sisteme test siparişi veya bildirim gönderilmedi.
 
-Statik yayın: `node backend/scripts/build-public.cjs`. Yalnızca izin listesindeki müşteri dosyaları kopyalanır; backend, yedekler, loglar, veritabanları ve anahtar dosyaları çıktıya dahil edilmez.
+Statik dosyalar: Express yalnızca `backend/public-files.js` izin listesindeki müşteri dosyalarını sunar; backend, yedekler, loglar, veritabanları ve anahtar dosyaları yayınlanmaz.
 
 
 ## Boşta veritabanı maliyeti

@@ -1,4 +1,4 @@
-// Shared by Express and the static-site build. Never publish the repository root.
+// Files Express serves publicly. Never publish the repository root.
 module.exports = {
   files: ['index.html', 'admin.html', 'style.css', 'manifest.json', 'service-worker.js',
     'logo.png', 'apple-touch-icon.png', 'favicon.ico', 'favicon-16x16.png',

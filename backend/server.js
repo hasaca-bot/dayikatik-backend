@@ -35,15 +35,11 @@ app.set('trust proxy', process.env.TRUST_PROXY ? process.env.TRUST_PROXY.split('
 const auth = createAdminAuth(process.env.ADMIN_PASSWORD);
 const adminAuth = auth.requireAdmin;
 
-// Enable CORS with robust origin support for Netlify subdomains, previews, and local development
+// The site is served by this same Render service (dayikatik.com), so browsers call the API same-origin;
+// only the known production hosts and local development need CORS.
 const allowedOrigins = [
   'https://dayikatik.onrender.com',
   'https://dayikatik-claf.onrender.com',
-  'https://dayikatik.netlify.app',
-  'https://hasacadesign.netlify.app',
-  'https://dayikatikornek.netlify.app',
-  'https://resonant-elf-d2b58b.netlify.app',
-  'https://glittering-raindrop-435319.netlify.app',
   'https://dayikatik.com',
   'https://www.dayikatik.com',
   'http://localhost:12000',
@@ -70,8 +66,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+// Only authenticated routes that carry base64 images may send large bodies; they are parsed after the auth gate.
+const LARGE_BODY_ROUTE = /^\/api\/(products|notifications\/(upload-image|send|schedule))(\/|$)/i;
+const smallJson = express.json({ limit: '100kb' });
+app.use((req, res, next) => LARGE_BODY_ROUTE.test(req.path) ? next() : smallJson(req, res, next));
 
 // Cache-control middleware to prevent caching of dynamic and static data
 app.use((req, res, next) => {
@@ -96,6 +94,8 @@ app.use('/api', (req, res, next) => {
   if (publicRoutes.has(`${method} ${route}`)) return next();
   return adminAuth(req, res, next);
 });
+const largeJson = express.json({ limit: '10mb' });
+app.use((req, res, next) => LARGE_BODY_ROUTE.test(req.path) ? largeJson(req, res, next) : next());
 
 // Helper to build parameterized queries for both PG ($1) and SQLite (?)
 const isPg = !!process.env.DATABASE_URL;
@@ -152,6 +152,13 @@ function normalizeAllergens(allergens) {
         short_name_en: (def && def.short_name_en) || rawName || id
       };
     });
+}
+
+// SQLite CURRENT_TIMESTAMP is UTC without a zone marker; browsers would parse it as local time.
+function toIsoTimestamp(value) {
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(value)) return value.replace(' ', 'T') + 'Z';
+  return value;
 }
 
 // Helper: Map DB Product Row to JSON format expected by UI
@@ -261,7 +268,7 @@ app.post('/api/products', async (req, res) => {
     const fiber = parseFloat(body.fiber || (body.besin_degerleri && body.besin_degerleri.lif) || 0);
     const salt = parseFloat(body.salt || (body.besin_degerleri && body.besin_degerleri.tuz) || 0);
 
-    const id = body.id || `prod-${Date.now()}`;
+    const id = body.id || `prod-${randomUUID()}`;
     const category = body.category || 'diger';
     const price = Number(body.price);
     const image = body.image == null ? '' : body.image;
@@ -455,20 +462,21 @@ app.post('/api/categories', async (req, res) => {
 app.put('/api/categories/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const { name_tr, name_en, sort_order, icon } = req.body;
-
-    let result;
-    if (isPg) {
-      result = await db.run(
-        'UPDATE categories SET name_tr=$1, name_en=$2, sort_order=$3, icon=$4 WHERE id=$5',
-        [name_tr, name_en, sort_order, icon, id]
-      );
-    } else {
-      result = await db.run(
-        'UPDATE categories SET name_tr=?, name_en=?, sort_order=?, icon=? WHERE id=?',
-        [name_tr, name_en, sort_order, icon, id]
-      );
+    const { name_tr, name_en, sort_order, icon } = req.body || {};
+    // Omitted fields keep their stored value instead of being written as NULL/undefined.
+    const value = v => v === undefined ? null : v;
+    if (name_tr !== undefined && (typeof name_tr !== 'string' || !name_tr.trim())) {
+      return res.status(400).json({ error: 'name_tr must be a non-empty string' });
     }
+    if (sort_order !== undefined && sort_order !== null && !Number.isFinite(Number(sort_order))) {
+      return res.status(400).json({ error: 'sort_order must be a number' });
+    }
+
+    const result = await db.run(
+      `UPDATE categories SET name_tr=COALESCE(${p(1)}, name_tr), name_en=COALESCE(${p(2)}, name_en),
+        sort_order=COALESCE(${p(3)}, sort_order), icon=COALESCE(${p(4)}, icon) WHERE id=${p(5)}`,
+      [value(name_tr), value(name_en), sort_order == null ? null : Number(sort_order), value(icon), id]
+    );
 
     if (result.changes === 0) {
       return res.status(404).json({ error: 'Category not found' });
@@ -520,7 +528,8 @@ function mapReservationRow(row) {
     pax: row.people,
     note: row.note,
     read: row.status === 'confirmed' || row.status === 'read',
-    timestamp: row.created_at
+    // PostgreSQL returns BIGINT as a string.
+    timestamp: row.created_at == null ? row.created_at : Number(row.created_at)
   };
 }
 
@@ -538,14 +547,29 @@ app.get('/api/reservations', async (req, res) => {
 // POST /api/reservations
 app.post('/api/reservations', rateLimiter(15), async (req, res) => {
   try {
-    const body = req.body;
+    const body = req.body || {};
+    const fields = { name: 120, phone: 30, date: 60, time: 20, note: 1000 };
+    for (const [key, max] of Object.entries(fields)) {
+      if (body[key] != null && (typeof body[key] !== 'string' || body[key].length > max)) {
+        return res.status(400).json({ error: 'Geçersiz rezervasyon alanı.' });
+      }
+    }
     const id = `rez-${randomUUID()}`;
-    const customer_name = body.name || '';
-    const phone = body.phone || '';
-    const date = body.date || '';
-    const time = body.time || '';
-    const people = parseInt(body.pax || 1);
-    const note = body.note || '';
+    const customer_name = (body.name || '').trim();
+    const phone = (body.phone || '').trim();
+    const date = (body.date || '').trim();
+    const time = (body.time || '').trim();
+    const people = body.pax == null || body.pax === '' ? 1 : Number(body.pax);
+    const note = (body.note || '').trim();
+    if (!customer_name || !date || !time) {
+      return res.status(400).json({ error: 'Ad, tarih ve saat zorunludur.' });
+    }
+    if (!/^\d{10,13}$/.test(phone.replace(/\D/g, ''))) {
+      return res.status(400).json({ error: 'Geçerli bir telefon numarası girin.' });
+    }
+    if (!Number.isInteger(people) || people < 1 || people > 50) {
+      return res.status(400).json({ error: 'Geçersiz kişi sayısı.' });
+    }
     const status = 'pending';
     const timestamp = Date.now();
 
@@ -651,7 +675,7 @@ app.post('/api/translations', async (req, res) => {
     const { key, tr, en } = req.body;
     if (!key) return res.status(400).json({ error: 'Key is required' });
 
-    const id = `trans-${Date.now()}`;
+    const id = `trans-${randomUUID()}`;
     if (isPg) {
       await db.run('INSERT INTO translations (id, key, tr, en) VALUES ($1,$2,$3,$4)', [id, key, tr || '', en || '']);
     } else {
@@ -714,10 +738,13 @@ async function sendPushNotificationInternal(notif) {
       collapse_key: notif.collapse_key
     });
     
+    // web-push throws for every subscriber on an unsupported urgency or a topic that is not
+    // 1-32 URL-safe base64 characters, so invalid values fall back to defaults.
+    const urgency = notif.priority === 'critical' ? 'high' : notif.priority;
     const options = {
       TTL: (notif.ttl || 24) * 3600,
-      urgency: notif.priority === 'critical' ? 'high' : (notif.priority || 'normal'),
-      topic: notif.collapse_key || undefined
+      urgency: ['very-low', 'low', 'normal', 'high'].includes(urgency) ? urgency : 'normal',
+      topic: /^[A-Za-z0-9_-]{1,32}$/.test(notif.collapse_key || '') ? notif.collapse_key : undefined
     };
     
     for (const sub of subs) {
@@ -756,7 +783,9 @@ async function sendPushNotificationInternal(notif) {
     const updateSql = isPg
       ? "UPDATE notifications SET status = 'failed' WHERE id = $1"
       : "UPDATE notifications SET status = 'failed' WHERE id = ?";
-    await db.run(updateSql, [notif.id]);
+    // This function runs fire-and-forget; a rejection here would be unhandled and stop the process.
+    await db.run(updateSql, [notif.id]).catch(updateErr =>
+      console.error(`[PUSH ENGINE ERROR] Could not mark notification ${notif.id} as failed:`, updateErr));
   }
 }
 
@@ -804,7 +833,7 @@ app.post('/api/subscriptions', rateLimiter(30), async (req, res) => {
       );
       return res.json(updated);
     } else {
-      const id = `sub-${Date.now()}`;
+      const id = `sub-${randomUUID()}`;
       const insertSql = isPg
         ? 'INSERT INTO subscriptions (id, user_id, token, device, browser, platform, language, created_at, last_seen, enabled) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,1)'
         : 'INSERT INTO subscriptions (id, user_id, token, device, browser, platform, language, created_at, last_seen, enabled) VALUES (?,?,?,?,?,?,?,?,?,1)';
@@ -854,7 +883,7 @@ app.delete('/api/subscriptions/:id', adminAuth, async (req, res) => {
 app.get('/api/notifications', adminAuth, async (req, res) => {
   try {
     const rows = await db.all('SELECT * FROM notifications ORDER BY created_at DESC');
-    res.json(rows);
+    res.json(rows.map(row => ({ ...row, created_at: toIsoTimestamp(row.created_at) })));
   } catch (err) {
     console.error('[API ERROR] GET /api/notifications:', err);
     res.status(500).json({ error: err.message });
@@ -894,7 +923,7 @@ app.post('/api/notifications/send', adminAuth, rateLimiter(10), async (req, res)
       return res.status(400).json({ error: 'Invalid image format or size exceeds 5MB' });
     }
     
-    const id = `notif-${Date.now()}`;
+    const id = `notif-${randomUUID()}`;
     const nowStr = new Date().toISOString();
     
     const insertSql = isPg
@@ -903,7 +932,7 @@ app.post('/api/notifications/send', adminAuth, rateLimiter(10), async (req, res)
     
     await db.run(insertSql, [
       id, title, body, image || '', icon || '', url || '', target || 'all', nowStr, nowStr, 'sending',
-      priority || 'normal', parseInt(ttl || 24), tag || '', collapse_key || '', created_by || 'admin'
+      priority || 'normal', (parseInt(ttl, 10) || 24), tag || '', collapse_key || '', created_by || 'admin'
     ]);
     
     const notif = await db.get(
@@ -949,7 +978,7 @@ app.post('/api/notifications/schedule', adminAuth, rateLimiter(15), async (req, 
     
     await db.run(insertSql, [
       id, title, body, image || '', icon || '', url || '', target || 'all', nowStr, scheduledAt, 'pending',
-      priority || 'normal', parseInt(ttl || 24), tag || '', collapse_key || '', created_by || 'admin'
+      priority || 'normal', (parseInt(ttl, 10) || 24), tag || '', collapse_key || '', created_by || 'admin'
     ]);
     
     notificationScheduler.schedule({ id, scheduled_at: scheduledAt });
@@ -1069,8 +1098,8 @@ function mapOrderRow(row, items) {
     total: row.total,
     status: row.status,
     is_read: !!row.is_read,
-    created_at: row.created_at,
-    updated_at: row.updated_at,
+    created_at: toIsoTimestamp(row.created_at),
+    updated_at: toIsoTimestamp(row.updated_at),
     items: (items || []).map(it => ({
       id: it.id,
       product_id: it.product_id,
