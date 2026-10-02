@@ -127,6 +127,33 @@ test('reservations are public to create but private to read and manage', async (
   assert.equal((await call('/api/reservations/' + saved.data.id, 'DELETE', undefined, headers)).status, 200);
 });
 
+test('reservations reject missing fields and invalid party sizes with 400, not 500', async () => {
+  const valid = { name: 'Synthetic Customer', phone: '05320000000', date: '1 Ekim 2026', time: '12:00', pax: 2 };
+  assert.equal((await call('/api/reservations', 'POST', {})).status, 400);
+  assert.equal((await call('/api/reservations', 'POST', { ...valid, phone: '' })).status, 400);
+  for (const pax of ['abc', 0, 51, 2.5]) assert.equal((await call('/api/reservations', 'POST', { ...valid, pax })).status, 400);
+  assert.equal((await call('/api/reservations', 'POST', { ...valid, name: { x: 1 } })).status, 400);
+});
+
+test('partial category update keeps omitted fields', async () => {
+  const before = (await call('/api/categories')).data[0];
+  const res = await call('/api/categories/' + before.id, 'PUT', { sort_order: 42 }, headers);
+  assert.equal(res.status, 200);
+  assert.equal(res.data.sort_order, 42);
+  assert.equal(res.data.name_tr, before.name_tr);
+  assert.equal(res.data.icon, before.icon);
+  await call('/api/categories/' + before.id, 'PUT', { sort_order: before.sort_order }, headers);
+});
+
+test('order timestamps are ISO UTC and public bodies are size-limited', async () => {
+  const order = await call('/api/orders', 'POST', { customer_name: 'A', customer_phone: '05320000000', customer_address: 'X',
+    payment_method: 'cash', items: [{ product_id: (await call('/api/products')).data[0].id, quantity: 1 }] });
+  assert.equal(order.status, 201);
+  assert.match(order.data.created_at, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/);
+  assert.equal((await call('/api/orders/' + order.data.id, 'DELETE', undefined, headers)).status, 200);
+  assert.equal((await call('/api/orders', 'POST', { pad: 'x'.repeat(200 * 1024) })).status, 413);
+});
+
 test('PATCH preflight permits order updates from approved frontend and rejects arbitrary tenants', async () => {
   const requestHeaders = { Origin: 'https://dayikatik.netlify.app', 'Access-Control-Request-Method': 'PATCH', 'Access-Control-Request-Headers': 'authorization,content-type' };
   const res = await call('/api/orders/example', 'OPTIONS', undefined, requestHeaders);

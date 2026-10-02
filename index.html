@@ -4405,6 +4405,7 @@ async function loadMenuDatabase() {
     if (!response.ok) throw new Error('Database load failed');
     window.menuData = await response.json();
     console.log("[DB DEBUG] Successfully loaded products from API. Item count:", window.menuData.length);
+    reconcileCartWithMenu();
     
     // Rebuild itemTranslations dynamically from menuData
     itemTranslations = {};
@@ -5017,6 +5018,23 @@ try {
   if (savedCart) window.cart = JSON.parse(savedCart);
 } catch (e) { window.cart = []; }
 
+// The cart is persisted in localStorage, so prices/names can be stale and products may have
+// been removed since. The server always charges current prices and rejects unknown products,
+// so align the cart with the live menu to keep the shown total honest and checkout possible.
+function reconcileCartWithMenu() {
+  if (!Array.isArray(window.cart)) window.cart = [];
+  const byId = new Map((window.menuData || []).map(p => [p.id, p]));
+  window.cart = window.cart
+    .filter(it => it && byId.has(it.product_id) && Number.isInteger(it.quantity) && it.quantity > 0)
+    .map(it => {
+      const p = byId.get(it.product_id);
+      return { ...it, name: p.name, price: p.price, image: p.thumb || p.image, quantity: Math.min(50, it.quantity) };
+    });
+  saveCart();
+  updateCartBadge();
+  renderCartItems();
+}
+
 function saveCart() {
   try { localStorage.setItem('cart', JSON.stringify(window.cart)); } catch (e) { /* storage unavailable */ }
 }
@@ -5496,7 +5514,12 @@ async function sendRezervasyon() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newRez)
     });
-    if (!postRes.ok) throw new Error('API save failed');
+    if (!postRes.ok) {
+      const errData = await postRes.json().catch(() => ({}));
+      const apiError = new Error(errData.error || 'API save failed');
+      if (postRes.status === 400 && errData.error) apiError.userMessage = errData.error;
+      throw apiError;
+    }
     await loadReservations();
     if (postRes.ok) {
 
@@ -5543,7 +5566,7 @@ async function sendRezervasyon() {
     msg.style.background='rgba(217,59,10,0.2)';
     msg.style.color='#FF7043';
     msg.style.border='1px solid rgba(217,59,10,0.3)';
-    msg.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> ' + (window.currentLanguage === 'tr' ? 'Bağlantı hatası. Lütfen telefonla arayın: 0370 712 4747' : 'Connection error. Please call: 0370 712 4747');
+    msg.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> ' + escapeHtml(e.userMessage || (window.currentLanguage === 'tr' ? 'Bağlantı hatası. Lütfen telefonla arayın: 0370 712 4747' : 'Connection error. Please call: 0370 712 4747'));
   }
   btn.disabled=false; btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + (window.currentLanguage === 'tr' ? 'Rezervasyon Yap' : 'Book Table');
 }
