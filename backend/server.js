@@ -35,15 +35,11 @@ app.set('trust proxy', process.env.TRUST_PROXY ? process.env.TRUST_PROXY.split('
 const auth = createAdminAuth(process.env.ADMIN_PASSWORD);
 const adminAuth = auth.requireAdmin;
 
-// Enable CORS with robust origin support for Netlify subdomains, previews, and local development
+// The site is served by this same Render service (dayikatik.com), so browsers call the API same-origin;
+// only the known production hosts and local development need CORS.
 const allowedOrigins = [
   'https://dayikatik.onrender.com',
   'https://dayikatik-claf.onrender.com',
-  'https://dayikatik.netlify.app',
-  'https://hasacadesign.netlify.app',
-  'https://dayikatikornek.netlify.app',
-  'https://resonant-elf-d2b58b.netlify.app',
-  'https://glittering-raindrop-435319.netlify.app',
   'https://dayikatik.com',
   'https://www.dayikatik.com',
   'http://localhost:12000',

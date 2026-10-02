@@ -155,11 +155,11 @@ test('order timestamps are ISO UTC and public bodies are size-limited', async ()
 });
 
 test('PATCH preflight permits order updates from approved frontend and rejects arbitrary tenants', async () => {
-  const requestHeaders = { Origin: 'https://dayikatik.netlify.app', 'Access-Control-Request-Method': 'PATCH', 'Access-Control-Request-Headers': 'authorization,content-type' };
+  const requestHeaders = { Origin: 'https://www.dayikatik.com', 'Access-Control-Request-Method': 'PATCH', 'Access-Control-Request-Headers': 'authorization,content-type' };
   const res = await call('/api/orders/example', 'OPTIONS', undefined, requestHeaders);
   assert.equal(res.status, 204);
   assert.ok(res.headers.get('access-control-allow-methods').split(',').includes('PATCH'));
-  assert.equal((await call('/api/orders/example', 'OPTIONS', undefined, { ...requestHeaders, Origin: 'https://untrusted-tenant.netlify.app' })).status, 403);
+  assert.equal((await call('/api/orders/example', 'OPTIONS', undefined, { ...requestHeaders, Origin: 'https://dayikatik.netlify.app' })).status, 403);
 });
 
 test('scheduled push validates dates, persists jobs, cancels timers, and restores due jobs on restart', async () => {

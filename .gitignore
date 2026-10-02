@@ -34,4 +34,3 @@ graphify-out/
 !.env.example
 backend/.private/
 data/vapid.json
-public-site/

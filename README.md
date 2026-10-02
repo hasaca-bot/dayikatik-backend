@@ -1,6 +1,6 @@
 # 🌐 Dayı Katık Web Sitesi
 
-> **30 Eylül 2026 güvenlik güncellemesi:** Yönetici girişi artık sunucuda `ADMIN_PASSWORD` ile doğrulanır. Eski gömülü parola kaldırılmıştır. Yayın öncesinde [yönetici girişi, yeni VAPID anahtarları ve proxy yapılandırması](SECURITY_SETUP.md) adımlarını uygulayın. Netlify yalnızca `public-site/` çıktısını yayınlar.
+> **30 Eylül 2026 güvenlik güncellemesi:** Yönetici girişi artık sunucuda `ADMIN_PASSWORD` ile doğrulanır. Eski gömülü parola kaldırılmıştır. Yayın öncesinde [yönetici girişi, yeni VAPID anahtarları ve proxy yapılandırması](SECURITY_SETUP.md) adımlarını uygulayın.
 
 ## 🤖 AI İÇİN: ÖNCE BUNU OKU!
 
@@ -27,9 +27,8 @@ Kullanıcı sana "README'yi oku" veya "projeyi tanı" dediğinde yukarıdaki ad�
 | Alan | Değer |
 |------|-------|
 | **Proje Adı** | Dayı Katık Web Sitesi |
-| **Canlı URL** | [dayikatik.netlify.app](https://dayikatik.netlify.app) |
-| **Backend API URL** | [dayikatik-api.onrender.com](https://dayikatik-api.onrender.com) |
-| **Platform** | Netlify (Frontend) + Render.com (Backend + PostgreSQL) |
+| **Canlı URL** | [dayikatik.com](https://dayikatik.com) |
+| **Platform** | Render.com (Frontend + Backend + PostgreSQL, tek servis) |
 | **Dil** | Türkçe (kullanıcı ile Türkçe konuş) |
 | **Kullanıcı** | Hasan |
 | **Çalışma Dizini** | `c:\Users\hasan_y4hfwna\Desktop\dayikatikwebsitesi - Kopya` |
@@ -38,7 +37,7 @@ Kullanıcı sana "README'yi oku" veya "projeyi tanı" dediğinde yukarıdaki ad�
 
 ## 🎯 Projenin Amacı
 
-Bu proje **Dayı Katık Tantuni & Döner** restoranının (Safranbolu, Karabük) tek sayfalık profesyonel web sitesidir. Site tamamen işlevsel olup ön yüz Netlify üzerinde, arka yüz ise Render.com üzerinde bulutta çalışmaktadır.
+Bu proje **Dayı Katık Tantuni & Döner** restoranının (Safranbolu, Karabük) tek sayfalık profesyonel web sitesidir. Site tamamen işlevsel olup ön yüz ve arka yüz aynı Render.com servisinde (dayikatik.com) çalışmaktadır.
 
 ### ✨ Temel Özellikler
 
@@ -85,11 +84,7 @@ dayikatikwebsitesi/
 ## 🏗️ Teknik Mimari
 
 ### Ön Uç (Frontend)
-Ön yüz Netlify üzerinde barındırılmaktadır. localhost bağımlılığı tamamen kaldırılmıştır:
-- **Çevre/Ortam Algılama (Runtime API Base):** `index.html` ve `admin.html` sayfaları çalıştıkları alan adını algılar:
-  - `localhost` veya `127.0.0.1` ise `window.API_BASE = ""` (relative path - yerel geliştirme)
-  - Diğer durumlarda `window.API_BASE = "https://dayikatik-api.onrender.com"` (canlı bulut sunucusu)
-- **Fetch Interceptor:** Sayfaların en tepesine eklenen interceptor sayesinde, mevcut koddaki hiçbir `fetch('/api/...')` çağrısını bozmadan, istekler otomatik olarak `window.API_BASE` adresiyle canlandırılır.
+Ön yüz, API'yi sunan aynı Express servisi tarafından sunulur (Render / dayikatik.com veya localhost). Bu yüzden `window.API_BASE = ""` olup tüm `fetch('/api/...')` çağrıları aynı origin'e gider.
 
 ### Arka Uç (Backend)
 - **Node.js + Express**
@@ -99,7 +94,7 @@ dayikatikwebsitesi/
   - Her iki veritabanı sürücüsü de ortak asenkron arayüz sunar, böylece `server.js` kodunda değişiklik yapmadan sorunsuz çalışır.
 - **Parametrik Güvenli Sorgular:** Hem SQLite (`?`) hem PostgreSQL (`$1, $2`) parametre yapılarını otomatik yöneten dinamik SQL eşleştirici entegre edilmiştir.
 - **Otomatik Migration & Seed:** Veritabanına ilk bağlantıda tablolar yoksa oluşturulur ve default kategoriler, menü verileri ve statik UI çevirileri otomatik yüklenir.
-- **CORS Kuralları:** Netlify canlı alan adı (`https://dayikatik.netlify.app`) ve yerel geliştirme portları açıkça CORS izin listesine eklenmiştir.
+- **CORS Kuralları:** Yalnızca dayikatik.com / Render alan adları ve yerel geliştirme portları izin listesindedir; ek origin gerekirse `CORS_ORIGINS` ile eklenir.
 
 ---
 

@@ -3259,21 +3259,9 @@ body.theme-bw .rez-select-trigger:hover {
 window.isStandaloneAdmin = false;
 
 // ── API BASE URL CONFIGURATION ──
-// This HTML is always served by the same Express service that exposes
-// /api/*, whether that's localhost, any onrender.com subdomain Render
-// happens to assign, or a custom domain (e.g. dayikatik.com) pointed at
-// that same Render service — so the default is a relative path, which
-// is same-origin and always correct no matter what the host is called.
-// The one real exception is a *separate* static deployment (Netlify),
-// which has no backend of its own and must call the Render API
-// cross-origin — that's the only case that needs a fixed absolute URL.
-window.API_BASE = (() => {
-  const h = window.location.hostname;
-  if (h.endsWith('.netlify.app') || h.endsWith('.netlify.com')) {
-    return 'https://dayikatik-claf.onrender.com';
-  }
-  return '';
-})();
+// This HTML is always served by the same Express service that exposes /api/*
+// (Render, dayikatik.com or localhost), so API calls are same-origin.
+window.API_BASE = '';
 
 </script>
 <script src="/assets/admin-auth.js"></script>

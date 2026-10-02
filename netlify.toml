@@ -1,3 +1,0 @@
-[build]
-  command = "node backend/scripts/build-public.cjs"
-  publish = "public-site"
