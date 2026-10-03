@@ -122,3 +122,42 @@ test('admin order refresh skips hidden tabs, logged-out users, and overlapping r
   release(); await first;
   await context.loadOrders(); assert.equal(calls, 2);
 });
+
+test('admin reservation refresh skips hidden tabs, logged-out users, and overlapping requests', async () => {
+  for (const name of ['admin.html', 'index.html']) {
+    const html = fs.readFileSync(path.join(__dirname, '../..', name), 'utf8');
+    const code = html.slice(html.indexOf('let reservationsPolling = false;'), html.indexOf('let seciliPax'));
+    let active = true, calls = 0, release;
+    const pending = new Promise(resolve => { release = resolve; });
+    const document = { hidden: true };
+    const context = vm.createContext({ document, window: { adminSession: { active: () => active } },
+      async loadReservations() { calls++; await pending; } });
+    vm.runInContext(code, context);
+    await context.pollReservations(); assert.equal(calls, 0, name);
+    document.hidden = false; active = false;
+    await context.pollReservations(); assert.equal(calls, 0, name);
+    active = true;
+    const first = context.pollReservations();
+    await context.pollReservations(); assert.equal(calls, 1, name);
+    release(); await first;
+    await context.pollReservations(); assert.equal(calls, 2, name);
+  }
+});
+
+test('category names use the stored English name in English mode', () => {
+  for (const name of ['admin.html', 'index.html']) {
+    const html = fs.readFileSync(path.join(__dirname, '../..', name), 'utf8');
+    const code = html.slice(html.indexOf('// Legacy names from before categories'), html.indexOf('function updateFormCategoryOptions()'));
+    const context = vm.createContext({});
+    vm.runInContext(code + `
+      var categoriesMap = {
+        tavuk: { name: 'Tavuk Ürünleri', name_en: 'Chicken Products' },
+        yeni: { name: 'Tatlılar', name_en: 'Tatlılar' },
+        eski: { name: 'Et Döner', name_en: 'Et Döner' }
+      };`, context);
+    assert.equal(vm.runInContext("getCategoryTranslatedName('tavuk', 'en')", context), 'Chicken Products', name);
+    assert.equal(vm.runInContext("getCategoryTranslatedName('tavuk', 'tr')", context), 'Tavuk Ürünleri', name);
+    assert.equal(vm.runInContext("getCategoryTranslatedName('eski', 'en')", context), 'Beef Doner', name);
+    assert.equal(vm.runInContext("getCategoryTranslatedName('yeni', 'en')", context), 'Tatlılar', name);
+  }
+});

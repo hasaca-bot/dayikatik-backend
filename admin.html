@@ -3157,6 +3157,7 @@ body.theme-bw .rez-select-trigger:hover {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             <span data-i18n="admin_add_product">Yeni Ürün Ekle</span>
           </button>
+          <button class="admin-btn secondary" id="adminManageCategoriesBtn" onclick="openCategoryForm()" style="margin: 8px 0 0; width: 100%;" data-i18n="admin_manage_categories">Kategorileri Düzenle</button>
         </div>
         <div class="admin-search-row">
           <input type="text" id="adminSearchInput" class="admin-input" data-i18n-placeholder="ph_admin_search" placeholder="Ürünlerde ara..." oninput="renderAdminProductList()" onfocus="showAdminSearchSuggestions()" onblur="hideAdminSearchSuggestions()" />
@@ -3381,7 +3382,7 @@ body.theme-bw .rez-select-trigger:hover {
 <!-- ADMIN ADD CATEGORY FORM PANEL -->
 <div id="adminCategoryFormPanel" class="admin-form-panel">
   <div class="admin-panel-header" style="margin-bottom: 20px;">
-    <h2 class="admin-panel-title" data-i18n="admin_add_category_btn">Yeni Kategori Ekle</h2>
+    <h2 class="admin-panel-title" id="adminCategoryFormTitle">Kategoriler</h2>
     <div class="admin-panel-actions">
       <button class="admin-btn" onclick="saveAdminCategory()" data-i18n="admin_btn_save">Kaydet</button>
       <button class="admin-btn secondary" style="margin-top:0;" data-i18n="admin_btn_cancel" onclick="closeCategoryForm()">İptal</button>
@@ -3394,6 +3395,10 @@ body.theme-bw .rez-select-trigger:hover {
       <input type="text" id="formCategoryName" class="admin-input" data-i18n-placeholder="ph_category_name_example" placeholder="Örn: Tatlılar" />
     </div>
     <div>
+      <label class="admin-form-label" data-i18n="admin_lbl_category_name_en">Kategori Adı (İngilizce - English)</label>
+      <input type="text" id="formCategoryNameEn" class="admin-input" data-i18n-placeholder="ph_category_name_en_example" placeholder="Örn: Desserts" />
+    </div>
+    <div>
       <label class="admin-form-label" data-i18n="admin_lbl_category_slug">Kategori Kodu (Küçük harf, ingilizce karakter)</label>
       <input type="text" id="formCategorySlug" class="admin-input" data-i18n-placeholder="ph_category_slug_example" placeholder="Örn: tatlilar" />
     </div>
@@ -3402,6 +3407,11 @@ body.theme-bw .rez-select-trigger:hover {
   <div style="margin-bottom:20px;">
     <label class="admin-form-label" data-i18n="admin_lbl_category_icon">SVG İkon Kodu (Boş bırakılırsa varsayılan ikon atanır)</label>
     <textarea id="formCategoryIcon" class="admin-input" rows="4" placeholder='<svg ...>...</svg>' style="resize:vertical; font-family:monospace; font-size:0.8rem;"></textarea>
+  </div>
+
+  <div>
+    <label class="admin-form-label" data-i18n="admin_existing_categories">Mevcut Kategoriler (düzenlemek için seçin)</label>
+    <div id="adminCategoryEditList" style="display:flex; flex-direction:column; gap:8px;"></div>
   </div>
 </div>
 
@@ -3877,6 +3887,10 @@ const i18nData = {
     admin_category_not_found: "Aradığınız kategoriyi bulamadınız mı?",
     admin_add_category_btn: "Yeni Kategori Ekle",
     admin_lbl_category_name: "Kategori Adı",
+    admin_lbl_category_name_en: "Kategori Adı (İngilizce - English)",
+    ph_category_name_en_example: "Örn: Desserts",
+    admin_manage_categories: "Kategorileri Düzenle",
+    admin_existing_categories: "Mevcut Kategoriler (düzenlemek için seçin)",
     ph_category_name_example: "Örn: Tatlılar",
     admin_lbl_category_slug: "Kategori Kodu (Küçük harf, ingilizce karakter)",
     ph_category_slug_example: "Örn: tatlilar",
@@ -4073,7 +4087,11 @@ const i18nData = {
     admin_add_product: "Add New Product",
     admin_category_not_found: "Can't find the category you're looking for?",
     admin_add_category_btn: "Add New Category",
-    admin_lbl_category_name: "Category Name",
+    admin_lbl_category_name: "Category Name (Turkish)",
+    admin_lbl_category_name_en: "Category Name (English)",
+    ph_category_name_en_example: "e.g., Desserts",
+    admin_manage_categories: "Edit Categories",
+    admin_existing_categories: "Existing Categories (select to edit)",
     ph_category_name_example: "e.g., Desserts",
     admin_lbl_category_slug: "Category Code (Lowercase, English characters)",
     ph_category_slug_example: "e.g., desserts",
@@ -4427,17 +4445,7 @@ function applyLanguage(lang) {
     } else {
       const cat = categoriesMap[activeTab];
       if (cat) {
-        let catName = cat.name;
-        if (lang === 'en') {
-          const catTranslations = {
-            'Tantuni': 'Tantuni',
-            'Tavuk Döner': 'Chicken Doner',
-            'Et Döner': 'Beef Doner',
-            'Diğer & İçecek': 'Sides & Drinks'
-          };
-          catName = catTranslations[cat.name] || cat.name;
-        }
-        selectedText.textContent = catName;
+        selectedText.textContent = getCategoryTranslatedName(activeTab, lang);
       }
     }
   }
@@ -4475,17 +4483,21 @@ const defaultCategoriesMap = {
 
 let categoriesMap = {};
 
+// Legacy names from before categories stored their own English name.
+const LEGACY_CATEGORY_NAMES_EN = {
+  'Tantuni': 'Tantuni',
+  'Tavuk Döner': 'Chicken Doner',
+  'Et Döner': 'Beef Doner',
+  'Diğer & İçecek': 'Sides & Drinks'
+};
+
 function getCategoryTranslatedName(key, lang) {
   if (!categoriesMap[key]) return '';
   const cat = categoriesMap[key];
   if (lang === 'en') {
-    const catTranslations = {
-      'Tantuni': 'Tantuni',
-      'Tavuk Döner': 'Chicken Doner',
-      'Et Döner': 'Beef Doner',
-      'Diğer & İçecek': 'Sides & Drinks'
-    };
-    return catTranslations[cat.name] || cat.name;
+    // name_en defaults to the Turkish name when no translation was entered.
+    if (cat.name_en && cat.name_en !== cat.name) return cat.name_en;
+    return LEGACY_CATEGORY_NAMES_EN[cat.name] || cat.name_en || cat.name;
   }
   return cat.name;
 }
@@ -4804,17 +4816,7 @@ function renderCategoriesDropdown() {
     option.className = 'category-dropdown-option';
     option.setAttribute('data-tab', key);
     
-    // Translate category name dynamically
-    let catName = cat.name;
-    if (window.currentLanguage === 'en') {
-      const catTranslations = {
-        'Tantuni': 'Tantuni',
-        'Tavuk Döner': 'Chicken Doner',
-        'Et Döner': 'Beef Doner',
-        'Diğer & İçecek': 'Sides & Drinks'
-      };
-      catName = catTranslations[cat.name] || cat.name;
-    }
+    const catName = getCategoryTranslatedName(key, window.currentLanguage);
     
     option.onclick = function() { selectCategoryOption(this, catName); };
     option.innerHTML = `
@@ -5470,9 +5472,11 @@ function initializeApp() {
 
 
   // Refresh only while the authenticated admin page is visible.
+  // New orders and reservations appear without reloading the page.
   loadOrders();
-  setInterval(loadOrders, 10000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) loadOrders(); });
+  pollReservations();
+  setInterval(() => { loadOrders(); pollReservations(); }, 10000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { loadOrders(); pollReservations(); } });
 
   // OS color scheme listener disabled to prevent unexpected site color changes
   /* window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
@@ -5602,6 +5606,14 @@ async function loadReservations() {
   } catch (e) {
     console.error("Error loading reservations:", e);
   }
+}
+
+// Background refresh: only for a logged-in admin with the page visible, never overlapping.
+let reservationsPolling = false;
+async function pollReservations() {
+  if (!window.adminSession.active() || document.hidden || reservationsPolling) return;
+  reservationsPolling = true;
+  try { await loadReservations(); } finally { reservationsPolling = false; }
 }
 
 let seciliPax = '1';
@@ -6342,11 +6354,49 @@ function closeAdminForm() {
 
 // ── CATEGORY MANAGEMENT FUNCTIONS ──
 
+window.editingCategoryId = null;
+
+function renderCategoryEditList() {
+  const list = document.getElementById('adminCategoryEditList');
+  if (!list) return;
+  const isTr = window.currentLanguage === 'tr';
+  list.innerHTML = Object.keys(categoriesMap).map(key => {
+    const cat = categoriesMap[key];
+    const active = key === window.editingCategoryId;
+    return `
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:12px; border:1px solid ${active ? 'var(--ember)' : 'rgba(44,26,16,0.12)'};">
+        <div style="flex:1; min-width:0;">
+          <div style="font-weight:700;">${escapeHtml(cat.name)}</div>
+          <div style="font-size:0.8rem; opacity:0.7;">EN: ${escapeHtml(cat.name_en || '')}</div>
+        </div>
+        <button class="admin-btn mini" style="margin:0;" onclick="editCategory('${escapeHtml(key)}')">${isTr ? 'Düzenle' : 'Edit'}</button>
+      </div>`;
+  }).join('');
+}
+
 function openCategoryForm() {
+  window.editingCategoryId = null;
   document.getElementById('formCategoryName').value = '';
+  document.getElementById('formCategoryNameEn').value = '';
   document.getElementById('formCategorySlug').value = '';
+  document.getElementById('formCategorySlug').disabled = false;
   document.getElementById('formCategoryIcon').value = '';
+  document.getElementById('adminCategoryFormTitle').textContent = window.currentLanguage === 'tr' ? 'Yeni Kategori Ekle' : 'Add New Category';
+  renderCategoryEditList();
   document.getElementById('adminCategoryFormPanel').classList.add('open');
+}
+
+function editCategory(key) {
+  const cat = categoriesMap[key];
+  if (!cat) return;
+  window.editingCategoryId = key;
+  document.getElementById('formCategoryName').value = cat.name || '';
+  document.getElementById('formCategoryNameEn').value = (cat.name_en && cat.name_en !== cat.name) ? cat.name_en : (LEGACY_CATEGORY_NAMES_EN[cat.name] || '');
+  document.getElementById('formCategorySlug').value = key;
+  document.getElementById('formCategorySlug').disabled = true; // the code is the products' link to this category
+  document.getElementById('formCategoryIcon').value = cat.icon || '';
+  document.getElementById('adminCategoryFormTitle').textContent = window.currentLanguage === 'tr' ? 'Kategori Düzenle' : 'Edit Category';
+  renderCategoryEditList();
 }
 
 function closeCategoryForm() {
@@ -6355,7 +6405,8 @@ function closeCategoryForm() {
 
 async function saveAdminCategory() {
   const name = document.getElementById('formCategoryName').value.trim();
-  const slug = document.getElementById('formCategorySlug').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+  const nameEn = document.getElementById('formCategoryNameEn').value.trim();
+  const slug = window.editingCategoryId || document.getElementById('formCategorySlug').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
   let icon = document.getElementById('formCategoryIcon').value.trim();
   
   if (!name || !slug) {
@@ -6369,26 +6420,29 @@ async function saveAdminCategory() {
   
   try {
     const exists = !!categoriesMap[slug];
+    if (exists && window.editingCategoryId !== slug) {
+      showCustomAlert(window.currentLanguage === 'tr' ? 'Bu kategori kodu zaten kullanılıyor. Düzenlemek için listeden seçin.' : 'This category code is already in use. Select it from the list to edit it.', window.currentLanguage === 'tr' ? 'Eksik Bilgi' : 'Missing Info', 'warning');
+      return;
+    }
     const url = exists ? `/api/categories/${slug}` : '/api/categories';
     const method = exists ? 'PUT' : 'POST';
+    const body = { id: slug, name_tr: name, name_en: nameEn || name, icon: icon };
+    // Editing keeps the category's position; only new categories go to the end.
+    if (!exists) body.sort_order = Object.keys(categoriesMap).length + 1;
     
     const response = await fetch(url, {
       method: method,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: slug,
-        name_tr: name,
-        name_en: name,
-        sort_order: Object.keys(categoriesMap).length + 1,
-        icon: icon
-      })
+      body: JSON.stringify(body)
     });
     
     if (!response.ok) throw new Error('Category save failed');
     
     await loadMenuDatabase();
     closeCategoryForm();
-    showCustomAlert(window.currentLanguage === 'tr' ? 'Kategori başarıyla eklendi!' : 'Category added successfully!', window.currentLanguage === 'tr' ? 'Başarılı' : 'Success', 'info');
+    showCustomAlert(exists
+      ? (window.currentLanguage === 'tr' ? 'Kategori güncellendi!' : 'Category updated!')
+      : (window.currentLanguage === 'tr' ? 'Kategori başarıyla eklendi!' : 'Category added successfully!'), window.currentLanguage === 'tr' ? 'Başarılı' : 'Success', 'info');
   } catch (err) {
     showCustomAlert(err.message, window.currentLanguage === 'tr' ? 'Hata' : 'Error', 'warning');
   }
