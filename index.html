@@ -5322,10 +5322,6 @@ function initializeApp() {
   // Apply saved or default language
   applyLanguage(window.currentLanguage);
 
-  // New reservations appear in the admin panel without reloading the page.
-  setInterval(pollReservations, 10000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollReservations(); });
-
   applyTheme();
   updateAdminRezBadge();
   updateCartBadge();
@@ -5455,13 +5451,32 @@ async function loadReservations() {
   }
 }
 
-// Background refresh: only for a logged-in admin with the page visible, never overlapping.
-let reservationsPolling = false;
-async function pollReservations() {
-  if (!window.adminSession.active() || document.hidden || reservationsPolling) return;
-  reservationsPolling = true;
-  try { await loadReservations(); } finally { reservationsPolling = false; }
+// ── LIVE ADMIN UPDATES ──
+// The server pushes a notice when a customer submits an order or reservation and the panel
+// fetches only then; nothing polls the database while the panel sits open. Notices that
+// arrive while the tab is hidden are applied once when it becomes visible again.
+function createSerialRefresher(load) {
+  let running = false, again = false;
+  return async function refresh() {
+    if (running) { again = true; return; }
+    running = true;
+    try { do { again = false; await load(); } while (again); } finally { running = false; }
+  };
 }
+const refreshReservations = createSerialRefresher(() => loadReservations());
+const refreshOrders = createSerialRefresher(() => (typeof loadOrders === 'function' ? loadOrders() : undefined));
+const adminPendingRefresh = new Set();
+function flushAdminRefresh() {
+  if (document.hidden) return;
+  if (adminPendingRefresh.has('reservations')) refreshReservations();
+  if (adminPendingRefresh.has('orders')) refreshOrders();
+  adminPendingRefresh.clear();
+}
+function handleAdminDataChange(type) {
+  for (const kind of (type === 'resync' ? ['orders', 'reservations'] : [type])) adminPendingRefresh.add(kind);
+  flushAdminRefresh();
+}
+document.addEventListener('visibilitychange', flushAdminRefresh);
 
 let seciliPax = '1';
 document.querySelectorAll('.pax-btn').forEach(btn => {
@@ -5617,6 +5632,7 @@ async function openAdminPanel() {
   
   renderAdminProductList();
   await loadReservations();
+  window.adminSession.listen(handleAdminDataChange);
 }
 
 // ── ADMIN RESERVATIONS LOGIC & DRAG-DROP HANDLERS ──
