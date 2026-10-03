@@ -175,6 +175,19 @@ test('admins get a pushed notice for new orders and reservations; the stream req
   await call('/api/orders/' + order.data.id, 'DELETE', undefined, headers);
 });
 
+test('push subscriptions accept only real browser subscriptions and deduplicate them', async () => {
+  for (const token of [undefined, 'junk', { endpoint: 'http://x' }, { endpoint: 'https://push.example/1', keys: { p256dh: 'a' } }]) {
+    assert.equal((await call('/api/subscriptions', 'POST', { token })).status, 400);
+  }
+  const token = { endpoint: 'https://push.example/abc', expirationTime: null, keys: { p256dh: 'key', auth: 'auth' } };
+  const first = await call('/api/subscriptions', 'POST', { token, platform: 'android' });
+  assert.equal(first.status, 201);
+  const again = await call('/api/subscriptions', 'POST', { token: JSON.stringify(token), extra: 1 });
+  assert.equal(again.status, 200);
+  assert.equal(again.data.id, first.data.id);
+  assert.equal((await call('/api/subscriptions/' + first.data.id, 'DELETE', undefined, headers)).status, 200);
+});
+
 test('PATCH preflight permits order updates from approved frontend and rejects arbitrary tenants', async () => {
   const requestHeaders = { Origin: 'https://www.dayikatik.com', 'Access-Control-Request-Method': 'PATCH', 'Access-Control-Request-Headers': 'authorization,content-type' };
   const res = await call('/api/orders/example', 'OPTIONS', undefined, requestHeaders);

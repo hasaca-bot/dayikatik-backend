@@ -837,12 +837,22 @@ app.get('/api/notifications/vapid-public-key', (req, res) => {
 // POST /api/subscriptions (Register / Update client token)
 app.post('/api/subscriptions', rateLimiter(30), async (req, res) => {
   try {
-    const { token, user_id, device, browser, platform, language } = req.body;
-    if (!token) {
-      return res.status(400).json({ error: 'Token is required' });
+    const body = req.body || {};
+    const token = typeof body.token === 'string' ? (() => { try { return JSON.parse(body.token); } catch { return null; } })() : body.token;
+    // Only real browser push subscriptions are stored; anything else would fail on every send.
+    const validSubscription = token && typeof token === 'object' &&
+      typeof token.endpoint === 'string' && token.endpoint.length <= 1000 && /^https:\/\//.test(token.endpoint) &&
+      token.keys && typeof token.keys.p256dh === 'string' && token.keys.p256dh.length <= 200 &&
+      typeof token.keys.auth === 'string' && token.keys.auth.length <= 100;
+    if (!validSubscription) {
+      return res.status(400).json({ error: 'A valid push subscription is required' });
     }
-    
-    const tokenStr = typeof token === 'object' ? JSON.stringify(token) : token;
+    const text = (value, max) => (typeof value === 'string' ? value.slice(0, max) : '');
+    const user_id = text(body.user_id, 100), device = text(body.device, 200), browser = text(body.browser, 50);
+    const platform = text(body.platform, 50), language = text(body.language, 10);
+    // Normalized so the same subscription always produces the same stored string.
+    const tokenStr = JSON.stringify({ endpoint: token.endpoint, expirationTime: token.expirationTime ?? null,
+      keys: { p256dh: token.keys.p256dh, auth: token.keys.auth } });
     
     // Check if subscription already exists
     const existing = await db.get(
@@ -1269,13 +1279,14 @@ app.post('/api/orders', rateLimiter(30), async (req, res) => {
 // GET /api/orders (Admin Only)
 app.get('/api/orders', adminAuth, async (req, res) => {
   try {
+    // Two queries in total instead of one per order, so the list stays cheap as orders pile up.
     const rows = await db.all('SELECT * FROM orders ORDER BY created_at DESC');
-    const result = [];
-    for (const row of rows) {
-      const items = await getOrderItems(row.id);
-      result.push(mapOrderRow(row, items));
+    const itemsByOrder = new Map();
+    for (const item of await db.all('SELECT * FROM order_items')) {
+      if (!itemsByOrder.has(item.order_id)) itemsByOrder.set(item.order_id, []);
+      itemsByOrder.get(item.order_id).push(item);
     }
-    res.json(result);
+    res.json(rows.map(row => mapOrderRow(row, itemsByOrder.get(row.id))));
   } catch (err) {
     console.error('[API ERROR] GET /api/orders:', err);
     res.status(500).json({ error: err.message });
