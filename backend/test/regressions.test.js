@@ -154,6 +154,27 @@ test('order timestamps are ISO UTC and public bodies are size-limited', async ()
   assert.equal((await call('/api/orders', 'POST', { pad: 'x'.repeat(200 * 1024) })).status, 413);
 });
 
+test('admins get a pushed notice for new orders and reservations; the stream requires a session', async () => {
+  assert.equal((await fetch(base + '/api/admin/events')).status, 401);
+  const controller = new AbortController();
+  const res = await fetch(base + '/api/admin/events', { headers, signal: controller.signal });
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get('content-type'), /text\/event-stream/);
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let text = '';
+  const readUntil = async needle => { while (!text.includes(needle)) text += decoder.decode((await reader.read()).value); };
+  await readUntil('event: ready');
+  const rez = await call('/api/reservations', 'POST', { name: 'Live', phone: '05320000000', date: '1 Ekim 2026', time: '12:00', pax: 2 });
+  await readUntil('event: reservations');
+  const order = await call('/api/orders', 'POST', { customer_name: 'Live', customer_phone: '05320000000', customer_address: 'X',
+    payment_method: 'cash', items: [{ product_id: (await call('/api/products')).data[0].id, quantity: 1 }] });
+  await readUntil('event: orders');
+  controller.abort();
+  await call('/api/reservations/' + rez.data.id, 'DELETE', undefined, headers);
+  await call('/api/orders/' + order.data.id, 'DELETE', undefined, headers);
+});
+
 test('PATCH preflight permits order updates from approved frontend and rejects arbitrary tenants', async () => {
   const requestHeaders = { Origin: 'https://www.dayikatik.com', 'Access-Control-Request-Method': 'PATCH', 'Access-Control-Request-Headers': 'authorization,content-type' };
   const res = await call('/api/orders/example', 'OPTIONS', undefined, requestHeaders);

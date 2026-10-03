@@ -123,25 +123,62 @@ test('admin order refresh skips hidden tabs, logged-out users, and overlapping r
   await context.loadOrders(); assert.equal(calls, 2);
 });
 
-test('admin reservation refresh skips hidden tabs, logged-out users, and overlapping requests', async () => {
+test('admin panel refreshes only on server notices, defers while hidden, and never overlaps', async () => {
   for (const name of ['admin.html', 'index.html']) {
     const html = fs.readFileSync(path.join(__dirname, '../..', name), 'utf8');
-    const code = html.slice(html.indexOf('let reservationsPolling = false;'), html.indexOf('let seciliPax'));
-    let active = true, calls = 0, release;
-    const pending = new Promise(resolve => { release = resolve; });
-    const document = { hidden: true };
-    const context = vm.createContext({ document, window: { adminSession: { active: () => active } },
-      async loadReservations() { calls++; await pending; } });
+    assert.ok(!/setInterval\((loadOrders|loadReservations|pollReservations)/.test(html), name + ' must not poll');
+    const code = html.slice(html.indexOf('// ── LIVE ADMIN UPDATES ──'), html.indexOf('let seciliPax'));
+    let release, orders = 0, reservations = 0, listener;
+    let pending = new Promise(resolve => { release = resolve; });
+    const document = { hidden: true, addEventListener(type, fn) { listener = fn; } };
+    const context = vm.createContext({ document,
+      async loadReservations() { reservations++; await pending; },
+      async loadOrders() { orders++; } });
     vm.runInContext(code, context);
-    await context.pollReservations(); assert.equal(calls, 0, name);
-    document.hidden = false; active = false;
-    await context.pollReservations(); assert.equal(calls, 0, name);
-    active = true;
-    const first = context.pollReservations();
-    await context.pollReservations(); assert.equal(calls, 1, name);
-    release(); await first;
-    await context.pollReservations(); assert.equal(calls, 2, name);
+    context.handleAdminDataChange('reservations');
+    assert.equal(reservations, 0, name); // hidden tab: deferred, no request
+    document.hidden = false; listener();
+    assert.equal(reservations, 1, name);
+    context.handleAdminDataChange('reservations'); // arrives while the first load runs
+    assert.equal(reservations, 1, name);
+    const done = new Promise(resolve => setTimeout(resolve, 0));
+    release(); await done; await new Promise(resolve => setTimeout(resolve, 0));
+    assert.equal(reservations, 2, name); // queued notice is applied once afterwards
+    context.handleAdminDataChange('resync');
+    assert.equal(orders, 1, name);
   }
+});
+
+test('live update listener reports pushed notices and stops on logout', async () => {
+  const encoder = new TextEncoder();
+  let push, close;
+  const body = new ReadableStream({ start(controller) {
+    push = text => controller.enqueue(encoder.encode(text));
+    close = () => controller.close();
+  } });
+  const window = {
+    location: { href: 'https://shop.example/admin.html' }, API_BASE: '',
+    async fetch(url, options) {
+      if (url.endsWith('/api/admin/events')) {
+        options.signal.addEventListener('abort', () => { try { close(); } catch {} });
+        return { ok: true, status: 200, body };
+      }
+      return { ok: true, status: 200, async json() { return { token: 'a'.repeat(64), expiresAt: Date.now() + 100000 }; } };
+    }
+  };
+  const context = vm.createContext({ window, URL, Headers, Request, Date, AbortController, TextDecoder, setTimeout,
+    document: { getElementById() { return null; } } });
+  vm.runInContext(fs.readFileSync(path.join(__dirname, '../../assets/admin-auth.js'), 'utf8'), context);
+  await window.adminSession.login('password');
+  const seen = [];
+  const listening = window.adminSession.listen(type => seen.push(type));
+  push('event: ready\ndata: {}\n\n: ping\n\nevent: orders\ndata: {}\n\nevent: reserv');
+  push('ations\ndata: {}\n\n');
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.deepEqual(seen, ['orders', 'reservations']);
+  await window.adminSession.logout();
+  await listening;
+  assert.deepEqual(seen, ['orders', 'reservations']);
 });
 
 test('category names use the stored English name in English mode', () => {

@@ -83,6 +83,35 @@ app.post('/api/auth/login', rateLimiter(5), auth.login);
 app.post('/api/auth/logout', auth.logout);
 app.get('/api/auth/session', adminAuth, (req, res) => res.json({ authenticated: true }));
 
+// ==========================================
+// LIVE ADMIN EVENTS (Server-Sent Events)
+// ==========================================
+// Open admin panels keep one idle HTTP stream. When a customer submits an order or
+// reservation the server pushes a one-line notice and the panel fetches once, so nothing
+// polls the database while the panel sits open. The stream itself never touches the DB.
+const adminEventClients = new Set();
+const MAX_ADMIN_EVENT_CLIENTS = 50;
+function notifyAdmins(type) {
+  for (const client of adminEventClients) client.write(`event: ${type}\ndata: {}\n\n`);
+}
+const adminEventHeartbeat = setInterval(() => {
+  // Comment lines keep proxies from closing an idle stream.
+  for (const client of adminEventClients) client.write(': ping\n\n');
+}, 25000);
+adminEventHeartbeat.unref();
+app.get('/api/admin/events', adminAuth, (req, res) => {
+  if (adminEventClients.size >= MAX_ADMIN_EVENT_CLIENTS) return res.status(503).json({ error: 'Too many live connections' });
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream; charset=utf-8',
+    'Cache-Control': 'no-cache, no-transform',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no'
+  });
+  res.write('event: ready\ndata: {}\n\n');
+  adminEventClients.add(res);
+  req.on('close', () => adminEventClients.delete(res));
+});
+
 // Public routes are explicitly enumerated; all other API routes require a session.
 const publicRoutes = new Set([
   'GET /products', 'GET /categories', 'GET /translations', 'GET /notifications/vapid-public-key',
@@ -590,6 +619,7 @@ app.post('/api/reservations', rateLimiter(15), async (req, res) => {
       [id]
     );
     res.status(201).json(mapReservationRow(row));
+    notifyAdmins('reservations');
   } catch (err) {
     console.error('[API ERROR] POST /api/reservations:', err);
     res.status(500).json({ error: err.message });
@@ -1229,6 +1259,7 @@ app.post('/api/orders', rateLimiter(30), async (req, res) => {
       return { status: 201, body: mapOrderRow(createdOrder, items) };
     });
     res.status(result.status).json(result.body);
+    if (result.status === 201) notifyAdmins('orders');
   } catch (err) {
     console.error('[API ERROR] POST /api/orders:', err);
     res.status(500).json({ error: 'Sipariş oluşturulamadı. Lütfen tekrar deneyin.' });
