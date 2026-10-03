@@ -10,6 +10,7 @@
   window.adminSession = {
     active: () => !!token && Date.now() < expiresAt,
     async login(password) {
+      window.adminSound.unlock(); // browsers allow audio only after a user action such as this login
       const response = await window.fetch('/api/auth/login', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password })
       });
@@ -65,6 +66,49 @@
       }
     }
   };
+  // Alert chime for new orders/reservations, generated with Web Audio (no sound file).
+  // The on/off choice is remembered per browser.
+  let audioContext = null;
+  const soundKey = 'adminSoundEnabled';
+  window.adminSound = {
+    enabled() { try { return localStorage.getItem(soundKey) !== 'off'; } catch { return true; } },
+    setEnabled(on) {
+      try { localStorage.setItem(soundKey, on ? 'on' : 'off'); } catch {}
+      if (on) window.adminSound.unlock();
+    },
+    unlock() {
+      try {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtor) return;
+        audioContext = audioContext || new AudioCtor();
+        if (audioContext.state === 'suspended') audioContext.resume();
+      } catch {}
+    },
+    // Orders ring three rising notes, reservations two, so they can be told apart by ear.
+    play(type) {
+      if (!window.adminSound.enabled() || !audioContext) return false;
+      try {
+        if (audioContext.state === 'suspended') audioContext.resume();
+        const notes = type === 'orders' ? [880, 1109, 1319] : [660, 880];
+        const start = audioContext.currentTime + 0.02;
+        notes.forEach((frequency, i) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          const at = start + i * 0.22;
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(frequency, at);
+          gain.gain.setValueAtTime(0.0001, at);
+          gain.gain.exponentialRampToValueAtTime(0.4, at + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.2);
+          osc.connect(gain).connect(audioContext.destination);
+          osc.start(at);
+          osc.stop(at + 0.22);
+        });
+        return true;
+      } catch { return false; }
+    }
+  };
+
   window.fetch = async (input, options) => {
     const url = new URL(typeof input === 'string' ? input : input.url || String(input), window.location.href);
     const apiOrigin = new URL(window.API_BASE || '/', window.location.href).origin;

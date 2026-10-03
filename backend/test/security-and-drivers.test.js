@@ -131,7 +131,8 @@ test('admin panel refreshes only on server notices, defers while hidden, and nev
     let release, orders = 0, reservations = 0, listener;
     let pending = new Promise(resolve => { release = resolve; });
     const document = { hidden: true, addEventListener(type, fn) { listener = fn; } };
-    const context = vm.createContext({ document,
+    const sounds = [];
+    const context = vm.createContext({ document, window: { adminSound: { play: type => sounds.push(type) } },
       async loadReservations() { reservations++; await pending; },
       async loadOrders() { orders++; } });
     vm.runInContext(code, context);
@@ -146,6 +147,8 @@ test('admin panel refreshes only on server notices, defers while hidden, and nev
     assert.equal(reservations, 2, name); // queued notice is applied once afterwards
     context.handleAdminDataChange('resync');
     assert.equal(orders, 1, name);
+    // Every customer notice rings, even from a hidden tab; a reconnect resync stays silent.
+    assert.deepEqual(sounds, ['reservations', 'reservations'], name);
   }
 });
 
@@ -197,4 +200,30 @@ test('category names use the stored English name in English mode', () => {
     assert.equal(vm.runInContext("getCategoryTranslatedName('eski', 'en')", context), 'Beef Doner', name);
     assert.equal(vm.runInContext("getCategoryTranslatedName('yeni', 'en')", context), 'Tatlılar', name);
   }
+});
+
+test('alert chime plays only after unlock, when enabled, with distinct order and reservation tones', () => {
+  const store = new Map();
+  const tones = [];
+  class FakeAudioContext {
+    constructor() { this.state = 'running'; this.currentTime = 0; this.destination = {}; }
+    resume() {}
+    createOscillator() {
+      return { type: '', frequency: { setValueAtTime: hz => tones.push(hz) }, connect: node => node, start() {}, stop() {} };
+    }
+    createGain() { return { gain: { setValueAtTime() {}, exponentialRampToValueAtTime() {} }, connect: node => node }; }
+  }
+  const window = { location: { href: 'https://shop.example/admin.html' }, AudioContext: FakeAudioContext, async fetch() {} };
+  const localStorage = { getItem: key => store.get(key) ?? null, setItem: (key, value) => store.set(key, value) };
+  const context = vm.createContext({ window, localStorage, URL, Headers, Request, Date, document: { getElementById() { return null; } } });
+  vm.runInContext(fs.readFileSync(path.join(__dirname, '../../assets/admin-auth.js'), 'utf8'), context);
+  assert.equal(window.adminSound.play('orders'), false); // not unlocked by a user action yet
+  window.adminSound.unlock();
+  assert.equal(window.adminSound.play('orders'), true);
+  assert.equal(tones.length, 3);
+  assert.equal(window.adminSound.play('reservations'), true);
+  assert.equal(tones.length, 5);
+  window.adminSound.setEnabled(false);
+  assert.equal(window.adminSound.play('orders'), false);
+  assert.equal(store.get('adminSoundEnabled'), 'off');
 });
