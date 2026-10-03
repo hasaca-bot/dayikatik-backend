@@ -4951,7 +4951,7 @@ function renderMenuCards(category) {
     return `
       <div class="food-card" onclick="openFoodDetail('${item.id}')">
         <div class="food-card-img">
-          <img src="${item.thumb || item.image}" alt="${itemName}" loading="lazy" onerror="this.onerror=null;this.src='${item.image}';">
+          <img src="${item.thumb || item.image || PRODUCT_IMG_FALLBACK}" alt="${itemName}" loading="lazy" onerror="this.onerror=null;this.src='${item.image || PRODUCT_IMG_FALLBACK}';">
         </div>
         <div class="food-card-info">
           <h4 class="food-card-title">${itemName}</h4>
@@ -5130,7 +5130,7 @@ function openFoodDetail(id, updateHash = true) {
 
   const content = `
     <div class="detail-img-container" style="background-image: url('${item.thumb || item.image}'); background-size: cover; background-position: center;">
-      <img src="${item.image}" alt="${itemName}" loading="eager" onerror="this.onerror=null;this.src='${item.thumb || PRODUCT_IMG_FALLBACK}';">
+      <img src="${item.image || PRODUCT_IMG_FALLBACK}" alt="${itemName}" loading="eager" onerror="this.onerror=null;this.src='${item.thumb || PRODUCT_IMG_FALLBACK}';">
     </div>
     
     <div class="detail-title-row">
@@ -5679,9 +5679,8 @@ async function sendRezervasyon() {
 
   btn.disabled=true; btn.textContent = window.currentLanguage === 'tr' ? 'Gönderiliyor...' : 'Sending...';
 
-  const ayIsim = window.currentLanguage === 'tr'
-    ? ['','Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
-    : ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+  // Stored for the restaurant staff, so always in Turkish regardless of the visitor's language.
+  const ayIsim = ['','Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
   const tarihOku = parseInt(gun) + ' ' + ayIsim[parseInt(ay)] + ' ' + yil;
   const newRez = {
     id: 'rez-' + Date.now(),
@@ -6234,7 +6233,7 @@ function renderAdminProductList() {
     row.className = 'admin-product-row';
     row.innerHTML = `
       <div class="admin-prod-info">
-        <img class="admin-prod-thumb" src="${item.thumb || item.image}" alt="" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
+        <img class="admin-prod-thumb" src="${item.thumb || item.image || PRODUCT_IMG_FALLBACK}" alt="" onerror="this.onerror=null;this.src=PRODUCT_IMG_FALLBACK;">
         <div class="admin-prod-details">
           <span class="admin-prod-name">${item.name}</span>
           <span class="admin-prod-meta">
@@ -6525,7 +6524,10 @@ async function saveAdminProduct() {
   const id = document.getElementById('formProductId').value;
   const name = document.getElementById('formProductName').value.trim();
   const price = parseFloat(document.getElementById('formProductPrice').value);
-  const image = document.getElementById('formProductImage').value.trim() || PRODUCT_IMG_FALLBACK;
+  // Empty means "no photo": the server stores '' and the placeholder is drawn at render time
+  // (the SVG placeholder itself is not an accepted upload format).
+  const rawImage = document.getElementById('formProductImage').value.trim();
+  const image = rawImage === PRODUCT_IMG_FALLBACK ? '' : rawImage;
   const category = window.selectedFormProductCategory;
   const desc = document.getElementById('formProductDesc').value.trim();
   
@@ -6596,7 +6598,10 @@ async function saveAdminProduct() {
       body: JSON.stringify(payload)
     });
     
-    if (!response.ok) throw new Error('API save failed');
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || 'API save failed');
+    }
     
     await loadMenuDatabase();
     closeAdminForm();
